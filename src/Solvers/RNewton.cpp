@@ -54,16 +54,16 @@ namespace ROPTLIB{
 		char NO[] = "NO";
 		char *status;
 
-		std::cout << "RNEWTON METHOD PARAMETERS:" << std::endl;
+		OUTSTREAM << "RNEWTON METHOD PARAMETERS:" << std::endl;
 		status = (Min_Inner_Iter >= 0 && Min_Inner_Iter <= Max_Inner_Iter) ? YES : NO;
-		std::cout << "Min_Inner_Iter:" << std::setw(15) << Min_Inner_Iter << "[" << status << "],\t";
+		OUTSTREAM << "Min_Inner_Iter:" << std::setw(15) << Min_Inner_Iter << "[" << status << "],\t";
 		status = (Max_Inner_Iter >= 0 && Max_Inner_Iter >= Min_Inner_Iter) ? YES : NO;
-		std::cout << "Max_Inner_Iter:" << std::setw(15) << Max_Inner_Iter << "[" << status << "]" << std::endl;
+		OUTSTREAM << "Max_Inner_Iter:" << std::setw(15) << Max_Inner_Iter << "[" << status << "]" << std::endl;
 		status = (theta >= 1) ? YES : NO;
-		std::cout << "theta         :" << std::setw(15) << theta << "[" << status << "],\t";
+		OUTSTREAM << "theta         :" << std::setw(15) << theta << "[" << status << "],\t";
 		status = (kappa > 0 && kappa < 1) ? YES : NO;
-		std::cout << "kappa         :" << std::setw(15) << kappa << "[" << status << "]" << std::endl;
-		std::cout << "useRand       :" << std::setw(15) << useRand << "[" << status << "]" << std::endl;
+		OUTSTREAM << "kappa         :" << std::setw(15) << kappa << "[" << status << "]" << std::endl;
+		OUTSTREAM << "useRand       :" << std::setw(15) << useRand << "[" << status << "]" << std::endl;
 	};
 
 	RNewton::~RNewton(void)

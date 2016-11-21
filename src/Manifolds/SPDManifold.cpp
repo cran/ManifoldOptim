@@ -26,9 +26,9 @@ namespace ROPTLIB{
 	void SPDManifold::CheckParams(void) const
 	{
 		Manifold::CheckParams();
-		std::cout << name << " PARAMETERS:" << std::endl;
-		std::cout << "row           :" << std::setw(15) << n << ",\t";
-		std::cout << "col           :" << std::setw(15) << n << std::endl;
+		OUTSTREAM << name << " PARAMETERS:" << std::endl;
+		OUTSTREAM << "row           :" << std::setw(15) << n << ",\t";
+		OUTSTREAM << "col           :" << std::setw(15) << n << std::endl;
 	};
 
 	void SPDManifold::EucGradToGrad(Variable *x, Vector *egf, Vector *gf, const Problem *prob) const
@@ -47,7 +47,7 @@ namespace ROPTLIB{
 
 	void SPDManifold::EucHvToHv(Variable *x, Vector *etax, Vector *exix, Vector* xix, const Problem *prob) const
 	{
-		std::cout << "warning:SPDManifold::EucHvToHv has not been done!" << std::endl;
+		OUTSTREAM << "warning:SPDManifold::EucHvToHv has not been done!" << std::endl;
 		exix->CopyTo(xix);
 	};
 
@@ -71,7 +71,7 @@ namespace ROPTLIB{
 		x->AddToTempData("L", SharedL);
 		if (info != 0)
 		{
-			std::cout << "Warning: SPDManifold::CholeskyRepresentation fails with info:" << info << "!" << std::endl;
+			OUTSTREAM << "Warning: SPDManifold::CholeskyRepresentation fails with info:" << info << "!" << std::endl;
 		}
 	};
 
@@ -107,7 +107,7 @@ namespace ROPTLIB{
 		dtrtrs_(GLOBAL::L, GLOBAL::N, GLOBAL::N, &N, &N, const_cast<double *> (L), &N, E, &N, &info);
 		if (info != 0)
 		{
-			std::cout << "warning: SPDManifold::ObtainIntr fails with info:" << info << "!" << std::endl;
+			OUTSTREAM << "warning: SPDManifold::ObtainIntr fails with info:" << info << "!" << std::endl;
 		}
 
 		/*E <-- E^T*/
@@ -126,7 +126,7 @@ namespace ROPTLIB{
 		dtrtrs_(GLOBAL::L, GLOBAL::N, GLOBAL::N, &N, &N, const_cast<double *> (L), &N, E, &N, &info);
 		if (info != 0)
 		{
-			std::cout << "warning: SPDManifold::ObtainIntr fails with info:" << info << "!" << std::endl;
+			OUTSTREAM << "warning: SPDManifold::ObtainIntr fails with info:" << info << "!" << std::endl;
 		}
 		/*We don't have to do: E <-- E^T, since E is symmetric*/
 		double *resultTV = result->ObtainWriteEntireData();
@@ -217,7 +217,7 @@ namespace ROPTLIB{
 		dtrtrs_(GLOBAL::L, GLOBAL::N, GLOBAL::N, &N, &N, const_cast<double *> (L), &N, LiE, &N, &info);
 		if (info != 0)
 		{
-			std::cout << "warning: SPDManifold::Retraction fails with info:" << info << "!" << std::endl;
+			OUTSTREAM << "warning: SPDManifold::Retraction fails with info:" << info << "!" << std::endl;
 		}
 		double *resultTV = result->ObtainWriteEntireData();
 		/*Compute result = LiE^T LiE = E L^{-T} L^{-1} E*/
@@ -317,7 +317,7 @@ namespace ROPTLIB{
 
 	void SPDManifold::coTangentVector(Variable *x, Vector *etax, Variable *y, Vector *xiy, Vector *result) const
 	{
-		std::cout << "SPDManifold::coTangentVector has not been done!" << std::endl;
+		OUTSTREAM << "SPDManifold::coTangentVector has not been done!" << std::endl;
 		xiy->CopyTo(result);
 	};
 

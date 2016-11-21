@@ -22,7 +22,7 @@ namespace ROPTLIB{
 	{
 		if (etax == result)
 		{
-			std::cout << "The arguments of etax and result should not be the same!" << std::endl;
+			OUTSTREAM << "The arguments of etax and result should not be the same!" << std::endl;
 		}
 		integer ell = Hx->Getsize()[0];
 		const double *v = etax->ObtainReadData();
@@ -392,19 +392,19 @@ namespace ROPTLIB{
 
 	void Manifold::CheckParams(void) const
 	{
-		std::cout << "GENERAL PARAMETERS:" << std::endl;
-		std::cout << "name          :" << std::setw(15) << name << ",\t";
-		std::cout << "IsIntrApproach:" << std::setw(15) << IsIntrApproach << std::endl;
-		std::cout << "IntrinsicDim  :" << std::setw(15) << IntrinsicDim << ",\t";
-		std::cout << "ExtrinsicDim  :" << std::setw(15) << ExtrinsicDim << std::endl;
-		std::cout << "HasHHR        :" << std::setw(15) << HasHHR << ",\t";
-		std::cout << "UpdBetaAlone  :" << std::setw(15) << UpdBetaAlone << std::endl;
-		std::cout << "HasLockCon    :" << std::setw(15) << HasLockCon << std::endl;
+		OUTSTREAM << "GENERAL PARAMETERS:" << std::endl;
+		OUTSTREAM << "name          :" << std::setw(15) << name << ",\t";
+		OUTSTREAM << "IsIntrApproach:" << std::setw(15) << IsIntrApproach << std::endl;
+		OUTSTREAM << "IntrinsicDim  :" << std::setw(15) << IntrinsicDim << ",\t";
+		OUTSTREAM << "ExtrinsicDim  :" << std::setw(15) << ExtrinsicDim << std::endl;
+		OUTSTREAM << "HasHHR        :" << std::setw(15) << HasHHR << ",\t";
+		OUTSTREAM << "UpdBetaAlone  :" << std::setw(15) << UpdBetaAlone << std::endl;
+		OUTSTREAM << "HasLockCon    :" << std::setw(15) << HasLockCon << std::endl;
 	};
 
 	void Manifold::CheckIntrExtr(Variable *x) const
 	{
-		std::cout << "==============Check Intrinsic/Extrinsic transform=========" << std::endl;
+		OUTSTREAM << "==============Check Intrinsic/Extrinsic transform=========" << std::endl;
 		Vector *exetax = EMPTYEXTR->ConstructEmpty();
 		Vector *inetax = EMPTYINTR->ConstructEmpty();
 
@@ -413,13 +413,13 @@ namespace ROPTLIB{
 		ExtrProjection(x, exetax, exetax);
 		exetax->Print("exetax1");
 		ObtainIntr(x, exetax, inetax);
-		std::cout << "extr inp:" << Manifold::Metric(x, exetax, exetax) << ", intr inp:" << Manifold::Metric(x, inetax, inetax) << std::endl;
+		OUTSTREAM << "extr inp:" << Manifold::Metric(x, exetax, exetax) << ", intr inp:" << Manifold::Metric(x, inetax, inetax) << std::endl;
 		inetax->Print("inetax1");
 		ObtainExtr(x, inetax, exetax);
 		exetax->Print("exetax2");
 		ObtainIntr(x, exetax, inetax);
 		inetax->Print("inetax2");
-		std::cout << "exeta1 and inetax1 should approximately equal exetax2 and inetax2 respectively!" << std::endl;
+		OUTSTREAM << "exeta1 and inetax1 should approximately equal exetax2 and inetax2 respectively!" << std::endl;
 
 		delete exetax;
 		delete inetax;
@@ -427,7 +427,7 @@ namespace ROPTLIB{
 
 	void Manifold::CheckRetraction(Variable *x) const
 	{
-		std::cout << "==============Check Retraction=========" << std::endl;
+		OUTSTREAM << "==============Check Retraction=========" << std::endl;
 		Vector *etax, *FDetax;
 		etax = EMPTYEXTR->ConstructEmpty();
 		FDetax = EMPTYEXTR->ConstructEmpty();
@@ -453,7 +453,7 @@ namespace ROPTLIB{
 		ScaleTimesVector(x, 1.0 / eps, FDetax, FDetax);
 		FDetax->Print("FDetax:");
 
-		std::cout << "etax should approximately equal FDetax = (R(eps etax)-R(etax))/eps!" << std::endl;
+		OUTSTREAM << "etax should approximately equal FDetax = (R(eps etax)-R(etax))/eps!" << std::endl;
 		delete etax;
 		delete FDetax;
 		delete y;
@@ -461,7 +461,7 @@ namespace ROPTLIB{
 
 	void Manifold::CheckDiffRetraction(Variable *x, bool IsEtaXiSameDir) const
 	{
-		std::cout << "==============Check Differentiated Retraction=========" << std::endl;
+		OUTSTREAM << "==============Check Differentiated Retraction=========" << std::endl;
 		Vector *etax, *xix, *zetax;
 		etax = EMPTYEXTR->ConstructEmpty();
 		xix = EMPTYEXTR->ConstructEmpty();
@@ -517,7 +517,7 @@ namespace ROPTLIB{
 		ScaleTimesVector(x, 1.0 / eps, zetax, zetax);
 		ExtrProjection(y, zetax, zetax);
 		zetax->Print("FDzetax:");
-		std::cout << "zetax = T_{R_etax} xix should approximately equal FDzetax = (R(etax+eps xix) - R(etax))/eps!" << std::endl;
+		OUTSTREAM << "zetax = T_{R_etax} xix should approximately equal FDzetax = (R(etax+eps xix) - R(etax))/eps!" << std::endl;
 
 		delete etax;
 		delete xix;
@@ -528,7 +528,7 @@ namespace ROPTLIB{
 
 	void Manifold::CheckLockingCondition(Variable *x) const
 	{
-		std::cout << "==============Check Locking Condition=========" << std::endl;
+		OUTSTREAM << "==============Check Locking Condition=========" << std::endl;
 		Vector *etax, *xix, *zetax;
 		etax = EMPTYEXTR->ConstructEmpty();
 		xix = EMPTYEXTR->ConstructEmpty();
@@ -550,13 +550,13 @@ namespace ROPTLIB{
 			{
 				const SharedSpace *beta = inetax->ObtainReadTempData("beta");
 				const double *betav = beta->ObtainReadData();
-				std::cout << "beta = |etax| / |T_{etax} etax|:" << betav[0] << std::endl;
+				OUTSTREAM << "beta = |etax| / |T_{etax} etax|:" << betav[0] << std::endl;
 			}
 			else
 			{
-				std::cout << "beta:" << 1 << std::endl;
+				OUTSTREAM << "beta:" << 1 << std::endl;
 			}
-			std::cout << "|xix| / |T_{etax} xix|:" << sqrt(Metric(x, inxix, inxix) / Metric(x, inzetax, inzetax)) << std::endl;
+			OUTSTREAM << "|xix| / |T_{etax} xix|:" << sqrt(Metric(x, inxix, inxix) / Metric(x, inzetax, inzetax)) << std::endl;
 			ScaleTimesVector(x, sqrt(Metric(x, inxix, inxix) / Metric(x, inzetax, inzetax)),
 				inzetax, inzetax);
 			ObtainExtr(y, inzetax, zetax);
@@ -576,20 +576,20 @@ namespace ROPTLIB{
 			{
 				const SharedSpace *beta = etax->ObtainReadTempData("beta");
 				const double *betav = beta->ObtainReadData();
-				std::cout << "beta = |etax| / |T_{etax} etax|:" << betav[0] << std::endl;
+				OUTSTREAM << "beta = |etax| / |T_{etax} etax|:" << betav[0] << std::endl;
 			}
 			else
 			{
-				std::cout << "beta:" << 1 << std::endl;
+				OUTSTREAM << "beta:" << 1 << std::endl;
 			}
-			std::cout << "|xix| / |T_{etax} xix|:" << sqrt(Metric(x, xix, xix) / Metric(x, zetax, zetax)) << std::endl;
+			OUTSTREAM << "|xix| / |T_{etax} xix|:" << sqrt(Metric(x, xix, xix) / Metric(x, zetax, zetax)) << std::endl;
 			ScaleTimesVector(x, sqrt(Metric(x, xix, xix) / Metric(x, zetax, zetax)),
 				zetax, zetax);
 			zetax->Print("Beta DiffRetraction zetax:");
 			VectorTransport(x, etax, y, xix, zetax);
 			zetax->Print("Vector Transport zetax:");
 		}
-		std::cout << "Beta DiffRetraction zetax should approximately equal Vector Transport zetax!" << std::endl;
+		OUTSTREAM << "Beta DiffRetraction zetax should approximately equal Vector Transport zetax!" << std::endl;
 
 		delete etax;
 		delete xix;
@@ -599,7 +599,7 @@ namespace ROPTLIB{
 
 	void Manifold::CheckcoTangentVector(Variable *x) const
 	{
-		std::cout << "==============Check CoTangentVector=========" << std::endl;
+		OUTSTREAM << "==============Check CoTangentVector=========" << std::endl;
 		Vector *etax, *xix, *zetay, *xiy, *zetax;
 		etax = EMPTYEXTR->ConstructEmpty();
 		xix = EMPTYEXTR->ConstructEmpty();
@@ -629,11 +629,11 @@ namespace ROPTLIB{
 			xiy->RandGaussian();
 			ExtrProjection(y, xiy, xiy);
 			ObtainIntr(y, xiy, inxiy);
-			std::cout << "<xiy, T_{R_{eta}} xix>:" << Metric(y, inxiy, inzetay) << std::endl;
+			OUTSTREAM << "<xiy, T_{R_{eta}} xix>:" << Metric(y, inxiy, inzetay) << std::endl;
 
 			coTangentVector(x, inetax, y, inxiy, inzetax);
 			ObtainExtr(x, inzetax, zetax);
-			std::cout << "C(x, etax, xiy) [xix]:" << Metric(x, inzetax, inxix) << std::endl;
+			OUTSTREAM << "C(x, etax, xiy) [xix]:" << Metric(x, inzetax, inxix) << std::endl;
 			delete inetax;
 			delete inxix;
 			delete inzetay;
@@ -647,11 +647,11 @@ namespace ROPTLIB{
 			xiy->RandGaussian();
 			ExtrProjection(y, xiy, xiy);
 			ScaleTimesVector(y, sqrt(Metric(y, xiy, xiy)), xiy, xiy);
-			std::cout << "<xiy, T_{R_{eta}} xix>:" << Metric(y, xiy, zetay) << std::endl;
+			OUTSTREAM << "<xiy, T_{R_{eta}} xix>:" << Metric(y, xiy, zetay) << std::endl;
 			coTangentVector(x, etax, y, xiy, zetax);
-			std::cout << "C(x, etax, xiy) [xix]:" << Metric(x, zetax, xix) << std::endl;
+			OUTSTREAM << "C(x, etax, xiy) [xix]:" << Metric(x, zetax, xix) << std::endl;
 		}
-		std::cout << "<xiy, T_{R_{eta}} xix> should approximately equal C(x, etax, xiy) [xix]!" << std::endl;
+		OUTSTREAM << "<xiy, T_{R_{eta}} xix> should approximately equal C(x, etax, xiy) [xix]!" << std::endl;
 
 
 		delete etax;
@@ -664,7 +664,7 @@ namespace ROPTLIB{
 
 	void Manifold::CheckIsometryofVectorTransport(Variable *x) const
 	{
-		std::cout << "==============Check Isometry of the Vector Transport=========" << std::endl;
+		OUTSTREAM << "==============Check Isometry of the Vector Transport=========" << std::endl;
 		Vector *etax, *xix, *zetay;
 		etax = EMPTYEXTR->ConstructEmpty();
 		xix = EMPTYEXTR->ConstructEmpty();
@@ -685,7 +685,7 @@ namespace ROPTLIB{
 			ObtainIntr(x, xix, inxix);
 			Retraction(x, inetax, y);
 			VectorTransport(x, inetax, y, inxix, inzetay);
-			std::cout << "Before vector transport:" << Metric(x, inxix, inxix)
+			OUTSTREAM << "Before vector transport:" << Metric(x, inxix, inxix)
 				<< ", After vector transport:" << Metric(y, inzetay, inzetay) << std::endl;
 			delete inetax;
 			delete inxix;
@@ -695,10 +695,10 @@ namespace ROPTLIB{
 		{
 			Retraction(x, etax, y);
 			VectorTransport(x, etax, y, xix, zetay);
-			std::cout << "Before vector transport:" << Metric(x, xix, xix)
+			OUTSTREAM << "Before vector transport:" << Metric(x, xix, xix)
 				<< ", After vector transport:" << Metric(y, zetay, zetay) << std::endl;
 		}
-		std::cout << "|xix| (Before vector transport) should approximately equal |T_{R_etax} xix| (After vector transport)" << std::endl;
+		OUTSTREAM << "|xix| (Before vector transport) should approximately equal |T_{R_etax} xix| (After vector transport)" << std::endl;
 
 		delete etax;
 		delete xix;
@@ -708,7 +708,7 @@ namespace ROPTLIB{
 
 	void Manifold::CheckIsometryofInvVectorTransport(Variable *x) const
 	{
-		std::cout << "==============Check Isometry of the Inverse Vector Transport=========" << std::endl;
+		OUTSTREAM << "==============Check Isometry of the Inverse Vector Transport=========" << std::endl;
 		Vector *etax, *xix, *zetay;
 		etax = EMPTYEXTR->ConstructEmpty();
 		xix = EMPTYEXTR->ConstructEmpty();
@@ -731,7 +731,7 @@ namespace ROPTLIB{
 			ObtainIntr(y, zetay, inzetay);
 
 			InverseVectorTransport(x, inetax, y, inzetay, inxix);
-			std::cout << "Before inverse vector transport:" << Metric(y, inzetay, inzetay)
+			OUTSTREAM << "Before inverse vector transport:" << Metric(y, inzetay, inzetay)
 				<< ", After inverse vector transport:" << Metric(x, inxix, inxix) << std::endl;
 			delete inetax;
 			delete inxix;
@@ -743,10 +743,10 @@ namespace ROPTLIB{
 			zetay->RandGaussian();
 			ExtrProjection(x, zetay, zetay);
 			InverseVectorTransport(x, etax, y, zetay, xix);
-			std::cout << "Before inverse vector transport:" << Metric(y, zetay, zetay)
+			OUTSTREAM << "Before inverse vector transport:" << Metric(y, zetay, zetay)
 				<< ", After inverse vector transport:" << Metric(x, xix, xix) << std::endl;
 		}
-		std::cout << "|zetay| (Before inverse vector transport) should approximately equal |T_{R_etax}^{-1} zetay| (After inverse vector transport)" << std::endl;
+		OUTSTREAM << "|zetay| (Before inverse vector transport) should approximately equal |T_{R_etax}^{-1} zetay| (After inverse vector transport)" << std::endl;
 
 		delete etax;
 		delete xix;
@@ -756,7 +756,7 @@ namespace ROPTLIB{
 
 	void Manifold::CheckVecTranComposeInverseVecTran(Variable *x) const
 	{
-		std::cout << "==============Check Vector Transport Compose Inverse Vector Transport=========" << std::endl;
+		OUTSTREAM << "==============Check Vector Transport Compose Inverse Vector Transport=========" << std::endl;
 		Vector *etax, *xix, *zetay;
 		etax = EMPTYEXTR->ConstructEmpty();
 		xix = EMPTYEXTR->ConstructEmpty();
@@ -781,7 +781,7 @@ namespace ROPTLIB{
 			InverseVectorTransport(x, inetax, y, inzetay, inxix);
 			ObtainExtr(x, inxix, xix);
 			xix->Print("T^{-1} ciric T xix:");
-			std::cout << "xix and T^{-1} ciric T xix should be similar!" << std::endl;
+			OUTSTREAM << "xix and T^{-1} ciric T xix should be similar!" << std::endl;
 			delete inetax;
 			delete inxix;
 			delete inzetay;
@@ -793,7 +793,7 @@ namespace ROPTLIB{
 			VectorTransport(x, etax, y, xix, zetay);
 			InverseVectorTransport(x, etax, y, zetay, xix);
 			xix->Print("T^{-1} ciric T xix:");
-			std::cout << "xix and T^{-1} ciric T xix should be similar!" << std::endl;
+			OUTSTREAM << "xix and T^{-1} ciric T xix should be similar!" << std::endl;
 		}
 		delete etax;
 		delete xix;
@@ -803,7 +803,7 @@ namespace ROPTLIB{
 
 	void Manifold::CheckTranHInvTran(Variable *x) const
 	{
-		std::cout << "==============Check Transport of a Hessian approximation=========" << std::endl;
+		OUTSTREAM << "==============Check Transport of a Hessian approximation=========" << std::endl;
 		Vector *etax;
 		Variable *y;
 		LinearOPE *Hx, *result;
@@ -855,7 +855,7 @@ namespace ROPTLIB{
 
 	void Manifold::CheckHaddScaledRank1OPE(Variable *x) const
 	{
-		std::cout << "==============Check Rank one Update to a Hessian Approximation=========" << std::endl;
+		OUTSTREAM << "==============Check Rank one Update to a Hessian Approximation=========" << std::endl;
 		LinearOPE *Hx, *result;
 		double scalar = 1.0;
 		Vector *etax, *xix;

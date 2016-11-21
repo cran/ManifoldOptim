@@ -30,24 +30,6 @@ PKG_CPPFLAGS=-I../inst/include \
   -IManifoldOptim \
   -DR_BUILD -DARMA_DONT_USE_BLAS -DARMA_DONT_USE_LAPACK
 
-
-# The wildcard source listing is much more compact than the exhaustive list
-# below, but R CMD check warns about using it.
-
-#SOURCES=$(wildcard Manifolds/*.cpp Manifolds/Euclidean/*.cpp \
-#  Manifolds/Grassmann/*.cpp Manifolds/L2Sphere/*.cpp \
-#  Manifolds/LowRank/*.cpp Manifolds/Oblique/*.cpp \
-#  Manifolds/OrthGroup/*.cpp Manifolds/PreShapeCurves/*.cpp \
-#  Manifolds/Sphere/*.cpp Manifolds/Stiefel/*.cpp Others/*.cpp \
-#  Problems/*.cpp Problems/ElasticCurvesRO/*.cpp \
-#  Problems/EucFrechetMean/*.cpp Problems/EucQuadratic/*.cpp \
-#  Problems/GrassRQ/*.cpp Problems/ObliqueTestSparsePCA/*.cpp \
-#  Problems/PreShapePathStraighten/*.cpp \
-#  Problems/StieBrockett/*.cpp Problems/StieSoftICA/*.cpp \
-#  Problems/StieSumBrockett/*.cpp Problems/WeightedLowrank/*.cpp \
-#  Solvers/*.cpp ManifoldOptim/*.cpp)
-# Manifolds/CpxNStQOrth/*.cpp
-
 SOURCES=Others/Spline.cpp \
   Others/MyMatrix.cpp \
   Others/randgen.cpp \

@@ -48,7 +48,7 @@ namespace ROPTLIB{
 				{
 					if (Debug >= FINALRESULT)
 					{
-						std::cout << "reach the maximum of radius" << std::endl;
+						OUTSTREAM << "reach the maximum of radius" << std::endl;
 					}
 					Delta = maximum_Delta;
 				}
@@ -61,7 +61,7 @@ namespace ROPTLIB{
 				{
 					if (Debug >= FINALRESULT)
 					{
-						std::cout << "reach the minimum of radius" << std::endl;
+						OUTSTREAM << "reach the minimum of radius" << std::endl;
 					}
 					break;
 				}
@@ -86,7 +86,7 @@ namespace ROPTLIB{
 				iter++;
 				if (Debug >= ITERRESULT && iter % OutputGap == 0)
 				{
-					std::cout << "X_{" << iter << "} WAS REJECTED." << std::endl;
+					OUTSTREAM << "X_{" << iter << "} WAS REJECTED." << std::endl;
 					PrintGenInfo();
 					PrintInfo(); // Output information specific to Algorithms
 				}
@@ -232,29 +232,29 @@ namespace ROPTLIB{
 		char NO[] = "NO";
 		char *status;
 
-		std::cout << "TRUST REGION TYPE METHODS PARAMETERS:" << std::endl;
+		OUTSTREAM << "TRUST REGION TYPE METHODS PARAMETERS:" << std::endl;
 		status = (initial_Delta > 0) ? YES : NO;
-		std::cout << "initial_Delta :" << std::setw(15) << initial_Delta << "[" << status << "],\t";
+		OUTSTREAM << "initial_Delta :" << std::setw(15) << initial_Delta << "[" << status << "],\t";
 		status = (Acceptence_Rho > 0 && Acceptence_Rho < 0.25) ? YES : NO;
-		std::cout << "Acceptence_Rho:" << std::setw(15) << Acceptence_Rho << "[" << status << "]" << std::endl;
+		OUTSTREAM << "Acceptence_Rho:" << std::setw(15) << Acceptence_Rho << "[" << status << "]" << std::endl;
 		status = (Shrinked_tau > 0 && Shrinked_tau < 1) ? YES : NO;
-		std::cout << "Shrinked_tau  :" << std::setw(15) << Shrinked_tau << "[" << status << "],\t";
+		OUTSTREAM << "Shrinked_tau  :" << std::setw(15) << Shrinked_tau << "[" << status << "],\t";
 		status = (Magnified_tau > 1) ? YES : NO;
-		std::cout << "Magnified tau :" << std::setw(15) << Magnified_tau << "[" << status << "]" << std::endl;
+		OUTSTREAM << "Magnified tau :" << std::setw(15) << Magnified_tau << "[" << status << "]" << std::endl;
 		status = (minimum_Delta > 0 && minimum_Delta <= maximum_Delta) ? YES : NO;
-		std::cout << "minimum_Delta :" << std::setw(15) << minimum_Delta << "[" << status << "],\t";
+		OUTSTREAM << "minimum_Delta :" << std::setw(15) << minimum_Delta << "[" << status << "],\t";
 		status = (maximum_Delta > 0 && maximum_Delta >= minimum_Delta) ? YES : NO;
-		std::cout << "maximum_Delta :" << std::setw(15) << maximum_Delta << "[" << status << "]" << std::endl;
+		OUTSTREAM << "maximum_Delta :" << std::setw(15) << maximum_Delta << "[" << status << "]" << std::endl;
 		status = (Min_Inner_Iter >= 0 && Min_Inner_Iter <= Max_Inner_Iter) ? YES : NO;
-		std::cout << "Min_Inner_Iter:" << std::setw(15) << Min_Inner_Iter << "[" << status << "],\t";
+		OUTSTREAM << "Min_Inner_Iter:" << std::setw(15) << Min_Inner_Iter << "[" << status << "],\t";
 		status = (Max_Inner_Iter >= 0 && Max_Inner_Iter >= Min_Inner_Iter) ? YES : NO;
-		std::cout << "Max_Inner_Iter:" << std::setw(15) << Max_Inner_Iter << "[" << status << "]" << std::endl;
+		OUTSTREAM << "Max_Inner_Iter:" << std::setw(15) << Max_Inner_Iter << "[" << status << "]" << std::endl;
 		status = (theta >= 0) ? YES : NO;
-		std::cout << "theta         :" << std::setw(15) << theta << "[" << status << "],\t";
+		OUTSTREAM << "theta         :" << std::setw(15) << theta << "[" << status << "],\t";
 		status = (kappa > 0 && kappa < 1) ? YES : NO;
-		std::cout << "kappa         :" << std::setw(15) << kappa << "[" << status << "]" << std::endl;
+		OUTSTREAM << "kappa         :" << std::setw(15) << kappa << "[" << status << "]" << std::endl;
 		status = YES;
-		std::cout << "useRand       :" << std::setw(15) << useRand << "[" << status << "]" << std::endl;
+		OUTSTREAM << "useRand       :" << std::setw(15) << useRand << "[" << status << "]" << std::endl;
 	};
 
 	void SolversTR::UpdateData(void)

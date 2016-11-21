@@ -38,18 +38,18 @@ namespace ROPTLIB{
 
 		friend std::ostream &operator<<(std::ostream &output, const Matrix &mat)
 		{
-			std::cout << "{(" << mat.row << ", " << mat.col << ")\n";
+			OUTSTREAM << "{(" << mat.row << ", " << mat.col << ")\n";
 			for (int i = 0; i < mat.row; i++)
 			{
 				for (int j = 0; j < mat.col; j++)
 					if (j != mat.col - 1)
-						std::cout << mat.matrix[i + j * mat.inc] << ", ";
+						OUTSTREAM << mat.matrix[i + j * mat.inc] << ", ";
 					else
-						std::cout << mat.matrix[i + j * mat.inc];
+						OUTSTREAM << mat.matrix[i + j * mat.inc];
 				if (i != mat.row - 1)
-					std::cout << "\n";
+					OUTSTREAM << "\n";
 			}
-			std::cout << "\n}\n";
+			OUTSTREAM << "\n}\n";
 
 			return output;
 		};
@@ -59,7 +59,7 @@ namespace ROPTLIB{
 
 		friend Matrix operator+(const Matrix &left, const Matrix &right) // low efficient
 		{
-			std::cout << "For debug, low efficient!" << std::endl;//-----
+			OUTSTREAM << "For debug, low efficient!" << std::endl;//-----
 			assert(left.row == right.row && right.col == left.col);
 			Matrix result(left.row, left.col);
 
@@ -72,7 +72,7 @@ namespace ROPTLIB{
 
 		friend Matrix operator+(const Matrix &left, const double &right) // low efficient
 		{
-			std::cout << "For debug, low efficient!" << std::endl;//-----
+			OUTSTREAM << "For debug, low efficient!" << std::endl;//-----
 			Matrix result(left.row, left.col);
 
 			for (int i = 0; i < left.row; i++)
@@ -84,7 +84,7 @@ namespace ROPTLIB{
 
 		friend Matrix operator+(const double &left, const Matrix &right)// low efficient
 		{
-			std::cout << "For debug, low efficient!" << std::endl;//-----
+			OUTSTREAM << "For debug, low efficient!" << std::endl;//-----
 			Matrix result(right.row, right.col);
 
 			for (int i = 0; i < right.row; i++)
@@ -96,7 +96,7 @@ namespace ROPTLIB{
 
 		friend Matrix operator-(const Matrix &left, const Matrix &right)// low efficient
 		{
-			std::cout << "For debug, low efficient!" << std::endl;//-----
+			OUTSTREAM << "For debug, low efficient!" << std::endl;//-----
 			assert(left.row == right.row && right.col == left.col);
 
 			Matrix result(right.row, right.col);
@@ -110,7 +110,7 @@ namespace ROPTLIB{
 
 		friend Matrix operator-(const Matrix &left, const double &right)// low efficient
 		{
-			std::cout << "For debug, low efficient!" << std::endl;//-----
+			OUTSTREAM << "For debug, low efficient!" << std::endl;//-----
 			Matrix result(left.row, left.col);
 
 			for (int i = 0; i < left.row; i++)
@@ -122,7 +122,7 @@ namespace ROPTLIB{
 
 		friend Matrix operator-(const double &left, const Matrix &right)// low efficient
 		{
-			std::cout << "For debug, low efficient!" << std::endl;//-----
+			OUTSTREAM << "For debug, low efficient!" << std::endl;//-----
 			Matrix result(right.row, right.col);
 
 			for (int i = 0; i < right.row; i++)
@@ -134,7 +134,7 @@ namespace ROPTLIB{
 
 		friend Matrix operator*(const Matrix &left, const Matrix &right)// low efficient
 		{
-			std::cout << "For debug, low efficient!" << std::endl;//-----
+			OUTSTREAM << "For debug, low efficient!" << std::endl;//-----
 			assert(left.col == right.row);
 			Matrix result(left.row, right.col);
 			for (int i = 0; i < right.col; i++)
@@ -147,7 +147,7 @@ namespace ROPTLIB{
 
 		friend Matrix operator*(const double &value, const Matrix &mat)// low efficient
 		{
-			std::cout << "For debug, low efficient!" << std::endl;//-----
+			OUTSTREAM << "For debug, low efficient!" << std::endl;//-----
 			Matrix result(mat.row, mat.col);
 
 			for (int i = 0; i < mat.row; i++)
@@ -159,7 +159,7 @@ namespace ROPTLIB{
 
 		friend Matrix operator*(const Matrix &mat, const double &value)// low efficient
 		{
-			std::cout << "For debug, low efficient!" << std::endl;//-----
+			OUTSTREAM << "For debug, low efficient!" << std::endl;//-----
 			Matrix result(mat.row, mat.col);
 			for (int i = 0; i < mat.row; i++)
 				for (int j = 0; j < mat.col; j++)
@@ -170,7 +170,7 @@ namespace ROPTLIB{
 
 		friend Matrix operator/(const Matrix &mat, const double &value) // low efficient
 		{
-			std::cout << "For debug, low efficient!" << std::endl;//-----
+			OUTSTREAM << "For debug, low efficient!" << std::endl;//-----
 			Matrix result(mat.row, mat.col);
 
 			for (int i = 0; i < mat.row; i++)

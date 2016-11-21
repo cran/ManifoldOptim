@@ -20,30 +20,30 @@ namespace ROPTLIB{
 		if (trans1 && trans2)
 		{
 			if (M1.row != M2.col)
-				std::cout << "GEMM: the sizes of two matrices do not match!" << std::endl;
+				OUTSTREAM << "GEMM: the sizes of two matrices do not match!" << std::endl;
 			dgemm_(GLOBAL::T, GLOBAL::T, &M1.col, &M2.row, &M1.row, &alpha, M1.matrix, &M1.inc, M2.matrix, &M2.inc, &beta, result.matrix, &result.inc);
 		}
 		else if (!trans1 && trans2)
 		{
 			if (M1.col != M2.col)
-				std::cout << "GEMM: the sizes of two matrices do not match!" << std::endl;
+				OUTSTREAM << "GEMM: the sizes of two matrices do not match!" << std::endl;
 			dgemm_(GLOBAL::N, GLOBAL::T, &M1.row, &M2.row, &M1.col, &alpha, M1.matrix, &M1.inc, M2.matrix, &M2.inc, &beta, result.matrix, &result.inc);
 		}
 		else if (trans1 && !trans2)
 		{
 			if (M1.row != M2.row)
-				std::cout << "GEMM: the sizes of two matrices do not match!" << std::endl;
+				OUTSTREAM << "GEMM: the sizes of two matrices do not match!" << std::endl;
 			dgemm_(GLOBAL::T, GLOBAL::N, &M1.col, &M2.col, &M1.row, &alpha, M1.matrix, &M1.inc, M2.matrix, &M2.inc, &beta, result.matrix, &result.inc);
 		}
 		else if (!trans1 && !trans2)
 		{
 			if (M1.col != M2.row)
-				std::cout << "GEMM: the sizes of two matrices do not match!" << std::endl;
+				OUTSTREAM << "GEMM: the sizes of two matrices do not match!" << std::endl;
 			dgemm_(GLOBAL::N, GLOBAL::N, &M1.row, &M2.col, &M1.col, &alpha, M1.matrix, &M1.inc, M2.matrix, &M2.inc, &beta, result.matrix, &result.inc);
 		}
 		else
 		{
-			std::cout << "impossible error!" << std::endl;
+			OUTSTREAM << "impossible error!" << std::endl;
 		}
 	};
 
@@ -52,7 +52,7 @@ namespace ROPTLIB{
 // 		if (trans1 && trans2)
 // 		{
 // 			if (M1.row != M2.col)
-// 				std::cout << "GEMM: the sizes of two matrices do not match!" << std::endl;
+// 				OUTSTREAM << "GEMM: the sizes of two matrices do not match!" << std::endl;
 // #ifndef MATLAB_MEX_FILE
 // 			zgemm_(GLOBAL::C, GLOBAL::C, &M1.col, &M2.row, &M1.row, &alpha, (doublecomplex *)M1.matrix, &M1.inc,
 // 				(doublecomplex *)M2.matrix, &M2.inc, &beta, (doublecomplex *)result.matrix, &result.inc);
@@ -64,7 +64,7 @@ namespace ROPTLIB{
 // 		else if (!trans1 && trans2)
 // 		{
 // 			if (M1.col != M2.col)
-// 				std::cout << "GEMM: the sizes of two matrices do not match!" << std::endl;
+// 				OUTSTREAM << "GEMM: the sizes of two matrices do not match!" << std::endl;
 // #ifndef MATLAB_MEX_FILE
 // 			zgemm_(GLOBAL::N, GLOBAL::C, &M1.row, &M2.row, &M1.col, &alpha, (doublecomplex *)M1.matrix, &M1.inc,
 // 				(doublecomplex *)M2.matrix, &M2.inc, &beta, (doublecomplex *)result.matrix, &result.inc);
@@ -76,7 +76,7 @@ namespace ROPTLIB{
 // 		else if (trans1 && !trans2)
 // 		{
 // 			if (M1.row != M2.row)
-// 				std::cout << "GEMM: the sizes of two matrices do not match!" << std::endl;
+// 				OUTSTREAM << "GEMM: the sizes of two matrices do not match!" << std::endl;
 // #ifndef MATLAB_MEX_FILE
 // 			zgemm_(GLOBAL::C, GLOBAL::N, &M1.col, &M2.col, &M1.row, &alpha, (doublecomplex *)M1.matrix, &M1.inc,
 // 				(doublecomplex *)M2.matrix, &M2.inc, &beta, (doublecomplex *)result.matrix, &result.inc);
@@ -88,7 +88,7 @@ namespace ROPTLIB{
 // 		else if (!trans1 && !trans2)
 // 		{
 // 			if (M1.col != M2.row)
-// 				std::cout << "GEMM: the sizes of two matrices do not match!" << std::endl;
+// 				OUTSTREAM << "GEMM: the sizes of two matrices do not match!" << std::endl;
 // #ifndef MATLAB_MEX_FILE
 // 			zgemm_(GLOBAL::N, GLOBAL::N, &M1.row, &M2.col, &M1.col, &alpha, (doublecomplex *)M1.matrix, &M1.inc,
 // 				(doublecomplex *)M2.matrix, &M2.inc, &beta, (doublecomplex *)result.matrix, &result.inc);
@@ -99,14 +99,14 @@ namespace ROPTLIB{
 // 		}
 // 		else
 // 		{
-// 			std::cout << "impossible error!" << std::endl;
+// 			OUTSTREAM << "impossible error!" << std::endl;
 // 		}
 // 	};
 
 // 	void Matrix::CSYL(Matrix &A, Matrix &B, Matrix &C)
 // 	{ // details can be found in http://www.netlib.org/lapack/lawnspdf/lawn75.pdf
 // 		if (A.row != A.col || B.row != B.col)
-// 			std::cout << "CSYL: sizes do not match!" << std::endl;
+// 			OUTSTREAM << "CSYL: sizes do not match!" << std::endl;
 // 		double *Bmatrix = nullptr;
 // 
 // 		integer sdim, n = A.row, m = B.row;
@@ -140,8 +140,8 @@ namespace ROPTLIB{
 // 		delete[] work;
 // 		delete[] rwork;
 // 
-// 		//std::cout << "A:" << Matrix(A.matrix, 6, 2) << std::endl;
-// 		//std::cout << "VSA:" << Matrix((double *)VSA, 4, 2) << std::endl;
+// 		//OUTSTREAM << "A:" << Matrix(A.matrix, 6, 2) << std::endl;
+// 		//OUTSTREAM << "VSA:" << Matrix((double *)VSA, 4, 2) << std::endl;
 // 
 // 		if (B.matrix != A.matrix)
 // 		{
@@ -182,20 +182,20 @@ namespace ROPTLIB{
 // 			VSB = VSA;
 // 		}
 // 
-// 		//std::cout << Matrix((double *)VSB, 4, 2) << std::endl;
+// 		//OUTSTREAM << Matrix((double *)VSB, 4, 2) << std::endl;
 // 
-// 		//std::cout << "C:" << Matrix(C.matrix, 6, 2) << std::endl;
+// 		//OUTSTREAM << "C:" << Matrix(C.matrix, 6, 2) << std::endl;
 // 		doublecomplex alpha = { 1, 0 }, beta = { 0, 0 };
 // 		double *tempnbym = new double[2 * n * m];
 // 		Matrix MVSA((double *)VSA, n, n), MC(C.matrix, n, m, C.inc), Mtempnbym(tempnbym, n, m);
 // 		Matrix MVSB((double*)VSB, m, m);
 // 		// tempnbym <- VSA^H * C
 // 		CGEMM(alpha, MVSA, true, MC, false, beta, Mtempnbym);
-// 		//std::cout << "UA' * C:" << Matrix(tempnbym, 4, 2) << std::endl;
+// 		//OUTSTREAM << "UA' * C:" << Matrix(tempnbym, 4, 2) << std::endl;
 // 		// C <- tempnbym * VSB
 // 		CGEMM(alpha, Mtempnbym, false, MVSB, false, beta, MC);
 // 
-// 		//std::cout << "UA' * C * UB:" << Matrix(C.matrix, 6, 2) << std::endl;
+// 		//OUTSTREAM << "UA' * C * UB:" << Matrix(C.matrix, 6, 2) << std::endl;
 // 
 // 		doublecomplex *DIdentity = new doublecomplex[n * n + m * m + n * m];
 // 		doublecomplex *EIdentity = DIdentity + n * n;
@@ -311,7 +311,7 @@ namespace ROPTLIB{
 		//	&GLOBAL::DZERO, &numeig, eigenvalues.matrix, eigenvectors.matrix, &eigenvectors.inc, isuppz,
 		//	work, &lwork, iwork, &liwork, &info);
 		//if (info != 0)
-		//	std::cout << "Matrix::EigenSymmetricM failed!" << std::endl;
+		//	OUTSTREAM << "Matrix::EigenSymmetricM failed!" << std::endl;
 		//delete[] iwork;
 		//delete[] work;
 		//delete[] isuppz;
@@ -331,7 +331,7 @@ namespace ROPTLIB{
 		//integer *iwork = new integer[liwork];
 		//dsyevd_(GLOBAL::V, UorL, &N, eigenvectors.matrix, &eigenvectors.inc, eigenvalues.matrix, work, &lwork, iwork, &liwork, &info);
 		//if (info != 0)
-		//	std::cout << "Matrix::EigenSymmetricM failed!" << std::endl;
+		//	OUTSTREAM << "Matrix::EigenSymmetricM failed!" << std::endl;
 		//delete[] work;
 		//delete[] iwork;
 
@@ -352,7 +352,7 @@ namespace ROPTLIB{
 		//dgees_(GLOBAL::V, GLOBAL::N, nullptr, &N, S.matrix, &inc, &sdim, eigenvalues.matrix, wi, eigenvectors.matrix, &eigenvectors.inc,
 		//	work, &lwork, nullptr, &info);
 		//if (info != 0)
-		//	std::cout << "Matrix::EigenSymmetricM failed!" << std::endl;
+		//	OUTSTREAM << "Matrix::EigenSymmetricM failed!" << std::endl;
 		//delete[] work;
 		//delete[] wi;
 
@@ -377,7 +377,7 @@ namespace ROPTLIB{
 
 		//if (info != 0)
 		//{
-		//	std::cout << "Warning: The lapack function dsyevx_ used in Matrix::EigenSymmetricM did not secceessfully converge!" << std::endl;
+		//	OUTSTREAM << "Warning: The lapack function dsyevx_ used in Matrix::EigenSymmetricM did not secceessfully converge!" << std::endl;
 		//}
 
 		//delete[] iwork;
@@ -418,7 +418,7 @@ namespace ROPTLIB{
 		{
 			if (eigenvalues <= 0)
 			{
-				std::cout << "Error: The matrix for Matrix::LogSymmetricM is not symmetric positive definite!!" << std::endl;
+				OUTSTREAM << "Error: The matrix for Matrix::LogSymmetricM is not symmetric positive definite!!" << std::endl;
 				return;
 			}
 			double a = log(eigenvalues[i]);

@@ -108,9 +108,9 @@ namespace ROPTLIB{
 		char NO[] = "NO";
 		char *status;
 
-		std::cout << "RTRSR1 METHOD PARAMETERS:" << std::endl;
+		OUTSTREAM << "RTRSR1 METHOD PARAMETERS:" << std::endl;
 		status = YES;
-		std::cout << "isconvex      :" << std::setw(15) << isconvex << "[" << status << "]" << std::endl;
+		OUTSTREAM << "isconvex      :" << std::setw(15) << isconvex << "[" << status << "]" << std::endl;
 	};
 
 	void RTRSR1::PrintInfo(void)

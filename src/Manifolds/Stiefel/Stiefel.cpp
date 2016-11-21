@@ -77,12 +77,12 @@ namespace ROPTLIB{
 		std::string StieRetractionnames[STIERETRACTIONLENGTH] = { "QF", "POLAR", "EXP", "CONSTRUCTED" };
 		std::string StieVectorTransportnames[STIEVECTORTRANSPORTLENGTH] = { "PARALLELIZATION", "RIGGING", "PARALLELTRANSLATION", "PROJECTION" };
 		Manifold::CheckParams();
-		std::cout << name << " PARAMETERS:" << std::endl;
-		std::cout << "n             :" << std::setw(15) << n << ",\t";
-		std::cout << "p             :" << std::setw(15) << p << std::endl;
-		std::cout << "metric        :" << std::setw(15) << StieMetricnames[metric] << ",\t";
-		std::cout << "retraction    :" << std::setw(15) << StieRetractionnames[retraction] << std::endl;
-		std::cout << "VecTran       :" << std::setw(15) << StieVectorTransportnames[VecTran] << std::endl;
+		OUTSTREAM << name << " PARAMETERS:" << std::endl;
+		OUTSTREAM << "n             :" << std::setw(15) << n << ",\t";
+		OUTSTREAM << "p             :" << std::setw(15) << p << std::endl;
+		OUTSTREAM << "metric        :" << std::setw(15) << StieMetricnames[metric] << ",\t";
+		OUTSTREAM << "retraction    :" << std::setw(15) << StieRetractionnames[retraction] << std::endl;
+		OUTSTREAM << "VecTran       :" << std::setw(15) << StieVectorTransportnames[VecTran] << std::endl;
 	};
 
 	void Stiefel::IntrProjection(Variable *x, Vector *etax, Vector *result) const
@@ -125,7 +125,7 @@ namespace ROPTLIB{
 	{
 		if (metric == EUCLIDEAN)
 			return Manifold::Metric(x, etax, xix);
-		std::cout << "Error: Metric has not been done!" << std::endl;
+		OUTSTREAM << "Error: Metric has not been done!" << std::endl;
 		return 0;
 	};
 
@@ -145,7 +145,7 @@ namespace ROPTLIB{
 		if (retraction == CONSTRUCTED)
 			return ConRetraction(x, etax, result);
 
-		std::cout << "Error: Retraction has not been done!" << std::endl;
+		OUTSTREAM << "Error: Retraction has not been done!" << std::endl;
 	};
 
 	void Stiefel::coTangentVector(Variable *x, Vector *etax, Variable *y, Vector *xiy, Vector *result) const
@@ -156,7 +156,7 @@ namespace ROPTLIB{
 		if (retraction == CONSTRUCTED)
 			return ConcoTangentVector(x, etax, y, xiy, result);
 
-		std::cout << "Error: coTangentVector has not been done!" << std::endl;
+		OUTSTREAM << "Error: coTangentVector has not been done!" << std::endl;
 	};
 
 	void Stiefel::DiffRetraction(Variable *x, Vector *etax, Variable *y, Vector *xix, Vector *result, bool IsEtaXiSameDir) const
@@ -167,7 +167,7 @@ namespace ROPTLIB{
 		if (retraction == CONSTRUCTED)
 			return DiffConRetraction(x, etax, y, xix, result, IsEtaXiSameDir);
 
-		std::cout << "Error: DiffRetraction has not been done!" << std::endl;
+		OUTSTREAM << "Error: DiffRetraction has not been done!" << std::endl;
 	};
 
 	double Stiefel::Beta(Variable *x, Vector *etax) const
@@ -203,7 +203,7 @@ namespace ROPTLIB{
 		if (HasHHR)
 			return LCVectorTransport(x, etax, y, xix, result);
 
-		std::cout << "Error: VectorTransport has not been done!" << std::endl;
+		OUTSTREAM << "Error: VectorTransport has not been done!" << std::endl;
 	};
 
 	void Stiefel::InverseVectorTransport(Variable *x, Vector *etax, Variable *y, Vector *xiy, Vector *result) const
@@ -213,14 +213,14 @@ namespace ROPTLIB{
 
 		if (VecTran == PROJECTION && !HasHHR)
 		{
-			std::cout << "Stiefel::InverseVectorTransport: inverse vector transport by projection has not been done!" << std::endl;
+			OUTSTREAM << "Stiefel::InverseVectorTransport: inverse vector transport by projection has not been done!" << std::endl;
 			return Manifold::InverseVectorTransport(x, etax, y, xiy, result);
 		}
 
 		if (HasHHR)
 			return LCInverseVectorTransport(x, etax, y, xiy, result);
 
-		std::cout << "Error: InverseVectorTransport has not been done!" << std::endl;
+		OUTSTREAM << "Error: InverseVectorTransport has not been done!" << std::endl;
 	};
 
 	void Stiefel::HInvTran(Variable *x, Vector *etax, Variable *y, LinearOPE *Hx, integer start, integer end, LinearOPE *result) const
@@ -230,14 +230,14 @@ namespace ROPTLIB{
 
 		if (VecTran == PROJECTION && !HasHHR)
 		{
-			std::cout << "Stiefel::HInvTran for vector transport by projection has not been done!" << std::endl;
+			OUTSTREAM << "Stiefel::HInvTran for vector transport by projection has not been done!" << std::endl;
 			return Manifold::HInvTran(x, etax, y, Hx, start, end, result);
 		}
 
 		if (HasHHR)
 			return LCHInvTran(x, etax, y, Hx, start, end, result);
 
-		std::cout << "Error: HInvTran has not been done!" << std::endl;
+		OUTSTREAM << "Error: HInvTran has not been done!" << std::endl;
 	};
 
 	void Stiefel::TranH(Variable *x, Vector *etax, Variable *y, LinearOPE *Hx, integer start, integer end, LinearOPE *result) const
@@ -247,14 +247,14 @@ namespace ROPTLIB{
 
 		if (VecTran == PROJECTION && !HasHHR)
 		{
-			std::cout << "Stiefel::TranH for vector transport by projection has not been done!" << std::endl;
+			OUTSTREAM << "Stiefel::TranH for vector transport by projection has not been done!" << std::endl;
 			return Manifold::TranH(x, etax, y, Hx, start, end, result);
 		}
 
 		if (HasHHR)
 			return LCTranH(x, etax, y, Hx, start, end, result);
 
-		std::cout << "Error: TranH has not been done!" << std::endl;
+		OUTSTREAM << "Error: TranH has not been done!" << std::endl;
 	};
 
 	void Stiefel::TranHInvTran(Variable *x, Vector *etax, Variable *y, LinearOPE *Hx, LinearOPE *result) const
@@ -264,13 +264,13 @@ namespace ROPTLIB{
 
 		if (VecTran == PROJECTION && !HasHHR)
 		{
-			std::cout << "Stiefel::TranHInvTran for vector transport by projection has not been done!" << std::endl;
+			OUTSTREAM << "Stiefel::TranHInvTran for vector transport by projection has not been done!" << std::endl;
 			return Manifold::TranHInvTran(x, etax, y, Hx, result);
 		}
 		if (HasHHR)
 			return LCTranHInvTran(x, etax, y, Hx, result);
 
-		std::cout << "Error: TranHInvTran has not been done!" << std::endl;
+		OUTSTREAM << "Error: TranHInvTran has not been done!" << std::endl;
 	};
 
 	void Stiefel::EucGradToGrad(Variable *x, Vector *egf, Vector *gf, const Problem *prob) const
@@ -288,7 +288,7 @@ namespace ROPTLIB{
 			ExtrProjection(x, egf, gf);
 			return;
 		}
-		std::cout << "Warning:The function converting Eucidean Gradient to Riemannian Gradient has not been done!" << std::endl;
+		OUTSTREAM << "Warning:The function converting Eucidean Gradient to Riemannian Gradient has not been done!" << std::endl;
 	};
 
 	void Stiefel::EucHvToHv(Variable *x, Vector *etax, Vector *exix, Vector *xix, const Problem *prob) const
@@ -340,7 +340,7 @@ namespace ROPTLIB{
 			}
 			return;
 		}
-		std::cout << "Warning:The function converting action of Eucidean Hessian to action of Riemannian Hessian has not been done!" << std::endl;
+		OUTSTREAM << "Warning:The function converting action of Eucidean Hessian to action of Riemannian Hessian has not been done!" << std::endl;
 	};
 
 	void Stiefel::ObtainIntr(Variable *x, Vector *etax, Vector *result) const
@@ -351,7 +351,7 @@ namespace ROPTLIB{
 			if (retraction == CONSTRUCTED)
 				ObtainIntrSquare(x, etax, result);
 			else
-				std::cout << "Warning: computing intrinsinc representation from extrinsic has not been implemented!" << std::endl;
+				OUTSTREAM << "Warning: computing intrinsinc representation from extrinsic has not been implemented!" << std::endl;
 	};
 
 	void Stiefel::ObtainExtr(Variable *x, Vector *intretax, Vector *result) const
@@ -362,7 +362,7 @@ namespace ROPTLIB{
 			if (retraction == CONSTRUCTED)
 				ObtainExtrSquare(x, intretax, result);
 			else
-				std::cout << "Warning: computing extrinsic representation from intrinsinc has not been implemented!" << std::endl;
+				OUTSTREAM << "Warning: computing extrinsic representation from intrinsinc has not been implemented!" << std::endl;
 	};
 
 	void Stiefel::qfRetraction(Variable *x, Vector *etax, Variable *result) const
@@ -408,11 +408,11 @@ namespace ROPTLIB{
 		// details: http://www.netlib.org/lapack/explore-html/db/de5/dgeqp3_8f.html
 		dgeqp3_(&N, &P, ptrHHR, &N, jpvt, tau, work, &lwork, &info);
 		if (info < 0)
-			std::cout << "Error in qr decomposition!" << std::endl;
+			OUTSTREAM << "Error in qr decomposition!" << std::endl;
 		for (integer i = 0; i < P; i++)
 		{
 			if (jpvt[i] != (i + 1))
-				std::cout << "Error in qf retraction!" << std::endl;
+				OUTSTREAM << "Error in qf retraction!" << std::endl;
 		}
 		double *signs = new double[P];
 		for (integer i = 0; i < P; i++)
@@ -423,7 +423,7 @@ namespace ROPTLIB{
 		// details: http://www.netlib.org/lapack/explore-html/d9/d1d/dorgqr_8f.html
 		dorgqr_(&N, &P, &P, resultM, &N, tau, work, &lwork, &info);
 		if (info < 0)
-			std::cout << "Error in forming Q matrix!" << std::endl;
+			OUTSTREAM << "Error in forming Q matrix!" << std::endl;
 		for (integer i = 0; i < P; i++)
 			// resultM(:, i) <- signs(i) * resultM(:, i), details: http://www.netlib.org/lapack/explore-html/d4/dd0/dscal_8f.html
 			dscal_(&N, signs + i, resultM + i * N, &inc);
@@ -618,11 +618,11 @@ namespace ROPTLIB{
 			x->AddToTempData("HHR", HouseHolderResult);
 			x->AddToTempData("HHRTau", HHRTau);
 			if (info < 0)
-				std::cout << "Error in qr decomposition!" << std::endl;
+				OUTSTREAM << "Error in qr decomposition!" << std::endl;
 			for (integer i = 0; i < P; i++)
 			{
 				if (jpvt[i] != (i + 1))
-					std::cout << "Error in qf retraction!" << std::endl;
+					OUTSTREAM << "Error in qf retraction!" << std::endl;
 			}
 			delete[] jpvt;
 			delete[] work;
@@ -712,11 +712,11 @@ namespace ROPTLIB{
 			x->AddToTempData("HHR", HouseHolderResult);
 			x->AddToTempData("HHRTau", HHRTau);
 			if (info < 0)
-				std::cout << "Error in qr decomposition!" << std::endl;
+				OUTSTREAM << "Error in qr decomposition!" << std::endl;
 			for (integer i = 0; i < P; i++)
 			{
 				if (jpvt[i] != (i + 1))
-					std::cout << "Error in qf retraction!" << std::endl;
+					OUTSTREAM << "Error in qf retraction!" << std::endl;
 			}
 			delete[] jpvt;
 			delete[] work;
@@ -901,7 +901,7 @@ namespace ROPTLIB{
 	void Stiefel::ConcoTangentVector(Variable *x, Vector *etax, Variable *y, Vector *xiy, Vector *result) const
 	{
 		xiy->CopyTo(result);
-		std::cout << "The cotangent vector for the constructed retraction has not been implemented!" << std::endl;
+		OUTSTREAM << "The cotangent vector for the constructed retraction has not been implemented!" << std::endl;
 	};
 
 	void Stiefel::DiffConRetraction(Variable *x, Vector *etax, Variable *y, Vector *xix, Vector *result, bool IsEtaXiSameDir) const
@@ -933,7 +933,7 @@ namespace ROPTLIB{
 			}
 			return;
 		}
-		std::cout << "Warning: The differentiated retraction of the constructed retraction has not been implemented!" << std::endl;
+		OUTSTREAM << "Warning: The differentiated retraction of the constructed retraction has not been implemented!" << std::endl;
 		xix->CopyTo(result);
 	};
 
@@ -964,12 +964,12 @@ namespace ROPTLIB{
 		// details: http://www.netlib.org/lapack/explore-html/db/de5/dgeqp3_8f.html
 		dgeqp3_(&N, &NmP, Perp, &N, jpvt, tau, work, &lwork, &info);
 		if (info < 0)
-			std::cout << "Error in qr decomposition!" << std::endl;
+			OUTSTREAM << "Error in qr decomposition!" << std::endl;
 		// Generate an orthonormal matrix by using the Householder refections in Perp, output is stored in Perp,
 		// details: http://www.netlib.org/lapack/explore-html/d9/d1d/dorgqr_8f.html
 		dorgqr_(&N, &NmP, &NmP, Perp, &N, tau, work, &lwork, &info);
 		if (info < 0)
-			std::cout << "Error in forming Q matrix!" << std::endl;
+			OUTSTREAM << "Error in forming Q matrix!" << std::endl;
 		delete[] jpvt;
 		delete[] tau;
 

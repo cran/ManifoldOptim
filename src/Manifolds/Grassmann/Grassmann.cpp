@@ -36,9 +36,9 @@ namespace ROPTLIB{
 	void Grassmann::CheckParams(void) const
 	{
 		Manifold::CheckParams();
-		std::cout << name << " PARAMETERS:" << std::endl;
-		std::cout << "n             :" << std::setw(15) << n << ",\t";
-		std::cout << "p             :" << std::setw(15) << p << std::endl;
+		OUTSTREAM << name << " PARAMETERS:" << std::endl;
+		OUTSTREAM << "n             :" << std::setw(15) << n << ",\t";
+		OUTSTREAM << "p             :" << std::setw(15) << p << std::endl;
 	};
 
 	void Grassmann::ExtrProjection(Variable *x, Vector *v, Vector *result) const
@@ -103,11 +103,11 @@ namespace ROPTLIB{
 		// details: http://www.netlib.org/lapack/explore-html/db/de5/dgeqp3_8f.html
 		dgeqp3_(&N, &P, ptrHHR, &N, jpvt, tau, work, &lwork, &info);
 		if (info < 0)
-			std::cout << "Error in qr decomposition!" << std::endl;
+			OUTSTREAM << "Error in qr decomposition!" << std::endl;
 		for (integer i = 0; i < P; i++)
 		{
 			if (jpvt[i] != (i + 1))
-				std::cout << "Error in qf retraction!" << std::endl;
+				OUTSTREAM << "Error in qf retraction!" << std::endl;
 		}
 		double *signs = new double[P];
 		for (integer i = 0; i < P; i++)
@@ -118,7 +118,7 @@ namespace ROPTLIB{
 		// details: http://www.netlib.org/lapack/explore-html/d9/d1d/dorgqr_8f.html
 		dorgqr_(&N, &P, &P, resultM, &N, tau, work, &lwork, &info);
 		if (info < 0)
-			std::cout << "Error in forming Q matrix!" << std::endl;
+			OUTSTREAM << "Error in forming Q matrix!" << std::endl;
 		for (integer i = 0; i < P; i++)
 			// resultM(:, i) <- signs(i) * resultM(:, i), details: http://www.netlib.org/lapack/explore-html/d4/dd0/dscal_8f.html
 			dscal_(&N, signs + i, resultM + i * N, &inc);
@@ -379,11 +379,11 @@ namespace ROPTLIB{
 			x->AddToTempData("HHR", HouseHolderResult);
 			x->AddToTempData("HHRTau", HHRTau);
 			if (info < 0)
-				std::cout << "Error in qr decomposition!" << std::endl;
+				OUTSTREAM << "Error in qr decomposition!" << std::endl;
 			for (integer i = 0; i < P; i++)
 			{
 				if (jpvt[i] != (i + 1))
-					std::cout << "Error in qf retraction!" << std::endl;
+					OUTSTREAM << "Error in qf retraction!" << std::endl;
 			}
 			delete[] jpvt;
 			delete[] work;
@@ -453,11 +453,11 @@ namespace ROPTLIB{
 			x->AddToTempData("HHR", HouseHolderResult);
 			x->AddToTempData("HHRTau", HHRTau);
 			if (info < 0)
-				std::cout << "Error in qr decomposition!" << std::endl;
+				OUTSTREAM << "Error in qr decomposition!" << std::endl;
 			for (integer i = 0; i < P; i++)
 			{
 				if (jpvt[i] != (i + 1))
-					std::cout << "Error in qf retraction!" << std::endl;
+					OUTSTREAM << "Error in qf retraction!" << std::endl;
 			}
 			delete[] jpvt;
 			delete[] work;

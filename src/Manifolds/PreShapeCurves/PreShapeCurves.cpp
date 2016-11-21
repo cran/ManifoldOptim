@@ -33,20 +33,20 @@ namespace ROPTLIB{
 	void PreShapeCurves::CheckParams(void) const
 	{
 		Manifold::CheckParams();
-		std::cout << name << " PARAMETERS:" << std::endl;
+		OUTSTREAM << name << " PARAMETERS:" << std::endl;
 		if (dim == 1 && numC == 1)
-			std::cout << "numP          :" << std::setw(15) << numP << std::endl;
+			OUTSTREAM << "numP          :" << std::setw(15) << numP << std::endl;
 		else
 			if (numC == 1)
 			{
-				std::cout << "numP          :" << std::setw(15) << numP << ",\t";
-				std::cout << "dim           :" << std::setw(15) << dim << std::endl;
+				OUTSTREAM << "numP          :" << std::setw(15) << numP << ",\t";
+				OUTSTREAM << "dim           :" << std::setw(15) << dim << std::endl;
 			}
 			else
 			{
-				std::cout << "numP          :" << std::setw(15) << numP << ",\t";
-				std::cout << "dim           :" << std::setw(15) << dim << std::endl;
-				std::cout << "numC          :" << std::setw(15) << numC << std::endl;
+				OUTSTREAM << "numP          :" << std::setw(15) << numP << ",\t";
+				OUTSTREAM << "dim           :" << std::setw(15) << dim << std::endl;
+				OUTSTREAM << "numC          :" << std::setw(15) << numC << std::endl;
 			}
 	};
 
@@ -72,7 +72,7 @@ namespace ROPTLIB{
 		GradVec(utilde, u, numC, numP, dim, Rgrad);    //Check!!*******************************
 		//ForDebug::Print("Rgrad", Rgrad, numP,dim,numC);
 
-		//std::cout << "PreShapeCurves::EucGradToGrad, TEST NEEDED" << std::endl;//---
+		//OUTSTREAM << "PreShapeCurves::EucGradToGrad, TEST NEEDED" << std::endl;//---
 		delete[] u;
 		delete[] utilde;
 	};
@@ -94,7 +94,7 @@ namespace ROPTLIB{
 		intv = 1.0 / (numC - 1);
 		result = 0.5*ElasticCurvesRO::Trapz(temp, numC, intv);
 
-		//std::cout << "PreShapeCurves::Metric, TODO" << std::endl;//---
+		//OUTSTREAM << "PreShapeCurves::Metric, TODO" << std::endl;//---
 		delete[] temp;
 		return result;
 	};
@@ -114,7 +114,7 @@ namespace ROPTLIB{
 			PreShapePathStraighten::Item_1(Path_temp + t*NXD, numP, dim, Path_new + t*NXD);
 		}
 
-		//std::cout << "PreShapeCurves::Retraction, TEST NEEDED" << std::endl;//---
+		//OUTSTREAM << "PreShapeCurves::Retraction, TEST NEEDED" << std::endl;//---
 		delete[] Path_temp;
 	};
 
@@ -144,7 +144,7 @@ namespace ROPTLIB{
 		}
 		coeff = 1.0 / (innumC - 1);
 		for (integer t = 0; t < innumC - 1; t++) {
-			//std::cout << "t:" << t << std::endl;//----
+			//OUTSTREAM << "t:" << t << std::endl;//----
 			PreShapePathStraighten::Item_3(u + t*innumP*indim, alpha + t*innumP*indim, alpha + (t + 1)*innumP*indim, innumP, indim, ubar + t*innumP*indim);
 			daxpy_(&NXD, &coeff, const_cast<double *> (Dalpha)+(t + 1)*innumP*indim, &GLOBAL::IONE, ubar + t*innumP*indim, &GLOBAL::IONE);
 			dcopy_(&NXD, ubar + t*innumP*indim, &GLOBAL::IONE, u + (t + 1)*innumP*indim, &GLOBAL::IONE);
@@ -200,8 +200,8 @@ namespace ROPTLIB{
 			dcopy_(&NXD, const_cast<double *>(u)+t*NXD, &GLOBAL::IONE, temp, &GLOBAL::IONE);
 			daxpy_(&NXD, &coeff, const_cast<double *>(utilde)+t*NXD, &GLOBAL::IONE, temp, &GLOBAL::IONE);
 			//        if (t==1) {
-			//            std::cout << "u(1,1,2):" << std::setprecision(16) << u[t*NXD] <<std::endl<< "coeff" <<  std::setprecision(16) <<coeff <<std::endl<<"utilde(1,1,2)" << std::setprecision(16) <<utilde[t*NXD]<<std::endl;
-			//            std::cout << "w" << std::setprecision(16) <<u[t*NXD]+coeff*utilde[t*NXD]<<std::endl;
+			//            OUTSTREAM << "u(1,1,2):" << std::setprecision(16) << u[t*NXD] <<std::endl<< "coeff" <<  std::setprecision(16) <<coeff <<std::endl<<"utilde(1,1,2)" << std::setprecision(16) <<utilde[t*NXD]<<std::endl;
+			//            OUTSTREAM << "w" << std::setprecision(16) <<u[t*NXD]+coeff*utilde[t*NXD]<<std::endl;
 			//        }
 
 			//        if (t==1) {

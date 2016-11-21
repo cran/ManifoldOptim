@@ -17,7 +17,7 @@ namespace ROPTLIB{
 	void PSCVariable::RandInManifold(void)
 	{
 		Element::RandGaussian();
-		std::cout << "PSCVariable::RandInManifold(). TODO" << std::endl;//--
+		OUTSTREAM << "PSCVariable::RandInManifold(). TODO" << std::endl;//--
 	};
 
 	void PSCVariable::Generate(double *initial, double *end)

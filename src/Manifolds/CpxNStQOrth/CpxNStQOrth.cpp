@@ -39,13 +39,13 @@ namespace ROPTLIB{
 	void CpxNStQOrth::CheckParams(void) const
 	{
 		Manifold::CheckParams();
-		std::cout << name << " PARAMETERS:" << std::endl;
+		OUTSTREAM << name << " PARAMETERS:" << std::endl;
 		if (p == 1)
-			std::cout << "n           :" << std::setw(15) << n << std::endl;
+			OUTSTREAM << "n           :" << std::setw(15) << n << std::endl;
 		else
 		{
-			std::cout << "n           :" << std::setw(15) << n << ",\t";
-			std::cout << "p           :" << std::setw(15) << p << std::endl;
+			OUTSTREAM << "n           :" << std::setw(15) << n << ",\t";
+			OUTSTREAM << "p           :" << std::setw(15) << p << std::endl;
 		}
 	};
 
@@ -121,7 +121,7 @@ namespace ROPTLIB{
 
 	void CpxNStQOrth::coTangentVector(Variable *x, Vector *etax, Variable *y, Vector *xiy, Vector *result) const
 	{
-		std::cout << "TODO" << std::endl;//----
+		OUTSTREAM << "TODO" << std::endl;//----
 		xiy->CopyTo(result);
 	};
 
@@ -181,11 +181,11 @@ namespace ROPTLIB{
 		x->AddToTempData("HHR", HouseHolderResult);
 		x->AddToTempData("HHRTau", HHRTau);
 		if (info < 0)
-			std::cout << "Error in qr decomposition!" << std::endl;
+			OUTSTREAM << "Error in qr decomposition!" << std::endl;
 		for (integer i = 0; i < P; i++)
 		{
 			if (jpvt[i] != (i + 1))
-				std::cout << "Error in qf retraction!" << std::endl;
+				OUTSTREAM << "Error in qf retraction!" << std::endl;
 		}
 		delete[] jpvt;
 		delete[] work;
@@ -247,9 +247,9 @@ namespace ROPTLIB{
 		Matrix MxM(xM, n, p), MetaxTV(etaxTV, n, p), Mtempspace((double *)tempspace, p, p, n);
 		Matrix::CGEMM(GLOBAL::ZONE, MxM, true, MetaxTV, false,
 			GLOBAL::ZZERO, Mtempspace);
-		//std::cout << Matrix((double *)xM, 2 * n, p) << std::endl;//---
-		//std::cout << Matrix((double *)etaxTV, 2 * n, p) << std::endl;//---
-		//std::cout << Matrix((double *)tempspace, 2 * n, p) << std::endl;//---
+		//OUTSTREAM << Matrix((double *)xM, 2 * n, p) << std::endl;//---
+		//OUTSTREAM << Matrix((double *)etaxTV, 2 * n, p) << std::endl;//---
+		//OUTSTREAM << Matrix((double *)tempspace, 2 * n, p) << std::endl;//---
 		double r2 = sqrt(2.0);
 		double factor = sqrt(Manifold::Metric(x, x, x));
 		integer idx = 0;

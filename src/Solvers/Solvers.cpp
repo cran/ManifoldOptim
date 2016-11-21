@@ -72,41 +72,41 @@ namespace ROPTLIB{
 				if (Stop_Criterion == GRAD_F_0)
 					return (ngf / ngf0) < Tolerance;
 
-		std::cout << "Error: Stopping Criterion is not specefic!" << std::endl;
+		OUTSTREAM << "Error: Stopping Criterion is not specefic!" << std::endl;
 		return true;
 	};
 
 	void Solvers::CheckParams(void)
 	{
 		//status = (Stop_Criterion >= 0 && Stop_Criterion <= (FUN_REL | GRAD_F | GRAD_F_0 | TIMESEC)) ? YES : NO;
-		//std::cout << "Stop_Criterion:" << std::setw(15);
+		//OUTSTREAM << "Stop_Criterion:" << std::setw(15);
 		//for (integer i = 0; i < STOPCRITLENGTH; i++)
 		//{
 		//	if (static_cast<integer> (pow(2, i)) & Stop_Criterion)
 		//	{
-		//		std::cout << "(" << STOPCRITnames[i] << ")";
+		//		OUTSTREAM << "(" << STOPCRITnames[i] << ")";
 		//	}
 		//}
-		//std::cout << "[" << status << "]" << std::endl;
+		//OUTSTREAM << "[" << status << "]" << std::endl;
 
 		std::string STOPCRITnames[STOPCRITLENGTH] = { "FUN_REL", "GRAD_F", "GRAD_F_0" };
 		std::string DEBUGnames[DEBUGLENGTH] = { "NOOUTPUT", "FINALRESULT", "ITERRESULT", "DETAILED" };
 		char YES[] = "YES";
 		char NO[] = "NO";
 		char *status;
-		std::cout << "GENERAL PARAMETERS:" << std::endl;
+		OUTSTREAM << "GENERAL PARAMETERS:" << std::endl;
 		status = (Stop_Criterion >= 0 && Stop_Criterion < STOPCRITLENGTH) ? YES : NO;
-		std::cout << "Stop_Criterion:" << std::setw(15) << STOPCRITnames[Stop_Criterion] << "[" << status << "],\t";
+		OUTSTREAM << "Stop_Criterion:" << std::setw(15) << STOPCRITnames[Stop_Criterion] << "[" << status << "],\t";
 		status = (Tolerance > 0) ? YES : NO;
-		std::cout << "Tolerance     :" << std::setw(15) << Tolerance << "[" << status << "]" << std::endl;
+		OUTSTREAM << "Tolerance     :" << std::setw(15) << Tolerance << "[" << status << "]" << std::endl;
 		status = (Max_Iteration > 0 && Max_Iteration >= Min_Iteration) ? YES : NO;
-		std::cout << "Max_Iteration :" << std::setw(15) << Max_Iteration << "[" << status << "]" << ",\t";
+		OUTSTREAM << "Max_Iteration :" << std::setw(15) << Max_Iteration << "[" << status << "]" << ",\t";
 		status = (Min_Iteration >= 0 && Min_Iteration <= Max_Iteration) ? YES : NO;
-		std::cout << "Min_Iteration :" << std::setw(15) << Min_Iteration << "[" << status << "]" << std::endl;
+		OUTSTREAM << "Min_Iteration :" << std::setw(15) << Min_Iteration << "[" << status << "]" << std::endl;
 		status = (OutputGap > 0) ? YES : NO;
-		std::cout << "OutputGap     :" << std::setw(15) << OutputGap << "[" << status << "]" << ",\t";
+		OUTSTREAM << "OutputGap     :" << std::setw(15) << OutputGap << "[" << status << "]" << ",\t";
 		status = (Debug >= 0 && Debug < DEBUGLENGTH) ? YES : NO;
-		std::cout << "DEBUG         :" << std::setw(15) << DEBUGnames[Debug] << "[" << status << "]" << std::endl;
+		OUTSTREAM << "DEBUG         :" << std::setw(15) << DEBUGnames[Debug] << "[" << status << "]" << std::endl;
 	};
 
 	void Solvers::Run(void)

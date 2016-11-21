@@ -28,20 +28,20 @@ namespace ROPTLIB{
 	void Euclidean::CheckParams(void) const
 	{
 		Manifold::CheckParams();
-		std::cout << name << " PARAMETERS:" << std::endl;
+		OUTSTREAM << name << " PARAMETERS:" << std::endl;
 		if (col == 1 && num == 1)
-			std::cout << "row           :" << std::setw(15) << row << std::endl;
+			OUTSTREAM << "row           :" << std::setw(15) << row << std::endl;
 		else
 			if (num == 1)
 			{
-				std::cout << "row           :" << std::setw(15) << row << ",\t";
-				std::cout << "col           :" << std::setw(15) << col << std::endl;
+				OUTSTREAM << "row           :" << std::setw(15) << row << ",\t";
+				OUTSTREAM << "col           :" << std::setw(15) << col << std::endl;
 			}
 			else
 			{
-				std::cout << "row           :" << std::setw(15) << row << ",\t";
-				std::cout << "col           :" << std::setw(15) << col << std::endl;
-				std::cout << "num           :" << std::setw(15) << num << std::endl;
+				OUTSTREAM << "row           :" << std::setw(15) << row << ",\t";
+				OUTSTREAM << "col           :" << std::setw(15) << col << std::endl;
+				OUTSTREAM << "num           :" << std::setw(15) << num << std::endl;
 			}
 	};
 

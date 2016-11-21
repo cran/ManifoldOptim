@@ -30,8 +30,8 @@ namespace ROPTLIB{
 		//double intv;
 		double result;
 
-		//std::cout << x->Getlength() << std::endl;
-		//std::cout << egf->Getlength() << std::endl;
+		//OUTSTREAM << x->Getlength() << std::endl;
+		//OUTSTREAM << egf->Getlength() << std::endl;
 
 
 		//Compute Dalpha
@@ -43,11 +43,11 @@ namespace ROPTLIB{
 				{
 					for (integer i = 0; i < numP; i++)
 					{
-						//std::cout << t*numP*dim+j*numP+i << std::endl;
-						//std::cout << stp <<std::endl;
-						//std::cout << Path_x[t*numP*dim+j*numP+i]<< std::endl;
-						//std::cout << (t-1)*numP*dim+j*numP+i << std::endl;
-						//std::cout << Path_x[(t-1)*numP*dim+j*numP+i] << std::endl;
+						//OUTSTREAM << t*numP*dim+j*numP+i << std::endl;
+						//OUTSTREAM << stp <<std::endl;
+						//OUTSTREAM << Path_x[t*numP*dim+j*numP+i]<< std::endl;
+						//OUTSTREAM << (t-1)*numP*dim+j*numP+i << std::endl;
+						//OUTSTREAM << Path_x[(t-1)*numP*dim+j*numP+i] << std::endl;
 						temp[t*numP*dim + j*numP + i] = static_cast<double> (stp)*(Path_x[t*numP*dim + j*numP + i] - Path_x[(t - 1)*numP*dim + j*numP + i]);
 					}
 				}
@@ -73,7 +73,7 @@ namespace ROPTLIB{
 		x->AddToTempData("Dalpha", Temp);
 
 		result = Domain->Metric(x, Grad_temp, Grad_temp)*0.5;
-		//    std::cout << result<<std::endl;
+		//    OUTSTREAM << result<<std::endl;
 
 		//    //Compute Cost function
 		//    dcopy_(&total_N, const_cast<double *> (temp), &GLOBAL::IONE, temptemp, &GLOBAL::IONE);
@@ -83,7 +83,7 @@ namespace ROPTLIB{
 		//    
 		//    intv = 1.0/(numC-1);
 		//    result = 0.5*ElasticCurvesRO::Trapz(trapz_temp, numC, intv);
-		//    //std::cout << "PreShapePathStraighten::f, TODO" << std::endl;//---
+		//    //OUTSTREAM << "PreShapePathStraighten::f, TODO" << std::endl;//---
 		return result;
 	};
 
@@ -182,7 +182,7 @@ namespace ROPTLIB{
 		}
 
 		if (iter >= 100) {
-			std::cout << "Item_1: Iterations exceeded 100" << std::endl;
+			OUTSTREAM << "Item_1: Iterations exceeded 100" << std::endl;
 		}
 
 		delete[] qnorm;
@@ -203,29 +203,29 @@ namespace ROPTLIB{
 		double *temp = new double[indim];
 		double *qnorm = new double[innumP];
 		integer NXD = innumP*indim;
-		//std::cout << "t1" << std::endl;//---
+		//OUTSTREAM << "t1" << std::endl;//---
 		double *w_c = new double[NXD];
-		//std::cout << "t2" << std::endl;//---
+		//OUTSTREAM << "t2" << std::endl;//---
 		double *tt = new double[indim];
-		//std::cout << "t3" << std::endl;//---
+		//OUTSTREAM << "t3" << std::endl;//---
 		double *b = new double[indim*innumP*indim];
-		//std::cout << "t4" << std::endl;//---
+		//OUTSTREAM << "t4" << std::endl;//---
 
 
 
 		temp0 = InnerProd_Q(w, q, innumP, indim);
-		//std::cout << "t5" << std::endl;//---
+		//OUTSTREAM << "t5" << std::endl;//---
 		temp0 = -temp0;
-		//std::cout << "t6" << std::endl;//---
+		//OUTSTREAM << "t6" << std::endl;//---
 		dcopy_(&NXD, w, &GLOBAL::IONE, w_c, &GLOBAL::IONE);
-		//std::cout << "t7" << std::endl;//---
+		//OUTSTREAM << "t7" << std::endl;//---
 		daxpy_(&NXD, &temp0, const_cast<double *> (q), &GLOBAL::IONE, w_c, &GLOBAL::IONE);
-		//std::cout << "t8" << std::endl;//---
+		//OUTSTREAM << "t8" << std::endl;//---
 
 		for (integer i = 0; i < innumP; i++) {
 			qnorm[i] = dnrm2_(&indim, const_cast<double *> (q)+i, &innumP);
 		}
-		//std::cout << "t9" << std::endl;//---
+		//OUTSTREAM << "t9" << std::endl;//---
 
 		//ForDebug::Print("qnorm:", qnorm, innumP);//---
 		//ForDebug::Print("q:", q, innumP);//---
@@ -234,21 +234,21 @@ namespace ROPTLIB{
 		for (integer t = 0; t < indim; t++)
 		{
 			tt[t] = InnerProd_Q(q + t*innumP, qnorm, innumP, 1);
-			//std::cout << "t:" << t << ", " << tt[t] << std::endl;//----
+			//OUTSTREAM << "t:" << t << ", " << tt[t] << std::endl;//----
 
 			//        double *PInnerProd = new double[innumP];
 			//        ElasticCurvesRO::PointwiseInnerProd(q, qnorm, 1, innumP, PInnerProd);
 			//        ForDebug::Print("Pinner", PInnerProd, innumP);
 			//        double intv = 1.0/static_cast<double>((innumP-1));
-			//        std::cout << "intv" <<intv<<std::endl;
+			//        OUTSTREAM << "intv" <<intv<<std::endl;
 			//        double check = ElasticCurvesRO::Trapz(PInnerProd, innumP, intv);
-			//        std::cout <<"innumP" << innumP <<std::endl;
-			//        std::cout <<"check"<< check <<std::endl;
+			//        OUTSTREAM <<"innumP" << innumP <<std::endl;
+			//        OUTSTREAM <<"check"<< check <<std::endl;
 		}
-		//std::cout << "t10" << std::endl;//---
+		//OUTSTREAM << "t10" << std::endl;//---
 
-		//std::cout << tt[0]<<std::endl;
-		//std::cout << tt[1] <<std::endl;
+		//OUTSTREAM << tt[0]<<std::endl;
+		//OUTSTREAM << tt[1] <<std::endl;
 
 		for (integer t = 0; t < innumP; t++)
 		{
@@ -266,15 +266,15 @@ namespace ROPTLIB{
 				}
 			}
 		}
-		//std::cout << "t11" << std::endl;//---
+		//OUTSTREAM << "t11" << std::endl;//---
 
 
 		//orthonormal basis of the normal space
 		coeff = 1.0 / std::sqrt(InnerProd_Q(b, b, innumP, indim));
-		//std::cout << "t12" << std::endl;//---
+		//OUTSTREAM << "t12" << std::endl;//---
 
 		dscal_(&NXD, &coeff, b, &GLOBAL::IONE);
-		//std::cout << "t13" << std::endl;//---
+		//OUTSTREAM << "t13" << std::endl;//---
 
 		for (integer i = 1; i < indim; i++) {
 			for (integer j = 0; j < i; j++) {
@@ -284,7 +284,7 @@ namespace ROPTLIB{
 			coeff = 1.0 / std::sqrt(InnerProd_Q(b + i*innumP*indim, b + i*innumP*indim, innumP, indim));
 			dscal_(&NXD, &coeff, b + i*innumP*indim, &GLOBAL::IONE);
 		}
-		//std::cout << "t14" << std::endl;//---
+		//OUTSTREAM << "t14" << std::endl;//---
 
 
 		//Project w into T_q(Cc)
@@ -292,11 +292,11 @@ namespace ROPTLIB{
 			coeff = -InnerProd_Q(w_c, b + i*innumP*indim, innumP, indim);
 			daxpy_(&NXD, &coeff, b + i*innumP*indim, &GLOBAL::IONE, w_c, &GLOBAL::IONE);
 		}
-		//std::cout << "t15" << std::endl;//---
+		//OUTSTREAM << "t15" << std::endl;//---
 
 
 		dcopy_(&NXD, w_c, &GLOBAL::IONE, w, &GLOBAL::IONE);
-		//std::cout << "t16" << std::endl;//---
+		//OUTSTREAM << "t16" << std::endl;//---
 
 		delete[] temp;
 		delete[] qnorm;
@@ -310,33 +310,33 @@ namespace ROPTLIB{
 	void PreShapePathStraighten::Item_3(const double *w, const double *q1, const double *q2, integer innumP, integer indim, double *wbar)
 	{
 		double temp0, coeff, l;
-		//std::cout << innumP << "," << indim << std::endl;//---
+		//OUTSTREAM << innumP << "," << indim << std::endl;//---
 		double *q = new double[innumP*indim], *wtilde = new double[innumP*indim];
-		//std::cout << "h1" << std::endl;//---
+		//OUTSTREAM << "h1" << std::endl;//---
 		double *qnorm = new double[innumP];
-		//std::cout << "h2" << std::endl;//---
+		//OUTSTREAM << "h2" << std::endl;//---
 		double *tt = new double[indim];
-		//std::cout << "h3" << std::endl;//---
+		//OUTSTREAM << "h3" << std::endl;//---
 		double *temp = new double[indim];
-		//std::cout << "h4" << std::endl;//---
+		//OUTSTREAM << "h4" << std::endl;//---
 		double *b = new double[indim*innumP*indim];
-		//std::cout << "h5" << std::endl;//---
+		//OUTSTREAM << "h5" << std::endl;//---
 		integer NXD = innumP*indim;
-		//std::cout << "h6" << std::endl;//---
+		//OUTSTREAM << "h6" << std::endl;//---
 
 		temp0 = InnerProd_Q(w, q2, innumP, indim);
 		for (integer i = 0; i < innumP*indim; i++) {
 			q[i] = q1[i] + q2[i];
 		}
-		//std::cout << "h7" << std::endl;//---
+		//OUTSTREAM << "h7" << std::endl;//---
 		coeff = -2.0*temp0 / InnerProd_Q(q, q, innumP, indim);
-		//std::cout << "h8" << std::endl;//---
+		//OUTSTREAM << "h8" << std::endl;//---
 		dcopy_(&NXD, const_cast<double *> (w), &GLOBAL::IONE, wtilde, &GLOBAL::IONE);
-		//std::cout << "h9" << std::endl;//---
+		//OUTSTREAM << "h9" << std::endl;//---
 		daxpy_(&NXD, &coeff, q, &GLOBAL::IONE, wtilde, &GLOBAL::IONE);
-		//std::cout << "h10" << std::endl;//---
+		//OUTSTREAM << "h10" << std::endl;//---
 		l = std::sqrt(InnerProd_Q(wtilde, wtilde, innumP, indim));   //need std??????
-		//std::cout << "h11" << std::endl;//---
+		//OUTSTREAM << "h11" << std::endl;//---
 
 		for (integer i = 0; i < innumP; i++) {
 			qnorm[i] = dnrm2_(&indim, const_cast<double *> (q2)+i, &innumP);     //check!!!!!!!!!!
@@ -389,7 +389,7 @@ namespace ROPTLIB{
 		delete[] tt;
 		delete[] temp;
 		delete[] b;
-		//std::cout << "h6" << std::endl;//---
+		//OUTSTREAM << "h6" << std::endl;//---
 	}
 
 

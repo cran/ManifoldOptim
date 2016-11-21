@@ -112,11 +112,11 @@ namespace ROPTLIB{
 		char NO[] = "NO";
 		char *status;
 
-		std::cout << "LRTRSR1 METHOD PARAMETERS:" << std::endl;
+		OUTSTREAM << "LRTRSR1 METHOD PARAMETERS:" << std::endl;
 		status = YES;
-		std::cout << "isconvex      :" << std::setw(15) << isconvex << "[" << status << "],\t";
+		OUTSTREAM << "isconvex      :" << std::setw(15) << isconvex << "[" << status << "],\t";
 		status = (LengthSY >= 0) ? YES : NO;
-		std::cout << "LengthSY      :" << std::setw(15) << LengthSY << "[" << status << "]" << std::endl;
+		OUTSTREAM << "LengthSY      :" << std::setw(15) << LengthSY << "[" << status << "]" << std::endl;
 	};
 
 	void LRTRSR1::HessianEta(Vector *Eta, Vector *result)

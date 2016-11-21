@@ -103,7 +103,7 @@ Rcpp::List ManifoldOptim(const arma::vec& initX, const arma::mat& initH,
 	Rcpp::String message;
 	if (probAdapter->GetUseHess() && probAdapter->UseNumericalHessEta()) {
 		message = "Solver used a Hessian which was computed by numerical "
-			"differentation. Consider changing solvers or programming the Hessian.";
+			"differentiation. Consider changing solvers or programming the Hessian.";
 	}
 
 	Rcpp::List ret = Rcpp::List::create(Rcpp::Named("xopt", Xopt),
@@ -124,9 +124,13 @@ Rcpp::List ManifoldOptim(const arma::vec& initX, const arma::mat& initH,
 		Rcpp::Named("message", message)
 	);
 
-	// Check Gradient and Hessian
+	// Check Gradient and Hessian evaluated against both initial value and solution
 	bool isCheckGradHess = Rcpp::as<bool>(solverParams["IsCheckGradHess"]);
 	if (isCheckGradHess) {
+		CopyFrom(x, initX);
+		probAdapter->CheckGradHessian(x);
+
+		CopyFrom(x, Xopt);
 		probAdapter->CheckGradHessian(x);
 	}
 

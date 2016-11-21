@@ -118,7 +118,7 @@ namespace ROPTLIB{
 #ifdef CHECKMEMORYDELETED
 				(*CheckMemoryDeleted)[eta->sharedtimes] = *(eta->sharedtimes);
 #endif
-				//std::cout << "Copyto   address:" << eta->sharedtimes << ", sharedtimes:" << *(eta->sharedtimes) << std::endl;
+				//OUTSTREAM << "Copyto   address:" << eta->sharedtimes << ", sharedtimes:" << *(eta->sharedtimes) << std::endl;
 				delete eta->sharedtimes; eta->sharedtimes = nullptr;
 				delete[] eta->Space; eta->Space = nullptr;
 			}
@@ -146,7 +146,7 @@ namespace ROPTLIB{
 		}
 		catch (std::bad_alloc exception)
 		{
-			std::cout << "Catch exception:" << exception.what() << std::endl;
+			OUTSTREAM << "Catch exception:" << exception.what() << std::endl;
 		}
 	};
 
@@ -177,7 +177,7 @@ namespace ROPTLIB{
 #ifdef CHECKMEMORYDELETED
 			(*CheckMemoryDeleted)[sharedtimes] = *sharedtimes;
 #endif
-			//std::cout << "destruct address:" << sharedtimes << ", sharedtimes:" << *sharedtimes << std::endl;
+			//OUTSTREAM << "destruct address:" << sharedtimes << ", sharedtimes:" << *sharedtimes << std::endl;
 
 			(*sharedtimes)--;
 			if (*sharedtimes == 0 && Space != nullptr)
@@ -197,34 +197,34 @@ namespace ROPTLIB{
 		{
 			if (size == nullptr)
 			{
-				std::cout << name << " is an empty data with size 0";
+				OUTSTREAM << name << " is an empty data with size 0";
 			}
 			else
 			{
-				std::cout << name << " is an empty data with size " << size[0];
+				OUTSTREAM << name << " is an empty data with size " << size[0];
 			}
 			for (integer i = 1; i < ls; i++)
-				std::cout << " x " << size[i];
-			std::cout << std::endl;
+				OUTSTREAM << " x " << size[i];
+			OUTSTREAM << std::endl;
 		}
 		else
 			if (ls == 1 || (ls > 1 && size[1] * product == 1))
 			{
-				std::cout << name << ", shared times:" << *sharedtimes << ", shared times address:" << sharedtimes << std::endl;
+				OUTSTREAM << name << ", shared times:" << *sharedtimes << ", shared times address:" << sharedtimes << std::endl;
 				for (integer i = 0; i < length; i++)
-					std::cout << Space[i] << std::endl;
+					OUTSTREAM << Space[i] << std::endl;
 			}
 			else
 				if (ls == 2 || product == 1)
 				{
-					std::cout << name << ", shared times:" << *sharedtimes << ", shared times address:" << sharedtimes << std::endl;
+					OUTSTREAM << name << ", shared times:" << *sharedtimes << ", shared times address:" << sharedtimes << std::endl;
 					for (integer j = 0; j < size[0]; j++)
 					{
 						for (integer k = 0; k < size[1]; k++)
 						{
-							std::cout << Space[j + size[0] * k] << "\t";
+							OUTSTREAM << Space[j + size[0] * k] << "\t";
 						}
-						std::cout << std::endl;
+						OUTSTREAM << std::endl;
 					}
 				}
 				else
@@ -236,17 +236,17 @@ namespace ROPTLIB{
 						idices[i] = 0;
 					while (1)
 					{
-						std::cout << name << "(:,:";
+						OUTSTREAM << name << "(:,:";
 						for (integer i = 2; i < ls; i++)
-							std::cout << "," << idices[i];
-						std::cout << ")" << ", shared times:" << *sharedtimes << std::endl;
+							OUTSTREAM << "," << idices[i];
+						OUTSTREAM << ")" << ", shared times:" << *sharedtimes << std::endl;
 						for (integer j = 0; j < row; j++)
 						{
 							for (integer k = 0; k < col; k++)
 							{
-								std::cout << ptr[j + row * k] << "\t";
+								OUTSTREAM << ptr[j + row * k] << "\t";
 							}
-							std::cout << std::endl;
+							OUTSTREAM << std::endl;
 						}
 						ptr += row * col;
 						idices[2]++;

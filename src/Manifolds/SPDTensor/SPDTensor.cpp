@@ -48,7 +48,7 @@ namespace ROPTLIB{
 			dpotrf_(GLOBAL::L, &ddim, LM + k * dim * dim, &ddim, &info);
 			if (info != 0)
 			{
-				std::cout << "Warning: SPDTensor::CholeskyRepresentation fails with info:" << info << "!" << std::endl;
+				OUTSTREAM << "Warning: SPDTensor::CholeskyRepresentation fails with info:" << info << "!" << std::endl;
 			}
 		}
 		x->AddToTempData("XaL", SharedL);

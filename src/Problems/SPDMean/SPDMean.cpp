@@ -39,7 +39,7 @@ namespace ROPTLIB{
 			dtrtrs_(GLOBAL::L, GLOBAL::N, GLOBAL::N, &N, &N, Ls + n * n * i, &N, Ltmp, &N, &info);
 			if (info != 0)
 			{
-				std::cout << "The cholesky decompsotion in SPDMean::f failed with info:" << info << "!" << std::endl;
+				OUTSTREAM << "The cholesky decompsotion in SPDMean::f failed with info:" << info << "!" << std::endl;
 			}
 			dgemm_(GLOBAL::N, GLOBAL::T, &N, &N, &N, &GLOBAL::DONE, Ltmp, &N, Ltmp, &N, &GLOBAL::DZERO, logLXL + n * n * i, &N);
 			Matrix MMt(logLXL + n * n * i, n, n);
@@ -79,7 +79,7 @@ namespace ROPTLIB{
 			dtrtrs_(GLOBAL::L, GLOBAL::T, GLOBAL::N, &N, &N, Ls + n * n * i, &N, tmp, &N, &info);
 			if (info != 0)
 			{
-				std::cout << "The cholesky decompsotion in SPDMean::RieGrad failed with info:" << info << "!" << std::endl;
+				OUTSTREAM << "The cholesky decompsotion in SPDMean::RieGrad failed with info:" << info << "!" << std::endl;
 			}
 			dgemm_(GLOBAL::N, GLOBAL::N, &N, &N, &N, &GLOBAL::DONE, const_cast<double *> (xM), &N, tmp, &N, &GLOBAL::DONE, gfVT, &N);
 		}
@@ -91,7 +91,7 @@ namespace ROPTLIB{
 
 	void SPDMean::RieHessianEta(Variable *x, Vector *etax, Vector *xix) const
 	{
-		std::cout << "warning: SPDMean::RieHessianEta has not been implemented!" << std::endl;
+		OUTSTREAM << "warning: SPDMean::RieHessianEta has not been implemented!" << std::endl;
 		etax->CopyTo(xix);
 	};
 }; /*end of ROPTLIB namespace*/

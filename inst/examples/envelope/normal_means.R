@@ -110,7 +110,7 @@ prob$objFun(x0)
 
 # optimize Gamma over Grassman
 mani.params <- get.manifold.params(IsCheckParams = TRUE)
-solver.params <- get.solver.params(isconvex = TRUE, DEBUG = 0, Tolerance = 1e-12,
+solver.params <- get.solver.params(DEBUG = 0, Tolerance = 1e-12,
 	Max_Iteration = 1000, IsCheckParams = TRUE, IsCheckGradHess = FALSE)
 mani.defn <- get.grassmann.defn(r,u)
 

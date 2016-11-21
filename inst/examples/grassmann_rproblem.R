@@ -37,7 +37,7 @@ prob$objFun(x0)
 head(prob$gradFun(x0))
 
 mani.params <- get.manifold.params(IsCheckParams = TRUE)
-solver.params <- get.solver.params(isconvex = TRUE, DEBUG = 0, Tolerance = 1e-4,
+solver.params <- get.solver.params(DEBUG = 0, Tolerance = 1e-4,
 	Max_Iteration = 1000, IsCheckParams = TRUE, IsCheckGradHess = TRUE)
 mani.defn <- get.grassmann.defn(p, d)
 

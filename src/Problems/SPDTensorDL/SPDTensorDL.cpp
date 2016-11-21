@@ -49,7 +49,7 @@ namespace ROPTLIB{
 			dtrtrs_(GLOBAL::L, GLOBAL::N, GLOBAL::N, &ddim, &ddim, Ls + dim * dim * i, &ddim, Ltmp, &ddim, &info);
 			if (info != 0)
 			{
-				std::cout << "The cholesky decompsotion in SPDTensorDL::f failed with info:" << info << "!" << std::endl;
+				OUTSTREAM << "The cholesky decompsotion in SPDTensorDL::f failed with info:" << info << "!" << std::endl;
 			}
 			dgemm_(GLOBAL::N, GLOBAL::T, &ddim, &ddim, &ddim, &GLOBAL::DONE, Ltmp, &ddim, Ltmp, &ddim, &GLOBAL::DZERO, logLXL + ddim * ddim * i, &ddim);
 			Matrix MMt(logLXL + ddim * ddim * i, ddim, ddim);
@@ -97,7 +97,7 @@ namespace ROPTLIB{
 			dtrtrs_(GLOBAL::L, GLOBAL::T, GLOBAL::N, &ddim, &ddim, Ls + dim * dim * i, &ddim, Log_Ainv_X_Xinv + dim * dim * i, &ddim, &info);
 			if (info != 0)
 			{
-				std::cout << "The cholesky decompsotion in SPDTensorDL::RieGrad failed with info:" << info << "!" << std::endl;
+				OUTSTREAM << "The cholesky decompsotion in SPDTensorDL::RieGrad failed with info:" << info << "!" << std::endl;
 			}
 
 			for (integer j = 0; j < dim; j++)
@@ -139,7 +139,7 @@ namespace ROPTLIB{
 
 	void SPDTensorDL::RieHessianEta(Variable *x, Vector *etax, Vector *xix) const
 	{
-		std::cout << "warning: SPDTensorDL::RieHessianEta has not been implemented!" << std::endl;
+		OUTSTREAM << "warning: SPDTensorDL::RieHessianEta has not been implemented!" << std::endl;
 		etax->CopyTo(xix);
 	};
 }; /*end of ROPTLIB namespace*/

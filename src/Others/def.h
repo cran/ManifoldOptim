@@ -107,12 +107,32 @@
 
 #if defined(R_BUILD)
 
+// Much of the ROPTLIB code needs BLAS and Lapack, so let them all use the
+// R implementation.
+//
+// Many ROPTLIB files use std::cout or printf. CRAN people do not like this, so
+// here we redefine printf to Rprintf, and provide a generic-looking OUTSTREAM
+// which really uses Rcpp::Rcout. Instead of including ostream, R.h, and
+// Rstreambuf.h, we could simply include Rcpp.h; however, this causes very slow
+// compilation and a bloated .so file at the end. This seems to be caused by
+// lots of symbol information being packed into the .o files. (This can be
+// verified by using the strip command on the .so file).
+//
+// Even without including Rcpp.h from each source file, the .so at the end is
+// quite large. The CRAN people do not seem to have a good solution for this
+// currently:
+// http://r.789695.n4.nabble.com/compile-c-code-in-an-R-package-without-g-td4725700.html
+
 #include <R_ext/BLAS.h>
 #include <R_ext/Lapack.h>
-#include <cstdio>
+#include <ostream>
+#include <R.h>
+#include <Rcpp/iostream/Rstreambuf.h>
 
 #define integer int
 #define doublecomplex Rcomplex
+#define OUTSTREAM Rcpp::Rcout
+#define printf Rprintf
 
 #endif
 
@@ -154,6 +174,20 @@
 #elif __linux// The following code is compiled only when this library is compiled in Linux system
 // linux
 #ifdef __GNUC__
+
+#endif // end of __GNUC__
+
+
+#elif __unix // all unices not caught above
+// Unix
+#elif __posix
+// POSIX
+#endif // end of checking platforms
+
+
+#if __linux || __unix || __posix
+// check compiler for c++11 compliance.  If this compliance doesn't exist, then emulate nullptr per Scott Meyers c++ book
+#if __cplusplus < 201103L
 const class {
  public:
   template<class T> // convertible to any type
@@ -169,12 +203,8 @@ const class {
  private:
   void operator&(void) const; // whose address can't be taken
 } nullptr = {};
-#endif // end of __GNUC__
-#elif __unix // all unices not caught above
-// Unix
-#elif __posix
-// POSIX
-#endif // end of checking platforms
+#endif
+#endif
 
 /*If ROPTLIB is compiled in Matlab, then removing the underscore to make the wrappers consistant.*/
 #ifdef MATLAB_MEX_FILE
@@ -223,7 +253,7 @@ const class {
 #endif // end of ifdef MATLAB_MEX_FILE
 
 /*Help to debug the code*/
-#include "ForDebug.h"
+// #include "ForDebug.h"
 
 /*For obtaining the lower bound, upper bound of numbers of double precision*/
 #include <climits>

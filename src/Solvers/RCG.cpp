@@ -47,11 +47,11 @@ namespace ROPTLIB{
 		char NO[] = "NO";
 		char *status;
 
-		std::cout << "RCG METHOD PARAMETERS:" << std::endl;
+		OUTSTREAM << "RCG METHOD PARAMETERS:" << std::endl;
 		status = (ManDim >= 0 && ManDim <= std::numeric_limits<integer>::max()) ? YES : NO;
-		std::cout << "ManDim        :" << std::setw(15) << ManDim << "[" << status << "],\t";
+		OUTSTREAM << "ManDim        :" << std::setw(15) << ManDim << "[" << status << "],\t";
 		status = (RCGmethod >= 0 && RCGmethod <= RCGMETHODSLENGTH) ? YES : NO;
-		std::cout << "RCGmethod     :" << std::setw(15) << RCGmethodSetnames[RCGmethod] << "[" << status << "]" << std::endl;
+		OUTSTREAM << "RCGmethod     :" << std::setw(15) << RCGmethodSetnames[RCGmethod] << "[" << status << "]" << std::endl;
 	};
 
 	void RCG::PrintInfo(void)

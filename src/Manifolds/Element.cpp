@@ -87,7 +87,7 @@ namespace ROPTLIB{
 
 	void Element::RandInManifold(void)
 	{
-		std::cout << "Warning: RandInManifold has not been overloaded!" << std::endl;
+		OUTSTREAM << "Warning: RandInManifold has not been overloaded!" << std::endl;
 	};
 
 	void Element::AddToTempData(std::string name, SharedSpace * &Temp)

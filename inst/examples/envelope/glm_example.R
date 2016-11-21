@@ -157,7 +157,7 @@ for(restart in 1:num_restarts){
       print(prob$objFun(x0))
 
       mani.params <- get.manifold.params(IsCheckParams = TRUE)
-      solver.params <- get.solver.params(isconvex = TRUE, DEBUG = 2, Tolerance = 1e-300, Max_Iteration = 1000, IsCheckParams = TRUE, IsCheckGradHess = FALSE)
+      solver.params <- get.solver.params(DEBUG = 2, Tolerance = 1e-300, Max_Iteration = 1000, IsCheckParams = TRUE, IsCheckGradHess = FALSE)
 
       mani.defn <- get.product.defn(get.grassmann.defn(r,u), get.euclidean.defn(u,1), get.euclidean.defn(u,1))
 

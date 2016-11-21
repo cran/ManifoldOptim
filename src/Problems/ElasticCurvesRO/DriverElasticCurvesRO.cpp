@@ -181,7 +181,7 @@ namespace ROPTLIB{
 			GetCurveSmall(C1, C1s, d, n, ns, isclosed);
 			CurveToQ(C1s, d, ns, q1s, isclosed);
 		}
-		std::cout << "lms:" << lms << ", ns:" << ns << std::endl;
+		OUTSTREAM << "lms:" << lms << ", ns:" << ns << std::endl;
 
 		double *Xoptptr = Xopt->ObtainWriteEntireData();
 		Xoptptr[n + d * d] = 0;
@@ -194,7 +194,7 @@ namespace ROPTLIB{
 
 		for (integer i = 0; i < lms; i++) //lms
 		{
-			std::cout << ms[i] << ", ";
+			OUTSTREAM << ms[i] << ", ";
 			starttime = getTickCount();
 			// obtain initial reparameterization
 			ShiftC(C2, d, n, C2shift, ms[i]);
@@ -242,7 +242,7 @@ namespace ROPTLIB{
 						}
 						ECRO = new ElasticCurvesRO(q1, Rotq2shift, d, n, w, rotated, isclosed);
 						ECRO->SetDomain(Domain);
-						std::cout << "CD1 func:" << ECRO->f(InitialX) << std::endl;
+						OUTSTREAM << "CD1 func:" << ECRO->f(InitialX) << std::endl;
 					}
 
 					if (isclosed)
@@ -295,7 +295,7 @@ namespace ROPTLIB{
 			{ // if only DP is used, then output the CD1H cost function
 				ECRO->w = 0;
 				msV[i] = ECRO->f(InitialX);
-				std::cout << "CD1H func:" << msV[i] << std::endl;
+				OUTSTREAM << "CD1H func:" << msV[i] << std::endl;
 			}
 			if (!onlyDP)
 			{ // if a Riemannian method is used, then Xinitial is the initial iterate and a method is used.
@@ -343,7 +343,7 @@ namespace ROPTLIB{
 										}
 										else
 										{
-											std::cout << "This solver is not used in this problem!" << std::endl;
+											OUTSTREAM << "This solver is not used in this problem!" << std::endl;
 											delete ECRO;
 											delete solver;
 											delete[] C2shift;
@@ -369,7 +369,7 @@ namespace ROPTLIB{
 				ECRO->w = 0;
 				//--Xopt->RemoveAllFromTempData();
 				msV[i] = ECRO->f(const_cast<Element *> (solver->GetXopt()));
-				std::cout << solverstr << "func:" << msV[i] << ", num of iter:" << solver->GetIter() << std::endl;//---
+				OUTSTREAM << solverstr << "func:" << msV[i] << ", num of iter:" << solver->GetIter() << std::endl;//---
 			}
 			delete ECRO;
 
@@ -445,8 +445,8 @@ namespace ROPTLIB{
 			}
 		}
 
-		std::cout << "min f:" << minmsV << std::endl;
-		std::cout << "time:" << comtime[0] << std::endl;
+		OUTSTREAM << "min f:" << minmsV << std::endl;
+		OUTSTREAM << "time:" << comtime[0] << std::endl;
 		delete[] C2shift;
 		if (C2_coefs != nullptr)
 		{
@@ -491,7 +491,7 @@ namespace ROPTLIB{
 			}
 			if (!splinestatus)
 			{
-				std::cout << "Error in computing spline!" << std::endl;
+				OUTSTREAM << "Error in computing spline!" << std::endl;
 				return(EXIT_FAILURE);
 			}
 			for (integer j = 0; j < m; j++)
@@ -933,7 +933,7 @@ namespace ROPTLIB{
 		dgesvd_(joba, joba, &d, &d, M, &d, S, U, &d, Vt, &d, work, &lwork, &info);
 		if (info != 0)
 		{
-			std::cout << "Error:singular value decomposition failed!" << std::endl;
+			OUTSTREAM << "Error:singular value decomposition failed!" << std::endl;
 		}
 		delete[] M;
 		delete[] work;
@@ -954,7 +954,7 @@ namespace ROPTLIB{
 		dgetrf_(&d, &d, O2, &d, IPIV, &info);
 		if (info != 0)
 		{
-			std::cout << "Error:LU decomposition failed!" << std::endl;
+			OUTSTREAM << "Error:LU decomposition failed!" << std::endl;
 		}
 
 		double det = 1;

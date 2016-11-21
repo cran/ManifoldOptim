@@ -21,7 +21,7 @@ head(prob$gradFun(X0))	# Test the grad fn
 
 # ----- Run manifold.optim -----
 mani.params <- get.manifold.params(IsCheckParams = TRUE)
-solver.params <- get.solver.params(isconvex = TRUE, DEBUG = 0, Tolerance = 1e-4,
+solver.params <- get.solver.params(DEBUG = 0, Tolerance = 1e-4,
 	Max_Iteration = 1000, IsCheckParams = TRUE, IsCheckGradHess = FALSE)
 mani.defn <- get.stiefel.defn(n, p)
 

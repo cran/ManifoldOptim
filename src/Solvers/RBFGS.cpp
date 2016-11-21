@@ -75,13 +75,13 @@ namespace ROPTLIB{
 		char NO[] = "NO";
 		char *status;
 
-		std::cout << "RBFGS METHOD PARAMETERS:" << std::endl;
+		OUTSTREAM << "RBFGS METHOD PARAMETERS:" << std::endl;
 		status = (nu >= 0 && nu < 1) ? YES : NO;
-		std::cout << "nu            :" << std::setw(15) << nu << "[" << status << "],\t";
+		OUTSTREAM << "nu            :" << std::setw(15) << nu << "[" << status << "],\t";
 		status = (mu >= 0) ? YES : NO;
-		std::cout << "mu            :" << std::setw(15) << mu << "[" << status << "]" << std::endl;
+		OUTSTREAM << "mu            :" << std::setw(15) << mu << "[" << status << "]" << std::endl;
 		status = YES;
-		std::cout << "isconvex      :" << std::setw(15) << isconvex << "[" << status << "]" << std::endl;
+		OUTSTREAM << "isconvex      :" << std::setw(15) << isconvex << "[" << status << "]" << std::endl;
 	};
 
 	void RBFGS::GetSearchDir(void)

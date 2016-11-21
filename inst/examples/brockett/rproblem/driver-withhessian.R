@@ -47,7 +47,7 @@ prob$objFun(x0)			# Test the obj fn
 head(prob$gradFun(x0))	# Test the grad fn
 
 mani.params <- get.manifold.params(IsCheckParams = FALSE)
-solver.params <- get.solver.params(isconvex = TRUE, Max_Iteration = 1000,
+solver.params <- get.solver.params(Max_Iteration = 1000,
 	IsCheckGradHess = TRUE) 
 mani.defn <- get.stiefel.defn(n, p)
 

@@ -226,7 +226,7 @@ namespace ROPTLIB{
 			{
 				if (Space > elements[j]->GetSpace() || Space + length <= elements[j]->GetSpace())
 				{
-					std::cout << "Error: Memory of space in elements does not use that of Space in ProductElement in " << info << "!" << std::endl;
+					OUTSTREAM << "Error: Memory of space in elements does not use that of Space in ProductElement in " << info << "!" << std::endl;
 				}
 			}
 		}

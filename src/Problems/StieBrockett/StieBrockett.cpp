@@ -120,7 +120,7 @@ namespace ROPTLIB{
 	//
 	//	if (xixTV == etaxTV)
 	//	{
-	//		std::cout << "Error in RieHessianEta!" << std::endl;
+	//		OUTSTREAM << "Error in RieHessianEta!" << std::endl;
 	//		exit(0);
 	//	}
 	//	char *transn = "n";

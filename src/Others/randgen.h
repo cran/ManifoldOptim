@@ -7,8 +7,6 @@
 #error This version of randgen.h only works with R builds
 #endif
 
-#include "def.h"
-
 /* generates a random number on [0,1]-real-interval */
 double genrand_real1();
 

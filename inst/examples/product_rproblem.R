@@ -38,7 +38,7 @@ prob$objFun(x0)
 
 mani.defn <- get.product.defn(get.sphere.defn(p), get.spd.defn(p))
 mani.params <- get.manifold.params(IsCheckParams = TRUE)
-solver.params <- get.solver.params(isconvex = TRUE, DEBUG = 0, Tolerance = 1e-4,
+solver.params <- get.solver.params(DEBUG = 0, Tolerance = 1e-4,
 	Max_Iteration = 1000, IsCheckParams = TRUE, IsCheckGradHess = FALSE)
 
 res <- manifold.optim(prob, mani.defn, method = "LRBFGS", 

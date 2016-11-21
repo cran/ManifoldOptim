@@ -72,7 +72,7 @@ namespace ROPTLIB{
 	void L2Sphere::coTangentVector(Variable *x, Vector *etax, Variable *y, Vector *xiy, Vector *result) const
 	{
 		xiy->CopyTo(result);
-		std::cout << "The cotangent vector has not been implemented!" << std::endl;
+		OUTSTREAM << "The cotangent vector has not been implemented!" << std::endl;
 	};
 
 	void L2Sphere::DiffRetraction(Variable *x, Vector *etax, Variable *y, Vector *xix, Vector *result, bool IsEtaXiSameDir) const
@@ -104,7 +104,7 @@ namespace ROPTLIB{
 			}
 			return;
 		}
-		std::cout << "Warning: The differentiated retraction has not been implemented!" << std::endl;
+		OUTSTREAM << "Warning: The differentiated retraction has not been implemented!" << std::endl;
 		xix->CopyTo(result);
 	};
 
@@ -257,12 +257,12 @@ namespace ROPTLIB{
 
 	void L2Sphere::ObtainIntr(Variable *x, Vector *etax, Vector *result) const
 	{
-		std::cout << "Routine of obtaining intrinsic representations has not been done!" << std::endl;
+		OUTSTREAM << "Routine of obtaining intrinsic representations has not been done!" << std::endl;
 	};
 
 	void L2Sphere::ObtainExtr(Variable *x, Vector *intretax, Vector *result) const
 	{
-		std::cout << "Routine of obtaining extrinsic representations has not been done!" << std::endl;
+		OUTSTREAM << "Routine of obtaining extrinsic representations has not been done!" << std::endl;
 	};
 
 	void L2Sphere::IntrProjection(Variable *x, Vector *v, Vector *result) const
@@ -283,11 +283,11 @@ namespace ROPTLIB{
 		std::string Repa2NSRetractionnames[L2SPHERERETRACTIONLENGTH] = { "NORMALIZED" };
 		std::string Repa2NSVectorTransportnames[L2SPHEREVECTORTRANSPORTLENGTH] = { "L2SPARALLELTRANSLATION" };
 		Manifold::CheckParams();
-		std::cout << name << " PARAMETERS:" << std::endl;
-		std::cout << "n             :" << std::setw(15) << n << ",\t";
-		std::cout << "metric        :" << std::setw(15) << Repa2NSMetricnames[metric] << std::endl;
-		std::cout << "retraction    :" << std::setw(15) << Repa2NSRetractionnames[retraction] << ",\t";
-		std::cout << "VecTran       :" << std::setw(15) << Repa2NSVectorTransportnames[VecTran] << std::endl;
+		OUTSTREAM << name << " PARAMETERS:" << std::endl;
+		OUTSTREAM << "n             :" << std::setw(15) << n << ",\t";
+		OUTSTREAM << "metric        :" << std::setw(15) << Repa2NSMetricnames[metric] << std::endl;
+		OUTSTREAM << "retraction    :" << std::setw(15) << Repa2NSRetractionnames[retraction] << ",\t";
+		OUTSTREAM << "VecTran       :" << std::setw(15) << Repa2NSVectorTransportnames[VecTran] << std::endl;
 	};
 
 	void L2Sphere::EucGradToGrad(Variable *x, Vector *egf, Vector *gf, const Problem *prob) const

@@ -20,7 +20,7 @@ namespace ROPTLIB{
 						SIAM on Journal Optimization, (25)3, 1660-1685, 2015 */
 		if (LineSearch_LS != ARMIJO && ! Prob->GetDomain()->GetHasLockCon() && ! Prob->GetDomain()->GetHasHHR() && Debug >= FINALRESULT)
 		{
-			std::cout << "Warning: The locking condition is not satisfied. Line search may fail!" << std::endl;
+			OUTSTREAM << "Warning: The locking condition is not satisfied. Line search may fail!" << std::endl;
 		}
 
 		/*Choose the linesearch algorithm used in the algorithm*/
@@ -40,7 +40,7 @@ namespace ROPTLIB{
 		{
 			if (LinesearchInput == nullptr)
 			{
-				std::cout << "Error: linesearch function pointer does not exist!" << std::endl;
+				OUTSTREAM << "Error: linesearch function pointer does not exist!" << std::endl;
 				return;
 			}
 		}
@@ -49,8 +49,8 @@ namespace ROPTLIB{
 			/*If the line search algorithm is not specified, then use the Armijo-Goldstein condition.*/
 			if (Debug >= FINALRESULT)
 			{
-				std::cout << "Warning: linesearch algorithm does not exist!" << std::endl;
-				std::cout << "Use linesearch algorithm with Armijo-Goldstein conditions!" << std::endl;
+				OUTSTREAM << "Warning: linesearch algorithm does not exist!" << std::endl;
+				OUTSTREAM << "Use linesearch algorithm with Armijo-Goldstein conditions!" << std::endl;
 			}
 			Linesearch = &SolversLS::LinesearchArmijo;
 		}
@@ -118,7 +118,7 @@ namespace ROPTLIB{
 			/*Output debug information if necessary.*/
 			if (LSstatus < SUCCESS && Debug >= FINALRESULT )
 			{
-				std::cout << "Linesearch fails! LSstatus:" << LSstatusSetnames[LSstatus] << std::endl;
+				OUTSTREAM << "Linesearch fails! LSstatus:" << LSstatusSetnames[LSstatus] << std::endl;
 			}
 
 			iter++;
@@ -205,7 +205,7 @@ namespace ROPTLIB{
 				stepsize = 2.0 * (f1 - pre_funs.front()) / initialslope;
 				break;
 			default:
-				std::cout << "InitSteptype is incorrect. Use one instead." << std::endl;
+				OUTSTREAM << "InitSteptype is incorrect. Use one instead." << std::endl;
 				stepsize = 1;
 			};
 			/*Safeguard for the initial stepsize*/
@@ -236,7 +236,7 @@ namespace ROPTLIB{
 				{
 					if (Debug >= FINALRESULT)
 					{
-						std::cout << "Warning: step size reaches the minimum:" << Minstepsize << "!" << std::endl;
+						OUTSTREAM << "Warning: step size reaches the minimum:" << Minstepsize << "!" << std::endl;
 					}
 					LSstatus = MINSTEPSIZE;
 					break;
@@ -279,7 +279,7 @@ namespace ROPTLIB{
 			{
 				if (Debug >= FINALRESULT)
 				{
-					std::cout << "Warning: step size reaches the minimum:" << Minstepsize << "!" << std::endl;
+					OUTSTREAM << "Warning: step size reaches the minimum:" << Minstepsize << "!" << std::endl;
 				}
 				LSstatus = MINSTEPSIZE;
 				break;
@@ -298,7 +298,7 @@ namespace ROPTLIB{
 		//	stepsize = (stepsize > LS_ratio1 * prestepsize) ? stepsize : LS_ratio1 * prestepsize;
 		//	if (stepsize < Minstepsize)
 		//	{
-		//		std::cout << "Warning: step size reaches the minimum:" << Minstepsize << "!" << std::endl;
+		//		OUTSTREAM << "Warning: step size reaches the minimum:" << Minstepsize << "!" << std::endl;
 		//		LSstatus = MINSTEPSIZE;
 		//		break;
 		//	}
@@ -323,13 +323,13 @@ namespace ROPTLIB{
 		//		ds31 = s3 - s1;
 		//		stepsize = s1 - (ds21 * ds21 * (sf3 - sf1) - ds31 * ds31 * (sf2 - sf1)) / 2 / (ds31 * (sf2 - sf1) - ds21 * (sf3 - sf1));
 		//	}
-		//	//std::cout << "first stepsize:" << stepsize << std::endl;//----
+		//	//OUTSTREAM << "first stepsize:" << stepsize << std::endl;//----
 		//	stepsize = (stepsize < LS_ratio2 * prestepsize) ? stepsize : LS_ratio2 * prestepsize;
 		//	stepsize = (stepsize > LS_ratio1 * prestepsize) ? stepsize : LS_ratio1 * prestepsize;
-		//	//std::cout << "second stepsize:" << stepsize << std::endl;//----
+		//	//OUTSTREAM << "second stepsize:" << stepsize << std::endl;//----
 		//	if (stepsize < Minstepsize)
 		//	{
-		//		std::cout << "Warning: step size reaches the minimum:" << Minstepsize << "!" << std::endl;
+		//		OUTSTREAM << "Warning: step size reaches the minimum:" << Minstepsize << "!" << std::endl;
 		//		LSstatus = MINSTEPSIZE;
 		//		break;
 		//	}
@@ -408,13 +408,13 @@ namespace ROPTLIB{
 		//		else
 		//		{
 		//			LSstatus = LSERROR;
-		//			std::cout << "s1 :" << s1 << ",s2 :" << s2 << ",s3 :" << s3 << std::endl;//---
-		//			std::cout << "sf1:" << sf1 << ",sf2:" << sf2 << ",sf3:" << sf3 << std::endl;//---
+		//			OUTSTREAM << "s1 :" << s1 << ",s2 :" << s2 << ",s3 :" << s3 << std::endl;//---
+		//			OUTSTREAM << "sf1:" << sf1 << ",sf2:" << sf2 << ",sf3:" << sf3 << std::endl;//---
 		//			break;
 		//		}
 		//	}
-		//	//std::cout << "s1 :" << s1 << ",s2 :" << s2 << ",s3 :" << s3 << std::endl;//---
-		//	//std::cout << "sf1:" << sf1 << ",sf2:" << sf2 << ",sf3:" << sf3 << std::endl;//---
+		//	//OUTSTREAM << "s1 :" << s1 << ",s2 :" << s2 << ",s3 :" << s3 << std::endl;//---
+		//	//OUTSTREAM << "sf1:" << sf1 << ",sf2:" << sf2 << ",sf3:" << sf3 << std::endl;//---
 		//}
 		//Prob->Grad(x2, gf2); ng++;
 	};
@@ -494,7 +494,7 @@ namespace ROPTLIB{
 			//Mani->ObtainExtr(x1, eta1, exeta1);//----
 			//Mani->ObtainExtr(x1, eta2, exeta2);//----
 
-			//std::cout << "stepsize:" << stepsize << std::endl;//-----
+			//OUTSTREAM << "stepsize:" << stepsize << std::endl;//-----
 			//exeta1->Print("exeta1:");//----
 			//Mani->VectorMinusVector(x1, x2, x1, diffx);//--
 			//Mani->ScaleTimesVector(x1, 1 / stepsize, diffx, diffx);//---
@@ -606,37 +606,37 @@ namespace ROPTLIB{
 		char NO[] = "NO";
 		char *status;
 
-		std::cout << "LINE SEARCH TYPE METHODS PARAMETERS:" << std::endl;
+		OUTSTREAM << "LINE SEARCH TYPE METHODS PARAMETERS:" << std::endl;
 		status = (LineSearch_LS >= 0 && LineSearch_LS < LSALGOLENGTH) ? YES : NO;
-		std::cout << "LineSearch_LS :" << std::setw(15) << LSALGOnames[LineSearch_LS] << "[" << status << "],\t";
+		OUTSTREAM << "LineSearch_LS :" << std::setw(15) << LSALGOnames[LineSearch_LS] << "[" << status << "],\t";
 		status = (LS_alpha > 0 && LS_alpha < 0.5) ? YES : NO;
-		std::cout << "LS_alpha      :" << std::setw(15) << LS_alpha << "[" << status << "]" << std::endl;
+		OUTSTREAM << "LS_alpha      :" << std::setw(15) << LS_alpha << "[" << status << "]" << std::endl;
 		if (LineSearch_LS == WOLFE || LineSearch_LS == STRONGWOLFE)
 		{
 			status = (LS_beta > 0 && LS_beta < 1) ? YES : NO;
-			std::cout << "LS_beta       :" << std::setw(15) << LS_beta << "[" << status << "],\t";
+			OUTSTREAM << "LS_beta       :" << std::setw(15) << LS_beta << "[" << status << "],\t";
 		}
 		else
 		{
 			status = (LS_ratio1 > 0 && LS_ratio1 <= LS_ratio2) ? YES : NO;
-			std::cout << "LS_ratio1     :" << std::setw(15) << LS_ratio1 << "[" << status << "],\t";
+			OUTSTREAM << "LS_ratio1     :" << std::setw(15) << LS_ratio1 << "[" << status << "],\t";
 			status = (LS_ratio2 > LS_ratio1 && LS_ratio2 < 1) ? YES : NO;
-			std::cout << "LS_ratio2     :" << std::setw(15) << LS_ratio2 << "[" << status << "]" << std::endl;
+			OUTSTREAM << "LS_ratio2     :" << std::setw(15) << LS_ratio2 << "[" << status << "]" << std::endl;
 		}
 		status = (Initstepsize > 0) ? YES : NO;
-		std::cout << "Initstepsize  :" << std::setw(15) << Initstepsize << "[" << status << "]" << std::endl;
+		OUTSTREAM << "Initstepsize  :" << std::setw(15) << Initstepsize << "[" << status << "]" << std::endl;
 		status = (Minstepsize > 0 && Minstepsize <= Maxstepsize) ? YES : NO;
-		std::cout << "Minstepsize   :" << std::setw(15) << Minstepsize << "[" << status << "],\t";
+		OUTSTREAM << "Minstepsize   :" << std::setw(15) << Minstepsize << "[" << status << "],\t";
 		status = (Maxstepsize > 0 && Maxstepsize >= Minstepsize) ? YES : NO;
-		std::cout << "Maxstepsize   :" << std::setw(15) << Maxstepsize << "[" << status << "]" << std::endl;
+		OUTSTREAM << "Maxstepsize   :" << std::setw(15) << Maxstepsize << "[" << status << "]" << std::endl;
 		status = (Accuracy >= 0 && Accuracy <= 1) ? YES : NO;
-		std::cout << "Accuracy      :" << std::setw(15) << Accuracy << "[" << status << "],\t";
+		OUTSTREAM << "Accuracy      :" << std::setw(15) << Accuracy << "[" << status << "],\t";
 		status = YES;
-		std::cout << "Finalstepsize :" << std::setw(15) << Finalstepsize << "[" << status << "]" << std::endl;
+		OUTSTREAM << "Finalstepsize :" << std::setw(15) << Finalstepsize << "[" << status << "]" << std::endl;
 		status = (Num_pre_funs >= 0) ? YES : NO;
-		std::cout << "Num_pre_funs  :" << std::setw(15) << Num_pre_funs << "[" << status << "],\t";
+		OUTSTREAM << "Num_pre_funs  :" << std::setw(15) << Num_pre_funs << "[" << status << "],\t";
 		status = (InitSteptype >= 0 && InitSteptype < INITSTEPSIZESETLENGTH) ? YES : NO;
-		std::cout << "InitSteptype  :" << std::setw(15) << INITSTEPnames[InitSteptype] << "[" << status << "]" << std::endl;
+		OUTSTREAM << "InitSteptype  :" << std::setw(15) << INITSTEPnames[InitSteptype] << "[" << status << "]" << std::endl;
 	};
 
 	void SolversLS::UpdateData(void)

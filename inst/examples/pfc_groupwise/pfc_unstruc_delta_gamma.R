@@ -154,7 +154,7 @@ x0 = c(as.numeric(delta0), as.numeric(gamma0))
 
 
 mani.params <- get.manifold.params(IsCheckParams = TRUE)
-solver.params <- get.solver.params(isconvex = TRUE, DEBUG = 2, Tolerance = 1e-12,
+solver.params <- get.solver.params(DEBUG = 2, Tolerance = 1e-12,
 	Max_Iteration = 1000, IsCheckParams = TRUE, IsCheckGradHess = FALSE)
 mani.defn <- get.product.defn(get.spd.defn(p), get.grassmann.defn(p,2))
 

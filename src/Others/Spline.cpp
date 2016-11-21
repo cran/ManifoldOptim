@@ -32,7 +32,7 @@ namespace ROPTLIB{
 
 		if (!SolvePeriodicSystem(d, ud, ld, vec, s, nn))
 		{
-			std::cout << "error: fail to slove the linear system!!" << std::endl;
+			OUTSTREAM << "error: fail to slove the linear system!!" << std::endl;
 			return 0;
 		}
 
@@ -83,7 +83,7 @@ namespace ROPTLIB{
 
 		if (!SolvePeriodicSystem(d, ud, ld, vec, s, nn))
 		{
-			std::cout << "error: fail to slove the linear system!!" << std::endl;
+			OUTSTREAM << "error: fail to slove the linear system!!" << std::endl;
 			return 0;
 		}
 
@@ -133,7 +133,7 @@ namespace ROPTLIB{
 
 		if (!SolveTridiagonalSystem(d, ud, ld, vec, s, n))
 		{
-			std::cout << "error: fail to slove tridiagonal system!!" << std::endl;
+			OUTSTREAM << "error: fail to slove tridiagonal system!!" << std::endl;
 			return 0;
 		}
 
@@ -179,7 +179,7 @@ namespace ROPTLIB{
 
 		if (!SolveTridiagonalSystem(d, ud, ld, vec, s, n))
 		{
-			std::cout << "error: fail to slove tridiagonal system!!" << std::endl;
+			OUTSTREAM << "error: fail to slove tridiagonal system!!" << std::endl;
 			return 0;
 		}
 
