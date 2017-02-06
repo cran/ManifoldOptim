@@ -8,7 +8,7 @@ class ManifoldOptimException : public std::exception
 {
 public:
 	ManifoldOptimException(const std::string& msg)
-		: _msg(msg)
+		: m_msg(msg)
 	{
 	}
 
@@ -16,11 +16,11 @@ public:
 
 	virtual const char* what() const throw()
 	{
-		return _msg.c_str();
+		return m_msg.c_str();
 	}
 
 private:
-	std::string _msg;
+	std::string m_msg;
 };
 
 #endif

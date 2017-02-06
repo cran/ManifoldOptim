@@ -14,6 +14,11 @@
 
 //#define MATLAB_MEX_FILE//For debug---
 
+// macros for viewing complier macros
+#define XSTR(x) STR(x)
+#define STR(x) #x
+
+
 /* 
    If all the test files are included in a project, then only uncomment one of them to specify which test problem is run.
 */
@@ -188,6 +193,15 @@
 #if __linux || __unix || __posix
 // check compiler for c++11 compliance.  If this compliance doesn't exist, then emulate nullptr per Scott Meyers c++ book
 #if __cplusplus < 201103L
+
+// if using clang then nulptr exists for version 3 and greater
+#if __clang__ && __clang_major__ == 3
+#warning Using clang version 3, assuming nullptr defined
+#pragma message "The value of cplusplus: " XSTR(__cplusplus)
+#pragma message "The version of clang: " XSTR(__clang_version__)
+
+#else
+
 const class {
  public:
   template<class T> // convertible to any type
@@ -203,6 +217,7 @@ const class {
  private:
   void operator&(void) const; // whose address can't be taken
 } nullptr = {};
+#endif
 #endif
 #endif
 

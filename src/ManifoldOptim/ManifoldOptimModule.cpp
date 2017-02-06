@@ -6,9 +6,9 @@ RCPP_MODULE(ManifoldOptim_module) {
 	.constructor<Function,Function,Function>()
 	.constructor<Function,Function>()
 	.constructor<Function>()
-	.field_readonly("objFun", &RProblem::_objFun)
-	.field_readonly("gradFun", &RProblem::_gradFun)
-	.field_readonly("hessEtaFun", &RProblem::_hessEtaFun)
+	.field_readonly("objFun", &RProblem::m_objFun)
+	.field_readonly("gradFun", &RProblem::m_gradFun)
+	.field_readonly("hessEtaFun", &RProblem::m_hessEtaFun)
 	;
 }
 

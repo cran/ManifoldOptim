@@ -26,13 +26,9 @@ private:
 	void NumericalEucGrad(Variable* x, Vector* egf) const;
 	void NumericalEucHessianEta(Variable *x, Vector *etax, Vector *exix) const;
 
-	mutable VectorManifoldOptimProblem* _upVec;
-	mutable MatrixManifoldOptimProblem* _upMat;
-	bool _useMatrix;
-
-	// When using ManifoldOptim, x is an element from a product manifold.
-	// For this problem, it only has a single element.
-	//void ToArmaMat(Variable* x) const;
+	mutable VectorManifoldOptimProblem* m_upVec;
+	mutable MatrixManifoldOptimProblem* m_upMat;
+	bool m_useMatrix;
 };
 
 #endif

@@ -11,16 +11,16 @@ class ManifoldOptimProblem
 
 public:
 	ManifoldOptimProblem(bool useNumericalGrad, bool useNumericalHessEta)
-	: _useNumericalGrad(useNumericalGrad), _useNumericalHessEta(useNumericalHessEta)
+	: m_useNumericalGrad(useNumericalGrad), m_useNumericalHessEta(useNumericalHessEta)
 	{
 	}
 	virtual ~ManifoldOptimProblem() {};
-	bool UseNumericalGrad() const { return _useNumericalGrad; }
-	bool UseNumericalHessEta() const { return _useNumericalHessEta; }
+	bool UseNumericalGrad() const { return m_useNumericalGrad; }
+	bool UseNumericalHessEta() const { return m_useNumericalHessEta; }
 
 protected:
-	bool _useNumericalGrad;
-	bool _useNumericalHessEta;
+	bool m_useNumericalGrad;
+	bool m_useNumericalHessEta;
 };
 
 #endif

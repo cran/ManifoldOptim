@@ -23,9 +23,9 @@ public:
 	arma::mat gradFun(const arma::vec& X) const;
 	arma::vec hessEtaFun(const arma::vec& X, const arma::vec& eta) const;
 
-	Rcpp::Function _objFun;
-	Rcpp::Function _gradFun;
-	Rcpp::Function _hessEtaFun;
+	Rcpp::Function m_objFun;
+	Rcpp::Function m_gradFun;
+	Rcpp::Function m_hessEtaFun;
 };
 
 #endif

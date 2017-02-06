@@ -90,7 +90,7 @@ prob <- new(mod$RProblem, f, g)
 
 x0 <- as.numeric(orthonorm(matrix(rnorm(n*p), nrow=n, ncol=p)))
 mani.params <- get.manifold.params(IsCheckParams = TRUE)
-solver.params <- get.solver.params(isconvex = TRUE, IsCheckParams = TRUE)
+solver.params <- get.solver.params(IsCheckParams = TRUE)
 mani.defn <- get.stiefel.defn(n, p)
 
 res <- manifold.optim(prob, mani.defn, method = "RTRSR1",
@@ -124,24 +124,24 @@ class BrockettProblem : public MatrixManifoldOptimProblem
 {
 public:
 	BrockettProblem(const arma::mat& B, const arma::mat& D)
-	: MatrixManifoldOptimProblem(false, true), _B(B), _D(D) { }
+	: MatrixManifoldOptimProblem(false, true), m_B(B), m_D(D) { }
 
 	virtual ~BrockettProblem() { }
 
 	double objFun(const arma::mat& X) const {
-		return arma::trace(X.t() * _B * X * _D);
+		return arma::trace(X.t() * m_B * X * m_D);
 	}
 
 	arma::mat gradFun(const arma::mat& X) const {
-		return 2 * _B * X * _D;
+		return 2 * m_B * X * m_D;
 	}
 
-	const arma::mat& GetB() const { return _B; }
-	const arma::mat& GetD() const { return _D; }
+	const arma::mat& GetB() const { return m_B; }
+	const arma::mat& GetD() const { return m_D; }
 
 private:
-	arma::mat _B;
-	arma::mat _D;
+	arma::mat m_B;
+	arma::mat m_D;
 };
 
 RCPP_MODULE(Brockett_module) {
@@ -160,7 +160,7 @@ X0 <- orthonorm(matrix(rnorm(n*p), nrow=n, ncol=p))
 x0 <- as.numeric(X0)
 tx <- function(x) { matrix(x, n, p) }
 mani.params <- get.manifold.params(IsCheckParams = TRUE)
-solver.params <- get.solver.params(isconvex = TRUE, DEBUG = 0, Tolerance = 1e-4,
+solver.params <- get.solver.params(DEBUG = 0, Tolerance = 1e-4,
 	Max_Iteration = 1000, IsCheckParams = TRUE, IsCheckGradHess = FALSE)
 mani.defn <- get.stiefel.defn(n, p)
 

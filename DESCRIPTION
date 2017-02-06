@@ -1,9 +1,9 @@
 Package: ManifoldOptim
 Type: Package
-Title: An R Interface to the ROPTLIB Library for Riemannian Manifold
+Title: An R Interface to the 'ROPTLIB' Library for Riemannian Manifold
         Optimization
-Version: 0.1.1
-Date: 2016-11-17
+Version: 0.1.2
+Date: 2017-02-06
 Authors@R: c(person("Kofi P. Adragni", role = c("aut","cre","cph"),
                      email = "kofi@umbc.edu"),
              person("Sean R. Martin", role = c("aut","cph")),
@@ -17,11 +17,11 @@ LinkingTo: Rcpp, RcppArmadillo
 RcppModules: ManifoldOptim_module
 RoxygenNote: 5.0.1
 NeedsCompilation: yes
-Packaged: 2016-11-21 15:08:03 UTC; root
+Packaged: 2017-02-06 18:29:23 UTC; root
 Author: Kofi P. Adragni [aut, cre, cph],
   Sean R. Martin [aut, cph],
   Andrew M. Raim [aut, cph],
   Wen Huang [aut, cph]
 Maintainer: Kofi P. Adragni <kofi@umbc.edu>
 Repository: CRAN
-Date/Publication: 2016-11-21 21:22:36
+Date/Publication: 2017-02-06 21:22:46

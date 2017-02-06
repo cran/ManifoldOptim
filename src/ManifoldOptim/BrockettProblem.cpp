@@ -9,7 +9,7 @@ class BrockettProblem : public MatrixManifoldOptimProblem
 {
 public:
 	BrockettProblem(const arma::mat& B, const arma::mat& D)
-	: MatrixManifoldOptimProblem(false, true), _B(B), _D(D)
+	: MatrixManifoldOptimProblem(false, true), m_B(B), m_D(D)
 	{
 	}
 
@@ -17,12 +17,12 @@ public:
 
 	virtual double objFun(const arma::mat& X) const
 	{
-		return arma::trace(X.t() * _B * X * _D);
+		return arma::trace(X.t() * m_B * X * m_D);
 	}
 
 	virtual arma::mat gradFun(const arma::mat& X) const
 	{
-		return 2 * _B * X * _D;
+		return 2 * m_B * X * m_D;
 	}
 
 	virtual arma::vec hessEtaFun(const arma::mat& X, const arma::vec& eta) const
@@ -32,17 +32,17 @@ public:
 	
 	const arma::mat& GetB() const
 	{
-		return _B;
+		return m_B;
 	}
 
 	const arma::mat& GetD() const
 	{
-		return _D;
+		return m_D;
 	}
 
 private:
-	arma::mat _B;
-	arma::mat _D;
+	arma::mat m_B;
+	arma::mat m_D;
 };
 
 RCPP_MODULE(Brockett_module) {
