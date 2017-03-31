@@ -1,4 +1,4 @@
-f27f297c18add6ce1f36eb62749f3323 *DESCRIPTION
+ff83e01ab4a8dd70d90b9d313d208ff9 *DESCRIPTION
 13bd4ebcc18ea1323ddbb9cda0da3ae8 *NAMESPACE
 b1bf4170bc1963f1cd799b11597c98c4 *R/ManifoldOptim-package.R
 29c993373d6b0b19b2d249a65b170b37 *R/ld_flags.R
@@ -157,13 +157,13 @@ f8bd2c44cc08653a7d2fa8363b55138a *src/Manifolds/Stiefel/Stiefel.h
 c689c6071d0dac8bd67e7974fa282b7e *src/MyRcppExports.cpp
 629d597246c17d470bd3b10562046605 *src/Others/ForDebug.cpp
 97c836828c775a6a84d77f3cb987dd41 *src/Others/ForDebug.h
-5f68a4f56e950d69cfe63e93bb955352 *src/Others/MyMatrix.cpp
+9ed39e14bd52d0da972b54488666f96c *src/Others/MyMatrix.cpp
 79761f845d211c5f3e052516585e0c5a *src/Others/MyMatrix.h
 2f7012c264f75bf4d9dbd9ba36a0d817 *src/Others/Spline.cpp
 9a4af3141bb3fdff0a5b0513d7ea7e70 *src/Others/Spline.h
 11adf4b169b486a5b7950cc10af16f07 *src/Others/Timer.cpp
 b8b9fcc40fab5a0b1d63ef2e1209eb5a *src/Others/Timer.h
-82546dbe3e3ff1eea85f75c14e70f30e *src/Others/def.h
+c6b3ea7acedfbd362a1394310a952877 *src/Others/def.h
 265e86ceb094fa777f44d2dbcb7301c1 *src/Others/randgen.cpp
 366c72e343a1aec931328c7324d59400 *src/Others/randgen.h
 c451f671f76e73643dddef41dd1d9dca *src/Problems/ElasticCurvesRO/DriverElasticCurvesRO.cpp

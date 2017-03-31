@@ -142,7 +142,7 @@
 #endif
 
 #ifdef _WIN64 // The following code is compiled only when this library is compiled in Windows (64-bit only)
-/*If the code is compile under DEBUG mode, then test wheter there is memory leakage or not*/
+/*If the code is compile under DEBUG mode, then test whether there is memory leakage or not*/
 #ifdef _DEBUG
 #define DEBUG_CLIENTBLOCK   new( _CLIENT_BLOCK, __FILE__, __LINE__)
 /*Use my code to help checking memory leakage. One has to define a global variable:
@@ -191,12 +191,50 @@
 
 
 #if __linux || __unix || __posix
+
+#if __cplusplus < 201103L
+
+#if __clang__ 
+
+#if __has_feature(cxx_nullptr)
+#else
+#define NO_NULL_PTR
+#endif
+
+#else
+#define NO_NULL_PTR
+#endif
+
+#endif
+
+
+#ifdef NO_NULL_PTR
+const class {
+ public:
+  template<class T> // convertible to any type
+    operator T*(void) const // of null non-member
+    {
+      return 0;
+    } // pointer...
+  template<class C, class T> // or any type of null
+    operator T C::*(void) const // member pointer...
+  {
+    return 0;
+  }
+ private:
+  void operator&(void) const; // whose address can't be taken
+} nullptr = {};
+#endif
+
+#endif
+
+/*
 // check compiler for c++11 compliance.  If this compliance doesn't exist, then emulate nullptr per Scott Meyers c++ book
 #if __cplusplus < 201103L
 
-// if using clang then nulptr exists for version 3 and greater
-#if __clang__ && __clang_major__ == 3
-#warning Using clang version 3, assuming nullptr defined
+// if using clang then nullptr exists for version 3 and greater
+#if __clang__ && __clang_major__ >= 3
+#pragma message "Using clang version 3 or higher, assuming nullptr defined."
 #pragma message "The value of cplusplus: " XSTR(__cplusplus)
 #pragma message "The version of clang: " XSTR(__clang_version__)
 
@@ -220,6 +258,8 @@ const class {
 #endif
 #endif
 #endif
+*/
+
 
 /*If ROPTLIB is compiled in Matlab, then removing the underscore to make the wrappers consistant.*/
 #ifdef MATLAB_MEX_FILE
