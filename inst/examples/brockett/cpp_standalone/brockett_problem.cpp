@@ -2,27 +2,41 @@
 #include <RcppArmadillo.h>
 #include <ManifoldOptim.h>
 
-using namespace Rcpp;
-using namespace arma;
+using namespace Rcpp;  // This is needed for RCPP_MODULE
 
-class BrockettProblem : public MatrixManifoldOptimProblem
+class BrockettProblem : public ManifoldOptimProblem
 {
 public:
 	BrockettProblem(const arma::mat& B, const arma::mat& D)
-	: m_B(B), m_D(D), MatrixManifoldOptimProblem(false)
+	: ManifoldOptimProblem(), m_B(B), m_D(D)
 	{
 	}
 
 	virtual ~BrockettProblem() { }
 
-	double objFun(const arma::mat& X) const
+	double objFun(const arma::vec& x) const
 	{
+		arma::mat X;
+		tx(X, x);
 		return arma::trace(X.t() * m_B * X * m_D);
 	}
 
-	arma::mat gradFun(const arma::mat& X) const
+	arma::vec gradFun(const arma::vec& x) const
 	{
-		return 2 * m_B * X * m_D;
+		arma::mat X;
+		tx(X, x);
+		return reshape(2 * m_B * X * m_D, x.n_elem, 1);
+	}
+
+	arma::vec hessEtaFun(const arma::vec& x, const arma::vec& eta) const
+	{
+		return ManifoldOptimProblem::hessEtaFun(x, eta);
+	}
+
+	void tx(arma::mat& X, const arma::vec& x) const
+	{
+		X = x;
+		X.reshape(m_B.n_rows, m_D.n_rows);
 	}
 
 	const arma::mat& GetB() const
@@ -42,11 +56,11 @@ private:
 
 RCPP_MODULE(Brockett_module) {
 	class_<BrockettProblem>("BrockettProblem")
-	.constructor<mat,mat>()
+	.constructor<arma::mat,arma::mat>()
 	.method("objFun", &BrockettProblem::objFun)
 	.method("gradFun", &BrockettProblem::gradFun)
+	.method("hessEtaFun", &BrockettProblem::hessEtaFun)
 	.method("GetB", &BrockettProblem::GetB)
 	.method("GetD", &BrockettProblem::GetD)
 	;
 }
-

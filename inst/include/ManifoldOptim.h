@@ -2,7 +2,5 @@
 #define MANIFOLD_OPTIM_HPP
 
 #include <ManifoldOptimProblem.h>
-#include <MatrixManifoldOptimProblem.h>
-#include <VectorManifoldOptimProblem.h>
 
 #endif

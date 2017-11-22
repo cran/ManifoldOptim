@@ -1,8 +1,9 @@
 #include "ManifoldOptim.h"
 
 Rcpp::List ManifoldOptim(const arma::vec& initX, const arma::mat& initH,
-	ManifoldOptimProblem& prob, const Rcpp::List& maniDefn, const Rcpp::List& maniParams,
-	const Rcpp::List& solverParams, const std::string& method, bool hasHHR)
+	ManifoldOptimProblem& prob, const Rcpp::List& maniDefn,
+	const Rcpp::List& maniParams, const Rcpp::List& solverParams,
+	const Rcpp::List& derivParams, const std::string& method, bool hasHHR)
 {
 	Manifold* domain;
 	Variable* x;
@@ -33,23 +34,21 @@ Rcpp::List ManifoldOptim(const arma::vec& initX, const arma::mat& initH,
 	*/
 
 	// Set up the problem
-	// There has to be a better way to set up ProblemAdapter
-	// with the right type of ManifoldOptimProblem (matrix or vector
-	// valued) ...
 	ProblemAdapter* probAdapter;
-	VectorManifoldOptimProblem* vPtr =
-		dynamic_cast<VectorManifoldOptimProblem*>(&prob);
-	MatrixManifoldOptimProblem* mPtr =
-		dynamic_cast<MatrixManifoldOptimProblem*>(&prob);
-	if (vPtr) {
-		probAdapter = new ProblemAdapter(vPtr);
-	} else if (mPtr) {
-		probAdapter = new ProblemAdapter(mPtr);
+	ManifoldOptimProblem* probPtr = dynamic_cast<ManifoldOptimProblem*>(&prob);
+	if (probPtr) {
+		probAdapter = new ProblemAdapter(probPtr);
 	} else {
 		stop("Type of ManifoldOptimProblem could not be determined");
 	}
 
 	probAdapter->SetDomain(domain);
+
+	// Set "epsilon" for numerical differentiation
+	double epsNumericalGrad = Rcpp::as<double>(derivParams["EpsNumericalGrad"]);
+	double epsNumericalHessEta = Rcpp::as<double>(derivParams["EpsNumericalHessEta"]);
+	prob.SetEpsNumericalGrad(epsNumericalGrad);
+	prob.SetEpsNumericalHessEta(epsNumericalHessEta);
 
 	// Set up the solver
 	PARAMSMAP solver_params;
@@ -100,10 +99,13 @@ Rcpp::List ManifoldOptim(const arma::vec& initX, const arma::mat& initH,
 		timeSeries[i] = solver->GettimeSeries()[i];
 	}
 
+	// ProblemAdapter keeps track of whether Hessian function was called by solver...
+	// TBD: What is a nice way to tell if a numerical Hessian was used?
 	Rcpp::String message;
-	if (probAdapter->GetUseHess() && probAdapter->UseNumericalHessEta()) {
-		message = "Solver used a Hessian which was computed by numerical "
-			"differentiation. Consider changing solvers or programming the Hessian.";
+	if (probAdapter->GetUsedHessian() && prob.GetUsedNumericalHessian()) {
+	 	message = "Solver used a Hessian which was computed by numerical "
+	 		"differentiation. Consider changing solvers or programming an "
+	 		"analytical Hessian.";
 	}
 
 	Rcpp::List ret = Rcpp::List::create(Rcpp::Named("xopt", Xopt),

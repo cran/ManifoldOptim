@@ -24,4 +24,3 @@ res <- manifold.optim(prob, mani.defn, method = "RTRSR1",
 print(res)
 head(tx(res$xopt))
 }
-

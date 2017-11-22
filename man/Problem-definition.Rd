@@ -12,22 +12,22 @@ function \eqn{g}. The gradient \eqn{g} is computed as if \eqn{f} is defined
 on a Euclidean space. If \eqn{g} is not specified it will be computed
 numerically, which is potentially much slower.
 
-The easiest way to define a problem is completely in \code{R}. Example 1
+The easiest way to define a problem is completely in R. Example 1
 below illustrates how to construct a problem using a given \eqn{f} and
 \eqn{g}. Example 2 constructs the same problem without providing \eqn{g}.
 The \code{Rcpp Module} framework (Eddelbuettel, 2013) creates underlying
-\code{C++} objects necessary to invoke the \code{ROPTLIB} library.
+C++ objects necessary to invoke the \code{ROPTLIB} library.
 
 The performance of solving an \code{RProblem} may be too slow for some
-applications; here, the \code{C++} optimizer calls \code{R} functions,
+applications; here, the C++ optimizer calls R functions,
 which requires some overhead. A faster alternative is to code your problem
-in \code{C++} directly, and allow it to be manipulated in \code{R}. An
+in C++ directly, and allow it to be manipulated in R. An
 example is provided in this package, under
 \code{tests/brockett/cpp_standalone/}. Example 3 below shows how to
 instantiate this problem.
 
 Package authors may want to use \code{ManifoldOptim} within a package to solve
-a problem written in \code{C++}. In this case, the author would probably
+a problem written in C++. In this case, the author would probably
 not want to use \code{sourceCpp}, but instead have the problem compiled
 when the package was installed. An example is provided within this package;
 \code{tests/brockett/cpp_pkg/driver.R} instantiates the problem defined in:

@@ -2,7 +2,7 @@
 #define R_PROBLEM_H
 
 #include <RcppArmadillo.h>
-#include "VectorManifoldOptimProblem.h"
+#include "ManifoldOptimProblem.h"
 #include <cstring>
 #include <def.h>
 #include <assert.h>
@@ -10,7 +10,7 @@
 
 using namespace Rcpp;
 
-class RProblem : public VectorManifoldOptimProblem
+class RProblem : public ManifoldOptimProblem
 {
 
 public:
@@ -20,12 +20,14 @@ public:
 		const Rcpp::Function& hessEtaFun);
 
 	double objFun(const arma::vec& X) const;
-	arma::mat gradFun(const arma::vec& X) const;
+	arma::vec gradFun(const arma::vec& X) const;
 	arma::vec hessEtaFun(const arma::vec& X, const arma::vec& eta) const;
 
+private:
 	Rcpp::Function m_objFun;
 	Rcpp::Function m_gradFun;
 	Rcpp::Function m_hessEtaFun;
+	Rcpp::Function m_defaultFun;
 };
 
 #endif

@@ -33,14 +33,6 @@ print.ManifoldOptim <- function(x, ...)
 	return(invisible(x))
 }
 
-default.grad <- function(x) {
-	stop("Numerical differentiation (default) is set for gradient. This cannot be called from R")
-}
-
-default.hessEta <- function(x) {
-	stop("Numerical differentiation (default) is set for hessian action. This cannot be called from R")
-}
-
 #' Compute the trace of a square matrix
 #'
 #' @param X A matrix

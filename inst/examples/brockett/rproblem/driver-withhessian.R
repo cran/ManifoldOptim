@@ -56,4 +56,8 @@ res <- manifold.optim(prob, mani.defn, method = "RNewton",
 print(res)
 head(tx(res$xopt))
 
-
+# Compare to closed-form solution
+eig <- eigen(B)
+X.star <- eig$vectors[,seq(n,n-p+1)]
+f(res$xopt)
+f(as.numeric(X.star))

@@ -16,32 +16,41 @@ Rcpp::sourceCpp(code = '
 #include <RcppArmadillo.h>
 #include <ManifoldOptim.h>
 
-using namespace Rcpp;
-using namespace arma;
+using namespace Rcpp;  // This is needed for RCPP_MODULE
 
-class BrockettProblem : public MatrixManifoldOptimProblem
+class BrockettProblem : public ManifoldOptimProblem
 {
 public:
 	BrockettProblem(const arma::mat& B, const arma::mat& D)
-	: MatrixManifoldOptimProblem(false, false), m_B(B), m_D(D)
+	: ManifoldOptimProblem(), m_B(B), m_D(D)
 	{
 	}
 
 	virtual ~BrockettProblem() { }
 
-	double objFun(const arma::mat& X) const
+	double objFun(const arma::vec& x) const
 	{
+		arma::mat X;
+		tx(X, x);
 		return arma::trace(X.t() * m_B * X * m_D);
 	}
 
-	arma::mat gradFun(const arma::mat& X) const
+	arma::vec gradFun(const arma::vec& x) const
 	{
-		return 2 * m_B * X * m_D;
+		arma::mat X;
+		tx(X, x);
+		return reshape(2 * m_B * X * m_D, x.n_elem, 1);
 	}
 
-	arma::vec hessEtaFun(const arma::mat& X, const arma::vec& eta) const
+	arma::vec hessEtaFun(const arma::vec& x, const arma::vec& eta) const
 	{
-		return 2 * arma::kron(_D, m_B) * eta;
+		return 2 * arma::kron(m_D, m_B) * eta;
+	}
+
+	void tx(arma::mat& X, const arma::vec& x) const
+	{
+		X = x;
+		X.reshape(m_B.n_rows, m_D.n_rows);
 	}
 
 	const arma::mat& GetB() const
@@ -61,7 +70,7 @@ private:
 
 RCPP_MODULE(Brockett_module) {
 	class_<BrockettProblem>("BrockettProblem")
-	.constructor<mat,mat>()
+	.constructor<arma::mat,arma::mat>()
 	.method("objFun", &BrockettProblem::objFun)
 	.method("gradFun", &BrockettProblem::gradFun)
 	.method("hessEtaFun", &BrockettProblem::hessEtaFun)
@@ -75,8 +84,10 @@ prob <- new(BrockettProblem, B, D)
 
 X0 <- orthonorm(matrix(rnorm(n*p), nrow=n, ncol=p))
 x0 <- as.numeric(X0)
-prob$objFun(X0)			# Test the obj fn
-head(prob$gradFun(X0))	# Test the grad fn
+eta <- diag(1, n*p, 1)
+prob$objFun(x0)						# Test the obj fn
+head(tx(prob$gradFun(x0)))			# Test the grad fn
+head(prob$hessEtaFun(x0, eta))		# Test the Hess fn (very slow with numerical deriv)
 
 # ----- Run manifold.optim -----
 mani.params <- get.manifold.params(IsCheckParams = TRUE)

@@ -66,3 +66,22 @@ get.manifold.params <- function(IsCheckParams = FALSE) {
 	)
 }
 
+#' Get parameters to initialize numerical differentiation
+#'
+#' @param EpsNumericalGrad The "epsilon" used to perturb the objective functon
+#'        when computing numerical gradients
+#' @param EpsNumericalHessEta The "epsilon" used to perturb the objective functon
+#'        when computing numerical HessEta
+#'
+#' @return List containing input arguments for numerical differentiation
+#'
+get.deriv.params <- function(EpsNumericalGrad = 1e-6, EpsNumericalHessEta = 1e-4) {
+	if (!is.numeric(EpsNumericalGrad)) { stop("EpsNumericalGrad must be numeric") }
+	if (!is.numeric(EpsNumericalHessEta)) { stop("EpsNumericalHessEta must be numeric") }
+	structure(
+		list(EpsNumericalGrad = as.numeric(EpsNumericalGrad),
+			EpsNumericalHessEta = as.numeric(EpsNumericalHessEta)),
+		class = c("ManifoldOptim::deriv.params")
+	)
+}
+

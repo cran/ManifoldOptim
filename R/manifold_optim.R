@@ -24,6 +24,9 @@
 #'        \link{get.manifold.params}
 #' @param solver.params Arguments to configure the solver. Construct with
 #'        \link{get.solver.params}
+#' @param deriv.params Arguments to configure numerical differentiation for
+#'        gradient and Hessian, which are used if those functions are not
+#'        specified. Construct with \link{get.deriv.params}
 #' @param x0 Starting point for optimization. A numeric vector whose dimension
 #'        matches the total dimension of the overall problem
 #' @param H0 Initial value of Hessian. A \eqn{d \times d} matrix, where \eqn{d}
@@ -41,8 +44,8 @@
 #' \item{num.obj.eval}{Number of function evaluations}
 #' \item{num.grad.eval}{Number of gradient evaluations}
 #' \item{nR}{Number of retraction evaluations}
-#' \item{nV}{Number of actions of vector transport}
-#' \item{nVp}{Number of actions of vector transport}
+#' \item{nV}{Number of occasions in which vector transport is first computed}
+#' \item{nVp}{Number of remaining computations of vector transport (excluding count in nV)}
 #' \item{nH}{Number of actions of Hessian}
 #' \item{elapsed}{Elapsed time for the solver (in seconds)}
 #'
@@ -68,14 +71,18 @@
 #' @name manifold.optim
 manifold.optim <- function(prob, mani.defn, method = "LRBFGS", 
 	mani.params = get.manifold.params(), solver.params = get.solver.params(),
-	x0 = NULL, H0 = NULL, has.hhr = FALSE)
+	deriv.params = get.deriv.params(), x0 = NULL, H0 = NULL, has.hhr = FALSE)
 {
 	if (class(mani.params) != "ManifoldOptim::manifold.params") {
 		stop("mani.params argument should be of class ManifoldOptim::manifold.params")
 	}
 	
 	if (class(solver.params) != "ManifoldOptim::solver.params") {
-		stop("solver.arams argument should be of class ManifoldOptim::solver.params")
+		stop("solver.params argument should be of class ManifoldOptim::solver.params")
+	}
+
+	if (class(deriv.params) != "ManifoldOptim::deriv.params") {
+		stop("deriv.params argument should be of class ManifoldOptim::deriv.params")
 	}
 
 	if (is.null(x0)) {
@@ -99,7 +106,7 @@ manifold.optim <- function(prob, mani.defn, method = "LRBFGS",
 	}
 
 	res <- .Call('manifold_optim', PACKAGE = 'ManifoldOptim', x0, H0, prob,
-		mani.defn.list, mani.params, solver.params, method, has.hhr)
+		mani.defn.list, mani.params, solver.params, deriv.params, method, has.hhr)
 	class(res) <- "ManifoldOptim"
 	return(res)
 }

@@ -31,8 +31,9 @@ prob <- new(mod$RProblem, f, g)
 
 X0 <- orthonorm(matrix(rnorm(n*p), nrow=n, ncol=p))
 x0 <- as.numeric(X0)
-prob$objFun(x0)			# Test the obj fn
-head(prob$gradFun(x0))	# Test the grad fn
+prob$objFun(x0)								# Test the obj fn
+head(tx(prob$gradFun(x0)))					# Test the grad fn
+# head(prob$hessEtaFun(x0, diag(1,n*p,1)))	# Test the Hess fn (numerical deriv is slow)
 
 mani.params <- get.manifold.params(IsCheckParams = TRUE)
 solver.params <- get.solver.params(DEBUG = 0, Tolerance = 1e-4,
@@ -43,3 +44,10 @@ res <- manifold.optim(prob, mani.defn, method = "RTRSR1",
 	mani.params = mani.params, solver.params = solver.params, x0 = x0)
 print(res)
 head(tx(res$xopt))
+
+# Compare to closed-form solution
+eig <- eigen(B)
+X.star <- eig$vectors[,seq(n,n-p+1)]
+f(res$xopt)
+f(as.numeric(X.star))
+

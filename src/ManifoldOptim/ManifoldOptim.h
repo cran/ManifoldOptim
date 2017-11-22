@@ -20,12 +20,13 @@
 #include "SolverFactory.h"
 
 Rcpp::List ManifoldOptim(const arma::vec& initX, const arma::mat& initH,
-    ManifoldOptimProblem& prob,
-    const Rcpp::List& maniDefn,
-    const Rcpp::List& maniParams,
-    const Rcpp::List& solverParams,
-    int method,
-    bool hasHHR, bool verbose);
+	ManifoldOptimProblem& prob,
+	const Rcpp::List& maniDefn,
+	const Rcpp::List& maniParams,
+	const Rcpp::List& solverParams,
+	const Rcpp::List& derivParams,
+	int method,
+	bool hasHHR, bool verbose);
 
 void ParseManiDefn(const Rcpp::List& maniDefn, Manifold*& oManifold, Element*& oElement);
 

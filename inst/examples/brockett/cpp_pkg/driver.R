@@ -16,8 +16,10 @@ prob <- new(mod$BrockettProblem, B, D)
 
 X0 <- orthonorm(matrix(rnorm(n*p), nrow=n, ncol=p))
 x0 <- as.numeric(X0)
-prob$objFun(X0)			# Test the obj fn
-head(prob$gradFun(X0))	# Test the grad fn
+eta <- diag(1, n*p, 1)
+prob$objFun(x0)						# Test the obj fn
+head(tx(prob$gradFun(x0)))			# Test the grad fn
+# head(prob$hessEtaFun(x0, eta))	# Test the Hess fn (numerical deriv is very slow)
 prob$GetB()[1:5,1:5]
 head(prob$GetD())
 

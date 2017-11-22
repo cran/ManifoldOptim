@@ -1,27 +1,29 @@
 #include "RProblem.h"
 
-// This constructor uses numerical differentiation rather than a given m_gradFun
-// or _hessEtaFun. For example, if the user attempts to call m_gradFun, it will call
-// out to default.grad in R.
-// This function informs the R user that they can't access gradFun from there.
-// Is this better than asking for the user to set up numDeriv themselves?
+/*
+ * The ls Rcpp::Function is used as a default value, indicating that
+ * no gradient or Hessian has been set by the user. There's no special reason
+ * we used ls here, only tha it would never be used to compute a gradient or Hessian.
+ */
 RProblem::RProblem(const Rcpp::Function& objFun)
-: VectorManifoldOptimProblem(true, true), m_objFun(objFun), 
-  m_gradFun(Environment::namespace_env("ManifoldOptim")["default.grad"]),
-  m_hessEtaFun(Environment::namespace_env("ManifoldOptim")["default.hessEta"])
+: ManifoldOptimProblem(), m_objFun(objFun), 
+  m_gradFun(Rcpp::Function("ls")),
+  m_hessEtaFun(Rcpp::Function("ls")),
+  m_defaultFun(Rcpp::Function("ls"))
 {
 }
 
 RProblem::RProblem(const Rcpp::Function& objFun, const Rcpp::Function& gradFun)
-: VectorManifoldOptimProblem(false, true), m_objFun(objFun), m_gradFun(gradFun),
-  m_hessEtaFun(Environment::namespace_env("ManifoldOptim")["default.hessEta"])
+: ManifoldOptimProblem(), m_objFun(objFun), m_gradFun(gradFun),
+  m_hessEtaFun(Rcpp::Function("ls")),
+  m_defaultFun(Rcpp::Function("ls"))
 {
 }
 
 RProblem::RProblem(const Rcpp::Function& objFun, const Rcpp::Function& gradFun,
 	const Rcpp::Function& hessEtaFun)
-: VectorManifoldOptimProblem(false, false), m_objFun(objFun), m_gradFun(gradFun),
-  m_hessEtaFun(hessEtaFun)
+: ManifoldOptimProblem(), m_objFun(objFun), m_gradFun(gradFun),
+  m_hessEtaFun(hessEtaFun), m_defaultFun(Rcpp::Function("ls"))
 {
 }
 
@@ -30,12 +32,21 @@ double RProblem::objFun(const arma::vec &X) const
 	return Rcpp::as<double>(m_objFun(X));
 }
 
-arma::mat RProblem::gradFun(const arma::vec &X) const
+arma::vec RProblem::gradFun(const arma::vec &X) const
 {
-	return Rcpp::as<arma::mat>(m_gradFun(X));
+	// If no Rcpp::Function was specified, call the base class gradFun
+	if (m_gradFun == m_defaultFun) {
+		return ManifoldOptimProblem::gradFun(X);
+	}
+	return Rcpp::as<arma::vec>(m_gradFun(X));
 }
 
 arma::vec RProblem::hessEtaFun(const arma::vec &X, const arma::vec &eta) const
 {
+	// If no Rcpp::Function was specified, call the base class hessEtaFun
+	if (m_hessEtaFun == m_defaultFun) {
+		return ManifoldOptimProblem::hessEtaFun(X, eta);
+	}
 	return Rcpp::as<arma::vec>(m_hessEtaFun(X, eta));
 }
+
