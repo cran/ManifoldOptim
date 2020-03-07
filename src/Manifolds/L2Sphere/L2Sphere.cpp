@@ -335,4 +335,4 @@ namespace ROPTLIB{
 		delete x2etax;
 		ExtrProjection(x, xix, xix);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

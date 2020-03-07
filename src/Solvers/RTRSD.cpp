@@ -28,4 +28,4 @@ namespace ROPTLIB{
 	{
 		Eta->CopyTo(result);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

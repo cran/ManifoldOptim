@@ -26,5 +26,5 @@ namespace ROPTLIB{
 		/*Create an object of GrassVector with same size as this GrassVector.*/
 		virtual GrassVector *ConstructEmpty(void) const;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of GRASSVECTOR_H

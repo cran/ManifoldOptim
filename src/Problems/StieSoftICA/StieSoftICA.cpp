@@ -123,4 +123,4 @@ namespace ROPTLIB{
 
 		Domain->ScaleTimesVector(x, -4.0, exix, exix);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

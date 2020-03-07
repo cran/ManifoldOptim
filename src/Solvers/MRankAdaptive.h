@@ -29,5 +29,5 @@ namespace ROPTLIB{
 		double RDelta;
 		bool InnerStop(Variable *x, Vector *gf, double f, double ngf, double ngf0);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of RSD_H

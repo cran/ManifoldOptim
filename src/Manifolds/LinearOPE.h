@@ -26,5 +26,5 @@ namespace ROPTLIB{
 		/*Assign this LinearOPE to be scalar * identity */
 		virtual void ScaledIdOPE(double scalar = 1);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of LINEAROPE_H

@@ -70,5 +70,5 @@ namespace ROPTLIB{
 		integer n; /*the number of column*/
 		integer r; /*the rank of the matrix*/
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of LOWRANK_H

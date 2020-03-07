@@ -25,6 +25,6 @@ namespace ROPTLIB{
 		/*Create an object of StieVector with same size as this StieVector.*/
 		virtual StieVector *ConstructEmpty(void) const;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 
 #endif // end of STIEVECTOR_H

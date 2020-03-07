@@ -20,5 +20,5 @@ namespace ROPTLIB{
 		virtual PSCVariable *ConstructEmpty(void) const;
 		virtual void RandInManifold();
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of EUCVARIABLE_H

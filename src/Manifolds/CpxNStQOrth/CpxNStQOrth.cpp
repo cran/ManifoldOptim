@@ -428,4 +428,4 @@ namespace ROPTLIB{
 
 		delete[] XHX;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

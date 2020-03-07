@@ -105,5 +105,5 @@ namespace ROPTLIB{
 		Repa2NSRetraction retraction; /*Retraction*/
 		Repa2NSVectorTransport VecTran; /*Vector transport*/
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of L2SPHERE_H

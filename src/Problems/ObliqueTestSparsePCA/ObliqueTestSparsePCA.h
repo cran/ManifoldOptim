@@ -41,6 +41,6 @@ namespace ROPTLIB{
 		integer r;
 	};
 
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 
 #endif // end of OBLIQUETESTSPARSEPCA_H

@@ -342,4 +342,4 @@ namespace ROPTLIB{
 		const double *betav = beta->ObtainReadData();
 		return betav[0];
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

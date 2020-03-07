@@ -34,4 +34,4 @@ namespace ROPTLIB{
 		dgemm_(GLOBAL::N, GLOBAL::T, &n, &n, &n, &GLOBAL::DONE, temp, &n, temp, &n, &GLOBAL::DZERO, Space, &n);
 		delete[] temp;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

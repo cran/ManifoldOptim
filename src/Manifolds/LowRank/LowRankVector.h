@@ -29,5 +29,5 @@ namespace ROPTLIB{
 		/*Create an object of LowRankVector with same size as this LowRankVector.*/
 		virtual LowRankVector *ConstructEmpty(void) const;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of OBLIQUEVECTOR_H

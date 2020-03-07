@@ -16,16 +16,16 @@ namespace ROPTLIB{
 	void Solvers::PrintGenInfo(void)
 	{
 		if (nV == 0)
-			printf("i:%d,f:%.3e,df/f:%.3e,|gf|:%.3e,time:%.2e,nf:%d,ng:%d,nR:%d,", iter, f2,
+			Rprintf("i:%d,f:%.3e,df/f:%.3e,|gf|:%.3e,time:%.2e,nf:%d,ng:%d,nR:%d,", iter, f2,
 			((f1 - f2) / f2), ngf, static_cast<double>(getTickCount() - starttime) / CLK_PS, nf, ng, nR);
 		else
-			printf("i:%d,f:%.3e,df/f:%.3e,|gf|:%.3e,time:%.2e,nf:%d,ng:%d,nR:%d,nV(nVp):%d(%d),", iter, f2,
+			Rprintf("i:%d,f:%.3e,df/f:%.3e,|gf|:%.3e,time:%.2e,nf:%d,ng:%d,nR:%d,nV(nVp):%d(%d),", iter, f2,
 			((f1 - f2) / f2), ngf, static_cast<double>(getTickCount() - starttime) / CLK_PS, nf, ng, nR, nV, nVp);
 	};
 
 	void Solvers::PrintInfo(void)
 	{
-		printf("\n");
+		Rprintf("\n");
 	};
 
 	bool Solvers::IsStopped(void)
@@ -124,7 +124,7 @@ namespace ROPTLIB{
 			gradSeries = new double[1 + Max_Iteration];
 		}
 		if (Debug >= FINALRESULT)
-			printf("=========================%s=========================\n", SolverName.c_str());
+			Rprintf("=========================%s=========================\n", SolverName.c_str());
 	};
 
 	void Solvers::Initialization(const Problem *prob, const Variable *initialx)
@@ -226,4 +226,4 @@ namespace ROPTLIB{
 			}
 		}
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

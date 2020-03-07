@@ -18,5 +18,5 @@ namespace ROPTLIB{
 	public:
 		static void Print(const char *name, const double *M, integer row, integer col = 1, integer num = 1);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of FORDEBUG_H

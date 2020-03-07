@@ -101,5 +101,5 @@ namespace ROPTLIB{
 		/*delete memory for the double array Vs, type Vector, with length l*/
 		void DeleteVectors(Vector ** &Vs, integer l);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of LRTRSR1_H

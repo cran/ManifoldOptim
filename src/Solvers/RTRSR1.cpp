@@ -115,8 +115,8 @@ namespace ROPTLIB{
 
 	void RTRSR1::PrintInfo(void)
 	{
-		printf("\n\tinpss:%.3e,IsUpdateHessian:%d,", inpss, isupdated);
-		printf("\n");
+		Rprintf("\n\tinpss:%.3e,IsUpdateHessian:%d,", inpss, isupdated);
+		Rprintf("\n");
 	};
 
 	void RTRSR1::SetParams(PARAMSMAP params)
@@ -131,4 +131,4 @@ namespace ROPTLIB{
 			}
 		}
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

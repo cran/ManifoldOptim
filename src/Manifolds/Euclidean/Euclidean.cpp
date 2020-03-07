@@ -54,4 +54,4 @@ namespace ROPTLIB{
 	{
 		exix->CopyTo(xix);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

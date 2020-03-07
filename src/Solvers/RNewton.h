@@ -91,5 +91,5 @@ namespace ROPTLIB{
 		tCGLSstatusSet tCGLSstatus; /*the output status of the truncated conjugate gradient method*/
 		std::string *tCGLSstatusSetnames; /*the output names of the truncated conjugate gradient method*/
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of RNEWTON_H

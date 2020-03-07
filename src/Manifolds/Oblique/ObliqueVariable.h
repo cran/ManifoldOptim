@@ -29,5 +29,5 @@ namespace ROPTLIB{
 		/*Print this point on oblique as a matrix*/
 		virtual void Print(const char *name = "", bool isonlymain = true) const;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of OBLIQUEVARIABLE_H

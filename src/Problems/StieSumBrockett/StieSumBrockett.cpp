@@ -171,4 +171,4 @@ namespace ROPTLIB{
 		}
 		ProdDomain->GetManifold(1)->ScaleTimesVector(prodx->GetElement(2), 2.0, prodexix->GetElement(2), prodexix->GetElement(2));
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

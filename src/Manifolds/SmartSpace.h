@@ -111,6 +111,6 @@ namespace ROPTLIB{
 		/*allocate memory*/
 		void NewMemory(void);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 
 #endif

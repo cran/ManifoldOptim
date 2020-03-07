@@ -76,4 +76,4 @@ namespace ROPTLIB{
 		}
 		ProductElement::Print(name, isonlymain);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

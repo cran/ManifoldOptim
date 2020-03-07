@@ -46,5 +46,5 @@ namespace ROPTLIB{
 		This function is used to set the parameters by the mapping*/
 		virtual void SetParams(PARAMSMAP params);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of OBLIQUE_H

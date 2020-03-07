@@ -366,4 +366,4 @@ namespace ROPTLIB{
 		dgemm_(transn, transn, &N, &P, &P, &negone, const_cast<double *> (U), &N, UtV, &P, &one, resultTV, &N);
 		delete[] UtV;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

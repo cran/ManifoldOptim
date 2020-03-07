@@ -22,5 +22,5 @@ namespace ROPTLIB{
 		/*Create an object of OrthGroupVector with same size as this OrthGroupVector.*/
 		virtual OrthGroupVector *ConstructEmpty(void) const;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of ORTHGROUPVECTOR_H

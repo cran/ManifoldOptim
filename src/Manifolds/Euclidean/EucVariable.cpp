@@ -18,4 +18,4 @@ namespace ROPTLIB{
 	{
 		Element::RandGaussian();
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

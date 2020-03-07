@@ -93,5 +93,5 @@ namespace ROPTLIB{
 		mutable bool UseGrad; /*Mark whether the gradient is used*/
 		mutable bool UseHess; /*Mark whether the action of the Hessian is used.*/
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of PROBLEM_H

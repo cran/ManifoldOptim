@@ -51,4 +51,4 @@ namespace ROPTLIB{
 
 		delete[] temp;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

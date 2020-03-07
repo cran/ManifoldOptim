@@ -37,5 +37,5 @@ namespace ROPTLIB{
 		/*Set the search direction to be negative gradient*/
 		virtual void GetSearchDir();
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of RSD_H

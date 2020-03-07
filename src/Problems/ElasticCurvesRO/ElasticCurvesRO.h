@@ -88,5 +88,5 @@ namespace ROPTLIB{
 		bool isclosed;		/* for closed curves or open curves*/
 	};
 
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // ELASTICCURVESRO_H

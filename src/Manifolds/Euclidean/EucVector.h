@@ -25,5 +25,5 @@ namespace ROPTLIB{
 		/*Create an object of EucVector with same size as this EucVector.*/
 		virtual EucVector *ConstructEmpty(void) const;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of EUCVECTOR_H

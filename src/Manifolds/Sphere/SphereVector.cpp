@@ -12,4 +12,4 @@ namespace ROPTLIB{
 	{
 		return new SphereVector(length);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

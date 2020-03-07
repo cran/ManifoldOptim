@@ -27,4 +27,4 @@ namespace ROPTLIB{
 	{
 		Mani->ScaleTimesVector(x1, -1, gf1, eta1);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

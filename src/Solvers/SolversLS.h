@@ -197,5 +197,5 @@ namespace ROPTLIB{
 		[NW06] : J.Nocedal and S.J.Wright.Numerical optimization.Springer, second edition, 2006 */
 		void Zoom(double x1, double fx1, double slopex1, double x2, double fx2);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of SOLVERLS_H

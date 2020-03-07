@@ -70,5 +70,5 @@ namespace ROPTLIB{
 		integer n; /*The number of row*/
 		integer p; /*The number of column*/
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of GRASSMANN_H

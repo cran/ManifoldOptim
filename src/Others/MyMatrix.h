@@ -259,5 +259,5 @@ namespace ROPTLIB{
 				matrix[i] = M.matrix[i];
 		};
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif

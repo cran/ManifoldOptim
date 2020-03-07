@@ -14,6 +14,6 @@ namespace ROPTLIB{
 		PSCVector(integer r, integer c, integer n);
 		virtual PSCVector *ConstructEmpty(void) const;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 
 #endif // end of EUCVECTOR_H

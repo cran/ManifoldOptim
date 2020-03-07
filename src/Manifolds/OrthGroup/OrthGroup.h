@@ -25,5 +25,5 @@ namespace ROPTLIB{
 		/*Delete the orthogonal group*/
 		virtual ~OrthGroup();
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of ORTHGROUP_H

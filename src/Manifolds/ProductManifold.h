@@ -260,5 +260,5 @@ namespace ROPTLIB{
 		numoftotalmani = 3; // 2 Stiefel + 1 Euclidean = 3, i.e., 3 manifolds in total.
 		*/
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of PRODUCTMANIFOLD_H

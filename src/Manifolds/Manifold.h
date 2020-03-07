@@ -379,5 +379,5 @@ namespace ROPTLIB{
 		/*The function computes unit vectors used in above LC* functions. The idea is in [HGA2015, Section 4.1]. */
 		virtual void Obtainnu1nu2forLC(Variable *x, Vector *etax, Variable *y) const;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of MANIFOLD_H

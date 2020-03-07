@@ -94,4 +94,4 @@ namespace ROPTLIB{
 		OUTSTREAM << "warning: SPDMean::RieHessianEta has not been implemented!" << std::endl;
 		etax->CopyTo(xix);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

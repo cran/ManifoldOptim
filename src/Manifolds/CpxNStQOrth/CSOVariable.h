@@ -29,6 +29,6 @@ class CSOVariable : public Element{
 		/*This function randomly generates a point on the manifold.*/
 		virtual void RandInManifold();
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 
 #endif // end of CSOVARIABLE_H

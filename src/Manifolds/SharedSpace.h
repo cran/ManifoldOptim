@@ -65,6 +65,6 @@ namespace ROPTLIB{
 		/*The shared Element*/
 		Element *SharedElement;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 
 #endif // end of SHAREDSPACE_H

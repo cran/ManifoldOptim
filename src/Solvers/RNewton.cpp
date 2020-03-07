@@ -94,8 +94,8 @@ namespace ROPTLIB{
 
 	void RNewton::PrintInfo(void)
 	{
-		printf("\n\tnH:%d,tCGstatus:%s,innerIter:%d,", nH, tCGLSstatusSetnames[tCGLSstatus].c_str(), innerIter);
-		printf("\n");
+		Rprintf("\n\tnH:%d,tCGstatus:%s,innerIter:%d,", nH, tCGLSstatusSetnames[tCGLSstatus].c_str(), innerIter);
+		Rprintf("\n");
 	};
 
 	void RNewton::tCG_LS(void)
@@ -211,4 +211,4 @@ namespace ROPTLIB{
 							}
 		}
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

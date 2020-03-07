@@ -88,4 +88,4 @@ namespace ROPTLIB{
 	{
 		return SharedElement;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

@@ -505,4 +505,4 @@ namespace ROPTLIB{
 		dormqr_(sidel, transn, &N, &P, &P, const_cast<double *> (ptrHHR), &N, const_cast<double *> (ptrHHRTau), resultTV, &N, work, &lwork, &info);
 		delete[] work;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

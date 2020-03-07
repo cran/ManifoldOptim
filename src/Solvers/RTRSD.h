@@ -37,6 +37,6 @@ namespace ROPTLIB{
 		/*Set result = Eta. In other words, the Hessian approximation is just an identity*/
 		virtual void HessianEta(Vector *Eta, Vector *result);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 
 #endif // end of RTRSD_H

@@ -121,7 +121,7 @@ namespace ROPTLIB{
 	//	if (xixTV == etaxTV)
 	//	{
 	//		OUTSTREAM << "Error in RieHessianEta!" << std::endl;
-	//		exit(0);
+
 	//	}
 	//	char *transn = "n";
 	//	integer N = n, P = p, inc = 1, Length = N * P;
@@ -163,4 +163,4 @@ namespace ROPTLIB{
 		}
 		Domain->ScaleTimesVector(x, 2.0, exix, exix);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

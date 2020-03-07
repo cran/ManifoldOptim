@@ -12,4 +12,4 @@ namespace ROPTLIB{
 	{
 		return new OrthGroupVariable(size[0]);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

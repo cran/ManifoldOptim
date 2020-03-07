@@ -37,5 +37,5 @@ namespace ROPTLIB{
 		integer dim;
 		integer num;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of SPDTENSOR_H

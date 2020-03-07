@@ -34,5 +34,5 @@ namespace ROPTLIB{
 		mutable integer p;
 		mutable integer N;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of STIESOFTICA_H

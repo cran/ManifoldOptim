@@ -37,4 +37,4 @@ namespace ROPTLIB{
 		integer n = elements[2]->Getsize()[0];
 		return new LowRankVariable(m, n, r);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

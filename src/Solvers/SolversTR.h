@@ -129,5 +129,5 @@ namespace ROPTLIB{
 		/*Print general information of trust region based algorithms, which is not specific to an algorithm.*/
 		virtual void PrintGenInfo(void);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif

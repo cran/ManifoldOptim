@@ -22,5 +22,5 @@ namespace ROPTLIB{
 		/*Create an object of OrthGroupVariable with same size as this OrthGroupVariable.*/
 		virtual OrthGroupVariable *ConstructEmpty(void) const;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of ORTHGROUPVARIABLE_H

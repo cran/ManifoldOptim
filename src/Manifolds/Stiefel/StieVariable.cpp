@@ -38,4 +38,4 @@ namespace ROPTLIB{
 		delete[] jpvt;
 		delete[] tau;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

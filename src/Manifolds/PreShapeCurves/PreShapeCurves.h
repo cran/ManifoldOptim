@@ -33,5 +33,5 @@ namespace ROPTLIB{
 		integer dim;  // dimension
 		integer numC; // number of curves on a path
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of EUCLIDEAN_H

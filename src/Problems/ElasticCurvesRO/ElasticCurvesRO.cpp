@@ -590,4 +590,4 @@ namespace ROPTLIB{
 		result *= intv;
 		return result;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

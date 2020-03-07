@@ -31,5 +31,5 @@ namespace ROPTLIB{
 		integer Num;
 		integer Dim;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif

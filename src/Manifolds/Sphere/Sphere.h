@@ -95,5 +95,5 @@ namespace ROPTLIB{
 		/*Compute result = \mathcal{T} * H * \mathcal{T}^{-1}. \mathcal{T} is the parallel translation*/
 		virtual void ExpTranHInvTran(Variable *x, Vector *etax, Variable *y, LinearOPE *Hx, LinearOPE *result) const;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of SPHERE_H

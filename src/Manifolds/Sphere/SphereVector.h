@@ -22,6 +22,6 @@ namespace ROPTLIB{
 		/*Create an object of SphereVector with same size as this SphereVector.*/
 		virtual SphereVector *ConstructEmpty(void) const;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 
 #endif // end of SPHEREVECTOR_H

@@ -79,6 +79,6 @@ namespace ROPTLIB{
 		Vector *s, *y;/*the s and y of current step*/
 		LinearOPE *B, *tildeB; /*The Hessian approximations for current and next iterations respectively*/
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 
 #endif // end of RTRSR1_H

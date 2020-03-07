@@ -26,6 +26,6 @@ namespace ROPTLIB{
 		/*Create an object of CSOVector with same size as this CSOVector.*/
 		virtual CSOVector *ConstructEmpty(void) const;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 
 #endif // end of EUCVECTOR_H

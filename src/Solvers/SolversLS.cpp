@@ -63,7 +63,7 @@ namespace ROPTLIB{
 		iter = 0;
 		if (Debug >= ITERRESULT)
 		{
-			printf("i:%d,f:%.3e,|gf|:%.3e,\n", iter, f1, ngf);
+			Rprintf("i:%d,f:%.3e,|gf|:%.3e,\n", iter, f1, ngf);
 			timeSeries[iter] = static_cast<double>(getTickCount() - starttime) / CLK_PS;
 			funSeries[iter] = f1;
 			gradSeries[iter] = ngf;
@@ -160,17 +160,17 @@ namespace ROPTLIB{
 			lengthSeries = iter + 1;
 		if (Debug >= FINALRESULT)
 		{
-			printf("Iter:%d,f:%.3e,|gf|:%.3e,|gf|/|gf0|:%.3e,time:%.2e,nf:%d,ng:%d,nR:%d,", iter, f2,
+			Rprintf("Iter:%d,f:%.3e,|gf|:%.3e,|gf|/|gf0|:%.3e,time:%.2e,nf:%d,ng:%d,nR:%d,", iter, f2,
 				ngf, ngf / ngf0, ComTime, nf, ng, nR);
 			if (nH != 0)
 			{
-				printf("nH:%d,", nH);
+				Rprintf("nH:%d,", nH);
 			}
 			if (nV != 0)
 			{
-				printf("nV(nVp):%d(%d),", nV, nVp);
+				Rprintf("nV(nVp):%d(%d),", nV, nVp);
 			}
-			printf("\n");
+			Rprintf("\n");
 		}
 	};
 
@@ -592,7 +592,7 @@ namespace ROPTLIB{
 	void SolversLS::PrintGenInfo(void)
 	{
 		Solvers::PrintGenInfo();
-		printf("LSstatus:%s,initslope:%.3e,newslope:%.3e,initstepsize:%.3e,stepsize:%.3e,", LSstatusSetnames[LSstatus].c_str(), initialslope, newslope, initiallength, stepsize);
+		Rprintf("LSstatus:%s,initslope:%.3e,newslope:%.3e,initstepsize:%.3e,stepsize:%.3e,", LSstatusSetnames[LSstatus].c_str(), initialslope, newslope, initiallength, stepsize);
 	};
 
 	void SolversLS::CheckParams(void)
@@ -878,4 +878,4 @@ namespace ROPTLIB{
 			}
 		}
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

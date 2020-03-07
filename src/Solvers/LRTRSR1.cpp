@@ -268,8 +268,8 @@ namespace ROPTLIB{
 
 	void LRTRSR1::PrintInfo(void)
 	{
-		printf("\n\tgamma:%.3e,inpss:%.3e,inpsy:%.3e,inpyy:%.3e,IsUpdateHessian:%d,", gamma, inpss, inpsy, inpyy, isupdated);
-		printf("\n");
+		Rprintf("\n\tgamma:%.3e,inpss:%.3e,inpsy:%.3e,inpyy:%.3e,IsUpdateHessian:%d,", gamma, inpss, inpsy, inpyy, isupdated);
+		Rprintf("\n");
 	};
 
 	void LRTRSR1::SetParams(PARAMSMAP params)
@@ -289,4 +289,4 @@ namespace ROPTLIB{
 				}
 		}
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

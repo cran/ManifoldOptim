@@ -53,4 +53,4 @@ namespace ROPTLIB{
 		}
 		x->AddToTempData("XaL", SharedL);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

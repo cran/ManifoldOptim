@@ -178,8 +178,8 @@ namespace ROPTLIB{
 
 	void LRBFGS::PrintInfo(void)
 	{
-		printf("\n\tbetay:%.3e,rho:%.3e,gamma:%.3e,inpss:%.3e,inpsy:%.3e,IsUpdateHessian:%d,", betay, rho, gamma, inpss, inpsy, isupdated);
-		printf("\n");
+		Rprintf("\n\tbetay:%.3e,rho:%.3e,gamma:%.3e,inpss:%.3e,inpsy:%.3e,IsUpdateHessian:%d,", betay, rho, gamma, inpss, inpsy, isupdated);
+		Rprintf("\n");
 	};
 
 	void LRBFGS::SetParams(PARAMSMAP params)
@@ -209,4 +209,4 @@ namespace ROPTLIB{
 						}
 		}
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

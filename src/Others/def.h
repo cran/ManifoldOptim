@@ -137,7 +137,7 @@
 #define integer int
 #define doublecomplex Rcomplex
 #define OUTSTREAM Rcpp::Rcout
-#define printf Rprintf
+//#define printf Rprintf
 
 #endif
 

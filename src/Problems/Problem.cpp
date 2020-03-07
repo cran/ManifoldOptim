@@ -55,7 +55,7 @@ namespace ROPTLIB{
 			HessianEta(x, xi, Hv);
 			Y[i] = log(fabs(fy - fx - Domain->Metric(x, gfx, xi) - 0.5 * Domain->Metric(x, xi, Hv)));
 			X[i] = 0.5 * log(Domain->Metric(x, xi, xi));
-			printf("i:%d,|eta|:%.3e,(fy-fx)/<gfx,eta>:%.3e,(fy-fx-<gfx,eta>)/<0.5 eta, Hessian eta>:%.3e\n", i,
+			Rprintf("i:%d,|eta|:%.3e,(fy-fx)/<gfx,eta>:%.3e,(fy-fx-<gfx,eta>)/<0.5 eta, Hessian eta>:%.3e\n", i,
 				sqrt(Domain->Metric(x, xi, xi)), (fy - fx) / Domain->Metric(x, gfx, xi),
 				(fy - fx - Domain->Metric(x, gfx, xi)) / (0.5 * Domain->Metric(x, xi, Hv)));
 			Domain->ScaleTimesVector(x, 0.5, xi, xi);
@@ -73,7 +73,7 @@ namespace ROPTLIB{
 
 		////TEST IDEA2: 
 		//for (integer i = 1; i < length - 1; i++)
-		//	printf("log(|eta|):%.3e, slope:%.3e\n", X[i], (Y[i + 1] - Y[i - 1]) / (X[i + 1] - X[i - 1]));
+		//	Rprintf("log(|eta|):%.3e, slope:%.3e\n", X[i], (Y[i + 1] - Y[i - 1]) / (X[i + 1] - X[i - 1]));
 		//OUTSTREAM << "CHECK GRADIENT:" << std::endl;
 		//OUTSTREAM << "\tIf there exists an interval of |eta| such that the slopes " << std::endl;
 		//OUTSTREAM << "\tapproximate TWO, then the gradient is probably correct!" << std::endl;
@@ -170,4 +170,4 @@ namespace ROPTLIB{
 	{
 		UseHess = usehess;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

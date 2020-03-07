@@ -76,5 +76,5 @@ namespace ROPTLIB{
 		/*sigma is the coefficient in - \grad f(x_{k+1}) + sigma eta_k*/
 		double sigma;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of RCG_H

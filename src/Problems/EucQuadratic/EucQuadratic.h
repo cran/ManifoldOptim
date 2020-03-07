@@ -30,5 +30,5 @@ namespace ROPTLIB{
 		double *A;
 		integer Dim;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of EUCQUADRATIC_H

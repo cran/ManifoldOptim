@@ -66,4 +66,4 @@ namespace ROPTLIB{
 			return true;
 		};
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

@@ -26,4 +26,4 @@ namespace ROPTLIB{
 	{
 		Prob->HessianEta(x1, Eta, result);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

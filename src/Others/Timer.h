@@ -45,5 +45,5 @@
 namespace ROPTLIB{
 
 	unsigned long getTickCount();
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif

@@ -13,4 +13,4 @@ namespace ROPTLIB{
 	{
 		return new GrassVector(size[0], size[1], size[2]);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

@@ -69,5 +69,5 @@ namespace ROPTLIB{
 	protected:
 		integer n; /*The size of the space, i.e., the number of row/column */
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of SPDMANIFOLD_H

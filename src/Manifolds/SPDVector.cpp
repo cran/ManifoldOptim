@@ -13,4 +13,4 @@ namespace ROPTLIB{
 	{
 		return new SPDVector(size[0], size[1]);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

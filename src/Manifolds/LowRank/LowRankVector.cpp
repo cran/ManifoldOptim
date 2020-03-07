@@ -39,4 +39,4 @@ namespace ROPTLIB{
 		integer Vc = elements[2]->Getsize()[1];
 		return new LowRankVector(Ur, Uc, Drc, Vr, Vc);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

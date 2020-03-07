@@ -16,4 +16,4 @@ namespace ROPTLIB{
 	OrthGroup::~OrthGroup(void)
 	{
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

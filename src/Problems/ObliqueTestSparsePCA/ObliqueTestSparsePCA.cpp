@@ -146,4 +146,4 @@ namespace ROPTLIB{
 		dgemm_(transn, transn, &P, &R, &R, &fourmu, const_cast<double *> (BBtX), &P, temp, &R, &one, exixTV, &P);
 		delete[] temp;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

@@ -21,7 +21,7 @@ namespace ROPTLIB{
 		iter = 0;
 		if (Debug >= ITERRESULT)
 		{
-			printf("i:%d,f:%.3e,|gf|:%.3e,\n", iter, f1, ngf);
+			Rprintf("i:%d,f:%.3e,|gf|:%.3e,\n", iter, f1, ngf);
 			timeSeries[iter] = static_cast<double>(getTickCount() - starttime) / CLK_PS;
 			funSeries[iter] = f1; gradSeries[iter] = ngf;
 			nf++; ng++;
@@ -104,17 +104,17 @@ namespace ROPTLIB{
 
 		if (Debug >= FINALRESULT)
 		{
-			printf("Iter:%d,f:%.3e,|gf|:%.3e,|gf|/|gf0|:%.3e,time:%.2e,nf:%d,ng:%d,nR:%d,", iter, f2,
+			Rprintf("Iter:%d,f:%.3e,|gf|:%.3e,|gf|/|gf0|:%.3e,time:%.2e,nf:%d,ng:%d,nR:%d,", iter, f2,
 				ngf, ngf / ngf0, ComTime, nf, ng, nR);
 			if (nH != 0)
 			{
-				printf("nH:%d,", nH);
+				Rprintf("nH:%d,", nH);
 			}
 			if (nV != 0)
 			{
-				printf("nV(nVp):%d(%d),", nV, nVp);
+				Rprintf("nV(nVp):%d(%d),", nV, nVp);
 			}
-			printf("\n");
+			Rprintf("\n");
 		}
 	};
 
@@ -221,7 +221,7 @@ namespace ROPTLIB{
 	void SolversTR::PrintGenInfo(void)
 	{
 		Solvers::PrintGenInfo();
-		printf("nH:%d,rho:%.2e,radius:%.3e,tCGstatus:%s,innerIter:%d,", nH, rho, Delta, tCGstatusSetnames[tCGstatus].c_str(), innerIter);
+		Rprintf("nH:%d,rho:%.2e,radius:%.3e,tCGstatus:%s,innerIter:%d,", nH, rho, Delta, tCGstatusSetnames[tCGstatus].c_str(), innerIter);
 	};
 
 	void SolversTR::CheckParams(void)
@@ -382,4 +382,4 @@ namespace ROPTLIB{
 			}
 		}
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

@@ -13,4 +13,4 @@ namespace ROPTLIB{
 	{
 		return new L2SphereVector(size[0]);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

@@ -144,6 +144,6 @@ namespace ROPTLIB{
 	/*Compute the gradient using finite difference (Center)*/
 	void GradientPeriod(const double *DPgam, integer n, double h, double *grad);
 
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 
 #endif // end of DRIVERELASTICCURVESRO_H

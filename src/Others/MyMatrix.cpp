@@ -439,4 +439,4 @@ namespace ROPTLIB{
 
 		return *this;
 	}
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

@@ -97,5 +97,5 @@ namespace ROPTLIB{
 		Vector *s, *y, *u;	/*the s, y and u of current step*/
 		LinearOPE *H, *tildeH; /*The inverse Hessian approximations for current and next iterations respectively*/
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of RBROYDENFAMILY_H

@@ -162,6 +162,6 @@ namespace ROPTLIB{
 		}
 		return nullptr;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 
 #endif

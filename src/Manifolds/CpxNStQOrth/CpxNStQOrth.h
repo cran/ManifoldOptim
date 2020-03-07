@@ -83,6 +83,6 @@ namespace ROPTLIB{
 		integer n; /*The row*/
 		integer p; /*The column*/
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 
 #endif // end of EUCLIDEAN_H

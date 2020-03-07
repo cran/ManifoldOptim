@@ -57,4 +57,4 @@ namespace ROPTLIB{
 		// xixTV <- 2 * A * v, details: http://www.netlib.org/lapack/explore-html/dc/da8/dgemv_8f.html
 		dgemv_(transn, &N, &N, &two, A, &N, const_cast<double *> (v), &inc, &zero, xixTV, &inc);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

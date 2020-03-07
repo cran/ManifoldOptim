@@ -142,4 +142,4 @@ namespace ROPTLIB{
 		OUTSTREAM << "warning: SPDTensorDL::RieHessianEta has not been implemented!" << std::endl;
 		etax->CopyTo(xix);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

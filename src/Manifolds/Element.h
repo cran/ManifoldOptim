@@ -100,6 +100,6 @@ namespace ROPTLIB{
 		/*The mapping which store the information of temp data*/
 		MAP TempData;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 
 #endif

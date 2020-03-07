@@ -30,4 +30,4 @@ namespace ROPTLIB{
 
 		return currentTime;
 	}
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

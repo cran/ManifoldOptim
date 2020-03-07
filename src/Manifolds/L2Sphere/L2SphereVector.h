@@ -26,5 +26,5 @@ namespace ROPTLIB{
 		/*Create an object of L2SphereVector with same size as this L2SphereVector.*/
 		virtual L2SphereVector *ConstructEmpty(void) const;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of L2SPHEREVECTOR_H

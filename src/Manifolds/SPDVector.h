@@ -25,5 +25,5 @@ namespace ROPTLIB{
 		/*Create an object of SPDVector with same size as this SPDVector.*/
 		virtual SPDVector *ConstructEmpty(void) const;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of EUCVECTOR_H

@@ -204,6 +204,6 @@ namespace ROPTLIB{
 		/*x and x_perp obtained by member function "ObtainPerp" are used to obtain extrinsic representation.*/
 		virtual void ObtainExtrSquare(Variable *x, Vector *intretax, Vector *result) const;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 
 #endif

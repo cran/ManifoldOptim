@@ -28,6 +28,6 @@ namespace ROPTLIB{
 		/*This function randomly generates a point on the Stiefel manifold.*/
 		virtual void RandInManifold();
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 
 #endif // end of STIEVARIABLE_H

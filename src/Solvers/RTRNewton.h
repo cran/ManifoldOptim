@@ -37,6 +37,6 @@ namespace ROPTLIB{
 		/*Compute result = H[Eta], where H is the Hessian*/
 		virtual void HessianEta(Vector *Eta, Vector *result);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 
 #endif // end of RTRNEWTON_H

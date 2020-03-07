@@ -739,7 +739,7 @@ namespace ROPTLIB{
 		ratio = 0;
 		for (integer i = 1; i < n - 1; i++)
 		{
-			//        printf("%f, %f\n", temppt[i + 0 * 2 * n + rand_shift], temppt[i + 1 * 2 * n + rand_shift]);//---
+			//        Rprintf("%f, %f\n", temppt[i + 0 * 2 * n + rand_shift], temppt[i + 1 * 2 * n + rand_shift]);//---
 			temp1 = 0;
 			temp2 = 0;
 			for (integer j = 0; j < d; j++)
@@ -764,10 +764,10 @@ namespace ROPTLIB{
 				theta += angle;
 				total_theta += angle;
 			}
-			//        printf("angle: %f, theta: %f\n", angle, theta);//---
+			//        Rprintf("angle: %f, theta: %f\n", angle, theta);//---
 			/*        if((dx1 * dy2 - dx2 * dy1 < - sin_angle && dir > 0) || (dx1 * dy2 - dx2 * dy1 > sin_angle && dir < 0))
 			threshold = thresholdsmall;*/
-			/*        printf("%f, dir: %d, theta: %f, threshold: %f\n", dx1 * dy2 - dx2 * dy1, dir, theta, threshold);*/
+			/*        Rprintf("%f, dir: %d, theta: %f, threshold: %f\n", dx1 * dy2 - dx2 * dy1, dir, theta, threshold);*/
 			if (theta > thresholdsmall && i + rand_shift - sind >= minSkip)
 			{
 				theta = 0;
@@ -777,7 +777,7 @@ namespace ROPTLIB{
 				Lms++;
 			}
 		}
-		printf("total theta:%e, %f PI\n", total_theta, total_theta / PI);
+		Rprintf("total theta:%e, %f PI\n", total_theta, total_theta / PI);
 		Ns = static_cast<int> (static_cast<double> (n) / 3);
 		Ns = (Ns > 30) ? 30 : Ns;
 		Ns += static_cast<int> (total_theta / PI * 2.0);
@@ -1077,4 +1077,4 @@ namespace ROPTLIB{
 		for (i = 1; i < n - 1; i++)
 			grad[i] = (DPgam[i + 1] - DPgam[i - 1]) / 2 / h;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

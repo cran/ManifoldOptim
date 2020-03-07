@@ -121,8 +121,8 @@ namespace ROPTLIB{
 
 	void RWRBFGS::PrintInfo(void)
 	{
-		printf("\n\tinpss:%.3e,inpsy:%.3e,IsUpdateHessian:%d,", inpss, inpsy, isupdated);
-		printf("\n");
+		Rprintf("\n\tinpss:%.3e,inpsy:%.3e,IsUpdateHessian:%d,", inpss, inpsy, isupdated);
+		Rprintf("\n");
 	};
 
 	void RWRBFGS::SetParams(PARAMSMAP params)
@@ -147,4 +147,4 @@ namespace ROPTLIB{
 					}
 		}
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

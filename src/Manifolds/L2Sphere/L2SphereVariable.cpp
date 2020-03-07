@@ -30,4 +30,4 @@ namespace ROPTLIB{
 		// Space <- a * Space, details: http://www.netlib.org/lapack/explore-html/d4/dd0/dscal_8f.html
 		dscal_(&length, &a, Space, &inc);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

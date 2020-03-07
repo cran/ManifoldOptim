@@ -221,4 +221,4 @@ namespace ROPTLIB{
 
 	};
 
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

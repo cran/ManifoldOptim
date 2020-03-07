@@ -22,5 +22,5 @@ namespace ROPTLIB{
 		/*Create an object of SphereVariable with same size as this SphereVariable.*/
 		virtual SphereVariable *ConstructEmpty(void) const;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of SPHEREVARIABLE_H

@@ -141,5 +141,5 @@ namespace ROPTLIB{
 		Element **elements; /*the pointers to all the element*/
 		integer numofelements; /*the total number of elements*/
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif

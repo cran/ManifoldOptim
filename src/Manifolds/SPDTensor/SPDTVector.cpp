@@ -26,4 +26,4 @@ namespace ROPTLIB{
 	{
 		return new SPDTVector(elements[0]->Getsize()[0], elements[0]->Getsize()[1], numofelements);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

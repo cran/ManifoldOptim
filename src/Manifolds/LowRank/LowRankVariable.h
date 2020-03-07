@@ -28,5 +28,5 @@ namespace ROPTLIB{
 		/*Create an object of LowRankVariable with same size as this LowRankVariable.*/
 		virtual LowRankVariable *ConstructEmpty(void) const;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of OBLIQUEVARIABLE_H

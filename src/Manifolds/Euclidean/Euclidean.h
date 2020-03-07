@@ -38,5 +38,5 @@ namespace ROPTLIB{
 		integer col; /*The second dimension of the space, i.e., the number of columns */
 		integer num; /*The third dimension of the space*/
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of EUCLIDEAN_H

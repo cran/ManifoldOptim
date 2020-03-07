@@ -37,5 +37,5 @@ namespace ROPTLIB{
 		static double ValSecondDeriUniform(const double *dericoefs, int N, double h, double t);
 		static double ValSecondDeri(const double *dericoefs, const double *breaks, int N, double t);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // SPLINE_H

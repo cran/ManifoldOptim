@@ -405,4 +405,4 @@ namespace ROPTLIB{
 		delete[] PInnerProd;
 		return result;
 	}
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

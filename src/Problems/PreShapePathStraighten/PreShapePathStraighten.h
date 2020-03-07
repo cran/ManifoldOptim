@@ -40,5 +40,5 @@ namespace ROPTLIB{
 		integer dim;
 		integer numC;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of PRESHAPEPATHSTRAIGHTEN_H

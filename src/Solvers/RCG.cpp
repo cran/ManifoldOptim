@@ -57,10 +57,10 @@ namespace ROPTLIB{
 	void RCG::PrintInfo(void)
 	{
 		if (iter % ManDim == 0 || Mani->Metric(x1, eta1, gf1) >= -std::numeric_limits<double>::epsilon()) // restart and safeguard
-			printf("\n\tsigma:%.3e,Reset search direction to the negative gradient,", sigma);
+			Rprintf("\n\tsigma:%.3e,Reset search direction to the negative gradient,", sigma);
 		else
-			printf("\n\tsigma:%.3e,", sigma);
-		printf("\n");
+			Rprintf("\n\tsigma:%.3e,", sigma);
+		Rprintf("\n");
 	};
 
 	void RCG::GetSearchDir(void)
@@ -163,4 +163,4 @@ namespace ROPTLIB{
 				}
 		}
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

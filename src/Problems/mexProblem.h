@@ -51,7 +51,7 @@ namespace ROPTLIB{
 		const mxArray *mxgf; /*Matlab function handle of the Euclidean gradient*/
 		const mxArray *mxHess; /*Matlab function handle of the action of the Euclidean Hessian.*/
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of MATLAB_MEX_FILE
 
 #endif // end of MEXPROBLEM_H

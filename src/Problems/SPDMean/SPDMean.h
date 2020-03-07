@@ -44,5 +44,5 @@ namespace ROPTLIB{
 		integer n;
 		integer num;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 #endif // end of STIEBROCKETT_H

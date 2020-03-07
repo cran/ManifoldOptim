@@ -201,6 +201,6 @@ namespace ROPTLIB{
 
 		//integer numfref;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
 
 #endif // end of SOLVER_H

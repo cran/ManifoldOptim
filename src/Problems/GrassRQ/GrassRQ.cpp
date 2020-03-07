@@ -60,4 +60,4 @@ namespace ROPTLIB{
 		dgemm_(transn, transn, &N, &P, &N, &one, B, &N, const_cast<double *> (etaxTV), &N, &zero, exixTV, &N);
 		Domain->ScaleTimesVector(x, 2.0, exix, exix);
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

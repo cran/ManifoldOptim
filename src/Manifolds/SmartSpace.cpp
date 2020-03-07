@@ -141,13 +141,13 @@ namespace ROPTLIB{
 
 	void SmartSpace::NewMemory(void)
 	{
-		try{
+	  //		try{
 			Space = new double[length];
-		}
-		catch (std::bad_alloc exception)
-		{
-			OUTSTREAM << "Catch exception:" << exception.what() << std::endl;
-		}
+			//		}
+			//		catch (std::bad_alloc exception)
+			//		{
+			//			OUTSTREAM << "Catch exception:" << exception.what() << std::endl;
+			//		}
 	};
 
 	const double *SmartSpace::ObtainReadData(void) const
@@ -280,4 +280,4 @@ namespace ROPTLIB{
 		sharedtimes = nullptr;
 		Space = nullptr;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/

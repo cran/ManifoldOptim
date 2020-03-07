@@ -16,7 +16,7 @@ namespace ROPTLIB{
 		s = vec + nn;
 		if (fabs(Y[0] - Y[nn]) > sqrt(std::numeric_limits<double>::epsilon()))
 		{
-			printf("warning: %e = Y[start] != Y[end] = %e: %e, Using curbic spline with periodic condition may cause problems.\n", Y[0], Y[nn], Y[0] - Y[nn]);
+			Rprintf("warning: %e = Y[start] != Y[end] = %e: %e, Using curbic spline with periodic condition may cause problems.\n", Y[0], Y[nn], Y[0] - Y[nn]);
 		}
 
 		for (i = 0; i < nn; i++)
@@ -61,7 +61,7 @@ namespace ROPTLIB{
 		s = vec + nn;
 		if (fabs(Y[0] - Y[nn]) > sqrt(std::numeric_limits<double>::epsilon()))
 		{
-			printf("warning: %e = Y[start] != Y[end] = %e, %e, Using curbic spline with periodic condition may cause problems.\n", Y[0], Y[nn], Y[0] - Y[nn]);
+			Rprintf("warning: %e = Y[start] != Y[end] = %e, %e, Using curbic spline with periodic condition may cause problems.\n", Y[0], Y[nn], Y[0] - Y[nn]);
 		}
 		for (i = 0; i < nn; i++)
 		{
@@ -209,7 +209,7 @@ namespace ROPTLIB{
 		}
 		if (fabs(d[n - 1]) < std::numeric_limits<double>::epsilon())
 		{
-			printf("tridiagonal system can not be solved!!");
+			Rprintf("tridiagonal system can not be solved!!");
 			return 0;
 		}
 		s[n - 1] = vec[n - 1] / d[n - 1];
@@ -217,7 +217,7 @@ namespace ROPTLIB{
 		{
 			if (fabs(d[i]) < std::numeric_limits<double>::epsilon())
 			{
-				printf("tridiagonal system can not be solved!!");
+				Rprintf("tridiagonal system can not be solved!!");
 				return 0;
 			}
 			s[i] = (vec[i] - s[i + 1] * ud[i]) / d[i];
@@ -268,7 +268,7 @@ namespace ROPTLIB{
 		s[nn] = vec[nn - 1] / d[nn - 1];
 		if (fabs(d[nn - 1]) < std::numeric_limits<double>::epsilon())
 		{
-			printf("upper triangle system can not be solved!!");
+			Rprintf("upper triangle system can not be solved!!");
 			return 0;
 		}
 		s[nn - 1] = (vec[nn - 2] - s[nn] * ud[nn - 2]) / d[nn - 2];
@@ -276,7 +276,7 @@ namespace ROPTLIB{
 		{
 			if (fabs(d[i - 1]) < std::numeric_limits<double>::epsilon())
 			{
-				printf("upper triangle system can not be solved!!");
+				Rprintf("upper triangle system can not be solved!!");
 				return 0;
 			}
 			s[i] = (vec[i - 1] - s[nn] * last_column[i - 1] - s[i + 1] * ud[i - 1]) / d[i - 1];
@@ -351,19 +351,19 @@ namespace ROPTLIB{
 		double output;
 		nn = N - 1;
 		i = 0;
-		//     printf("p1\n");//---
-		//     printf("%f\n", breaks[N - 1]);//--
+		//     Rprintf("p1\n");//---
+		//     Rprintf("%f\n", breaks[N - 1]);//--
 		while (i < N && t - (breaks[i] - breaks[0]) >= -std::numeric_limits<double>::epsilon())
 			i++;
-		//     printf("p2\n");//---
+		//     Rprintf("p2\n");//---
 		i--;
 		i = (i < 0) ? 0 : i;
 		i = (i > nn - 1) ? nn - 1 : i;
-		//     printf("p3\n");//---
+		//     Rprintf("p3\n");//---
 		t -= breaks[i];
-		//     printf("p4\n");//---
+		//     Rprintf("p4\n");//---
 		output = (dericoefs[0 * nn + i] * t + dericoefs[1 * nn + i]) * t + dericoefs[2 * nn + i];
-		//     printf("p5\n");//---
+		//     Rprintf("p5\n");//---
 		return output;
 	};
 
@@ -407,4 +407,4 @@ namespace ROPTLIB{
 		output = dericoefs[0 * nn + i] * t + dericoefs[1 * nn + i];
 		return output;
 	};
-}; /*end of ROPTLIB namespace*/
+} /*end of ROPTLIB namespace*/
