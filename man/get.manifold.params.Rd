@@ -16,4 +16,3 @@ List containing input arguments for manifold
 \description{
 Get parameters to initialize manifold
 }
-

@@ -64,5 +64,8 @@ Dirk Eddelbuettel. Seamless R and C++ Integration with Rcpp,
 Wen Huang, P.A. Absil, K.A. Gallivan, Paul Hand (2016a). "ROPTLIB: an
 object-oriented C++ library for optimization on Riemannian manifolds."
 Technical Report FSU16-14, Florida State University.
-}
 
+S. Martin, A. Raim, W. Huang, and K. Adragni (2020). "ManifoldOptim: 
+An R Interface to the ROPTLIB Library for Riemannian Manifold Optimization."
+Journal of Statistical Software, 93(1):1-32.
+}

@@ -12,4 +12,3 @@ Trace(X)
 \description{
 Compute the trace of a square matrix
 }
-

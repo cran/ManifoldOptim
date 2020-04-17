@@ -63,6 +63,10 @@
 #' Wen Huang, P.A. Absil, K.A. Gallivan, Paul Hand (2016a). "ROPTLIB: an
 #' object-oriented C++ library for optimization on Riemannian manifolds."
 #' Technical Report FSU16-14, Florida State University.
+#'
+#' S. Martin, A. Raim, W. Huang, and K. Adragni (2020). "ManifoldOptim: 
+#' An R Interface to the ROPTLIB Library for Riemannian Manifold Optimization."
+#' Journal of Statistical Software, 93(1):1-32.
 NULL
 
 #' @title
@@ -159,6 +163,10 @@ NULL
 #' Technical Report FSU16-14, Florida State University.
 #' 
 #' Conrad Sanderson and Ryan Curtin. Armadillo: a template-based C++ library
-#' for linear algebra. Journal of Open Source Software, Vol. 1, pp. 26, 2016. 
+#' for linear algebra. Journal of Open Source Software, Vol. 1, pp. 26, 2016.
+#'
+#' S. Martin, A. Raim, W. Huang, and K. Adragni (2020). "ManifoldOptim: 
+#' An R Interface to the ROPTLIB Library for Riemannian Manifold Optimization."
+#' Journal of Statistical Software, 93(1):1-32.
 NULL
 

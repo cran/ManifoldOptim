@@ -2,13 +2,13 @@
 % Please edit documentation in R/manifolds.R
 \name{Manifold definitions}
 \alias{Manifold definitions}
-\alias{get.euclidean.defn}
+\alias{get.stiefel.defn}
 \alias{get.grassmann.defn}
-\alias{get.lowrank.defn}
-\alias{get.orthgroup.defn}
 \alias{get.spd.defn}
 \alias{get.sphere.defn}
-\alias{get.stiefel.defn}
+\alias{get.euclidean.defn}
+\alias{get.lowrank.defn}
+\alias{get.orthgroup.defn}
 \title{Manifold definitions}
 \usage{
 get.stiefel.defn(n, p, numofmani = 1L, ParamSet = 1L)
@@ -71,5 +71,8 @@ Technical Report FSU16-14, Florida State University.
 Wen Huang, Kyle A. Gallivan, and P.A. Absil (2016b).
 Riemannian Manifold Optimization Library.
 URL \url{http://www.math.fsu.edu/~whuang2/pdf/USER_MANUAL_for_2016-04-29.pdf}
-}
 
+S. Martin, A. Raim, W. Huang, and K. Adragni (2020). "ManifoldOptim: 
+An R Interface to the ROPTLIB Library for Riemannian Manifold Optimization."
+Journal of Statistical Software, 93(1):1-32.
+}

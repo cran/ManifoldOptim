@@ -19,4 +19,3 @@ List containing input arguments for numerical differentiation
 \description{
 Get parameters to initialize numerical differentiation
 }
-

@@ -55,7 +55,8 @@
 #' @example inst/examples/brockett/rproblem/driver-minimal.Rin
 #' @example inst/examples/brockett/cpp_sourceCpp/driver-minimal.Rin
 #'
-#' @references 
+#' @references
+#'
 #' Wen Huang, P.A. Absil, K.A. Gallivan, Paul Hand (2016a). "ROPTLIB: an
 #' object-oriented C++ library for optimization on Riemannian manifolds."
 #' Technical Report FSU16-14, Florida State University.
@@ -67,6 +68,10 @@
 #' Wen Huang, K.A. Gallivan, and P.A. Absil (2015). A Broyden Class of
 #' Quasi-Newton Methods for Riemannian Optimization. SIAM  Journal on
 #' Optimization, 25(3):1660-1685.
+#'
+#' S. Martin, A. Raim, W. Huang, and K. Adragni (2020). "ManifoldOptim: 
+#' An R Interface to the ROPTLIB Library for Riemannian Manifold Optimization."
+#' Journal of Statistical Software, 93(1):1-32.
 #'
 #' @name manifold.optim
 manifold.optim <- function(prob, mani.defn, method = "LRBFGS", 

@@ -5,15 +5,29 @@
 \alias{moptim}
 \title{Manifold optimization}
 \usage{
-manifold.optim(prob, mani.defn, method = "LRBFGS",
-  mani.params = get.manifold.params(), solver.params = get.solver.params(),
-  deriv.params = get.deriv.params(), x0 = NULL, H0 = NULL,
-  has.hhr = FALSE)
+manifold.optim(
+  prob,
+  mani.defn,
+  method = "LRBFGS",
+  mani.params = get.manifold.params(),
+  solver.params = get.solver.params(),
+  deriv.params = get.deriv.params(),
+  x0 = NULL,
+  H0 = NULL,
+  has.hhr = FALSE
+)
 
-moptim(prob, mani.defn, method = "LRBFGS",
-  mani.params = get.manifold.params(), solver.params = get.solver.params(),
-  deriv.params = get.deriv.params(), x0 = NULL, H0 = NULL,
-  has.hhr = FALSE)
+moptim(
+  prob,
+  mani.defn,
+  method = "LRBFGS",
+  mani.params = get.manifold.params(),
+  solver.params = get.solver.params(),
+  deriv.params = get.deriv.params(),
+  x0 = NULL,
+  H0 = NULL,
+  has.hhr = FALSE
+)
 }
 \arguments{
 \item{prob}{\link{Problem definition}}
@@ -188,5 +202,8 @@ URL \url{http://www.math.fsu.edu/~whuang2/pdf/USER_MANUAL_for_2016-04-29.pdf}
 Wen Huang, K.A. Gallivan, and P.A. Absil (2015). A Broyden Class of
 Quasi-Newton Methods for Riemannian Optimization. SIAM  Journal on
 Optimization, 25(3):1660-1685.
-}
 
+S. Martin, A. Raim, W. Huang, and K. Adragni (2020). "ManifoldOptim: 
+An R Interface to the ROPTLIB Library for Riemannian Manifold Optimization."
+Journal of Statistical Software, 93(1):1-32.
+}

@@ -12,4 +12,3 @@ orthonorm(u)
 \description{
 Orthonormalize the columns of a matrix
 }
-

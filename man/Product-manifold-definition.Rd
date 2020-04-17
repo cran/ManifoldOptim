@@ -61,4 +61,3 @@ res <- manifold.optim(prob, mani.defn, method = "LRBFGS",
 }
 
 }
-

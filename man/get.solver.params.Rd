@@ -4,9 +4,15 @@
 \alias{get.solver.params}
 \title{Get parameters to initialize solver}
 \usage{
-get.solver.params(isconvex = FALSE, DEBUG = 0, Tolerance = 1e-04,
-  Max_Iteration = 1000, IsCheckParams = FALSE, IsCheckGradHess = FALSE,
-  ...)
+get.solver.params(
+  isconvex = FALSE,
+  DEBUG = 0,
+  Tolerance = 1e-04,
+  Max_Iteration = 1000,
+  IsCheckParams = FALSE,
+  IsCheckGradHess = FALSE,
+  ...
+)
 }
 \arguments{
 \item{isconvex}{Indicator for whether the function is convex (TRUE or FALSE)}
@@ -49,5 +55,8 @@ Technical Report FSU16-14, Florida State University.
 Wen Huang, Kyle A. Gallivan, and P.A. Absil (2016b).
 Riemannian Manifold Optimization Library.
 URL \url{http://www.math.fsu.edu/~whuang2/pdf/USER_MANUAL_for_2016-04-29.pdf}
-}
 
+S. Martin, A. Raim, W. Huang, and K. Adragni (2020). "ManifoldOptim: 
+An R Interface to the ROPTLIB Library for Riemannian Manifold Optimization."
+Journal of Statistical Software, 93(1):1-32.
+}
