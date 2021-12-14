@@ -36,12 +36,12 @@ namespace ROPTLIB{
 			/*Solve the linear system Li X = Lx, i.e., X = Li^{-1} Lx. The solution X is stored in LiiLx.
 			Note that Li is a lower triangular matrix.
 			Details: http://www.netlib.org/lapack/explore-html/d6/d6f/dtrtrs_8f.html */
-			dtrtrs_(GLOBAL::L, GLOBAL::N, GLOBAL::N, &N, &N, Ls + n * n * i, &N, Ltmp, &N, &info);
+			dtrtrs_(GLOBAL::L, GLOBAL::N, GLOBAL::N, &N, &N, Ls + n * n * i, &N, Ltmp, &N, &info FCONE FCONE FCONE);
 			if (info != 0)
 			{
 				OUTSTREAM << "The cholesky decompsotion in SPDMean::f failed with info:" << info << "!" << std::endl;
 			}
-			dgemm_(GLOBAL::N, GLOBAL::T, &N, &N, &N, &GLOBAL::DONE, Ltmp, &N, Ltmp, &N, &GLOBAL::DZERO, logLXL + n * n * i, &N);
+			dgemm_(GLOBAL::N, GLOBAL::T, &N, &N, &N, &GLOBAL::DONE, Ltmp, &N, Ltmp, &N, &GLOBAL::DZERO, logLXL + n * n * i, &N FCONE FCONE);
 			Matrix MMt(logLXL + n * n * i, n, n);
 			Matrix::LogSymmetricM(GLOBAL::L, MMt, MMt);
 		}
@@ -71,17 +71,17 @@ namespace ROPTLIB{
 		{
 			/*tmp <-- log(Li^{-1} X Li^{-T}) Li^T */
 			dgemm_(GLOBAL::N, GLOBAL::T, &N, &N, &N, &GLOBAL::DONE, const_cast<double *> (logLXL + n * n * i), &N,
-				Ls + n * n * i, &N, &GLOBAL::DZERO, tmp, &N);
+				Ls + n * n * i, &N, &GLOBAL::DZERO, tmp, &N FCONE FCONE);
 
 			/*Solve the linear system Li^T X = tmp, i.e., X = Li^{-T} log(Li^{-1} X Li^{-T}) Li^T. The solution X is stored in tmp.
 			Note that Li is a lower triangular matrix.
 			Details: http://www.netlib.org/lapack/explore-html/d6/d6f/dtrtrs_8f.html */
-			dtrtrs_(GLOBAL::L, GLOBAL::T, GLOBAL::N, &N, &N, Ls + n * n * i, &N, tmp, &N, &info);
+			dtrtrs_(GLOBAL::L, GLOBAL::T, GLOBAL::N, &N, &N, Ls + n * n * i, &N, tmp, &N, &info FCONE FCONE FCONE);
 			if (info != 0)
 			{
 				OUTSTREAM << "The cholesky decompsotion in SPDMean::RieGrad failed with info:" << info << "!" << std::endl;
 			}
-			dgemm_(GLOBAL::N, GLOBAL::N, &N, &N, &N, &GLOBAL::DONE, const_cast<double *> (xM), &N, tmp, &N, &GLOBAL::DONE, gfVT, &N);
+			dgemm_(GLOBAL::N, GLOBAL::N, &N, &N, &N, &GLOBAL::DONE, const_cast<double *> (xM), &N, tmp, &N, &GLOBAL::DONE, gfVT, &N FCONE FCONE);
 		}
 		double scalar = 1.0 / num;
 		integer length = n * n;

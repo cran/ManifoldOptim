@@ -101,7 +101,7 @@ namespace ROPTLIB{
 		char *transn = const_cast<char *> ("n"), *transt = const_cast<char *> ("t");
 		double one = 1, zero = 0;
 		// symUtV = U^T * V, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transt, transn, &P, &P, &N, &one, const_cast<double *> (U), &N, const_cast<double *> (V), &N, &zero, symUtV, &P);
+		dgemm_(transt, transn, &P, &P, &N, &one, const_cast<double *> (U), &N, const_cast<double *> (V), &N, &zero, symUtV, &P FCONE FCONE);
 		for (integer i = 0; i < P; i++)
 		{
 			for (integer j = i + 1; j < P; j++)
@@ -116,7 +116,7 @@ namespace ROPTLIB{
 			dcopy_(&Length, const_cast<double *> (V), &inc, resultTV, &inc);
 		double negone = -1;
 		// resultTV = resultTV - U * symUtV, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &N, &P, &P, &negone, const_cast<double *> (U), &N, symUtV, &P, &one, resultTV, &N);
+		dgemm_(transn, transn, &N, &P, &P, &negone, const_cast<double *> (U), &N, symUtV, &P, &one, resultTV, &N FCONE FCONE);
 		delete[] symUtV;
 	};
 
@@ -314,7 +314,7 @@ namespace ROPTLIB{
 				symxtegf = new SharedSpace(2, p, p);
 				symxtegfptr = symxtegf->ObtainWriteEntireData();
 				// symxtegfptr <- xxM^T * egf, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-				dgemm_(transt, transn, &P, &P, &N, &one, const_cast<double *> (xxM), &N, const_cast<double *> (egf), &N, &zero, symxtegfptr, &P);
+				dgemm_(transt, transn, &P, &P, &N, &one, const_cast<double *> (xxM), &N, const_cast<double *> (egf), &N, &zero, symxtegfptr, &P FCONE FCONE);
 				for (integer i = 0; i < p; i++)
 				{
 					for (integer j = i + 1; j < p; j++)
@@ -332,7 +332,7 @@ namespace ROPTLIB{
 
 			double negone = -1;
 			// resultTV <- resultTV - etaxTV * symxtegfptr, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-			dgemm_(transn, transn, &N, &P, &P, &negone, const_cast<double *> (etaxTV), &N, symxtegfptr, &P, &one, resultTV, &N);
+			dgemm_(transn, transn, &N, &P, &P, &negone, const_cast<double *> (etaxTV), &N, symxtegfptr, &P, &one, resultTV, &N FCONE FCONE);
 			ExtrProjection(x, xix, xix);
 			if (!x->TempDataExist("symxtegf"))
 			{
@@ -462,7 +462,7 @@ namespace ROPTLIB{
 		integer N = n, P = p, inc = 1;
 		double one = 1, zero = 0;
 		// ytxiy = yM^T * extempyTV, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transt, transn, &P, &P, &N, &one, const_cast<double *> (yM), &N, const_cast<double *> (extempyTV), &N, &zero, ytxiy, &P);
+		dgemm_(transt, transn, &P, &P, &N, &one, const_cast<double *> (yM), &N, const_cast<double *> (extempyTV), &N, &zero, ytxiy, &P FCONE FCONE);
 		for (integer i = 0; i < p; i++)
 		{
 			for (integer j = i; j < p; j++)
@@ -471,7 +471,7 @@ namespace ROPTLIB{
 			}
 		}
 		// exresultTV = yM * ytxiy, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &N, &P, &P, &one, const_cast<double *> (yM), &N, ytxiy, &P, &zero, exresultTV, &N);
+		dgemm_(transn, transn, &N, &P, &P, &one, const_cast<double *> (yM), &N, ytxiy, &P, &zero, exresultTV, &N FCONE FCONE);
 		integer Length = N * P;
 		// exresultTV <- extempyTV + exresultTV, details: http://www.netlib.org/lapack/explore-html/d9/dcd/daxpy_8f.html
 		daxpy_(&Length, &one, const_cast<double *> (extempyTV), &inc, exresultTV, &inc);
@@ -489,7 +489,7 @@ namespace ROPTLIB{
 		char *left = const_cast<char *> ("r"), *up = const_cast<char *> ("u"), *nonunit = const_cast<char *> ("n");
 		// solving linear system X ptrHHR^T = exresultTV for X, X is stored in exresultTV,
 		// details: http://www.netlib.org/lapack/explore-html/de/da7/dtrsm_8f.html
-		dtrsm_(left, up, transt, nonunit, &N, &P, &one, const_cast<double *> (ptrHHR), &N, exresultTV, &N);
+		dtrsm_(left, up, transt, nonunit, &N, &P, &one, const_cast<double *> (ptrHHR), &N, exresultTV, &N FCONE FCONE FCONE FCONE);
 
 		ExtrProjection(x, exresult, exresult);
 		if (IsIntrApproach)
@@ -532,7 +532,7 @@ namespace ROPTLIB{
 		double one = 1, zero = 0;
 		// solving linear system X ptrHHR = extempxTV for X, X is stored in extempxTV,
 		// details: http://www.netlib.org/lapack/explore-html/de/da7/dtrsm_8f.html
-		dtrsm_(left, up, transn, nonunit, &N, &P, &one, const_cast<double *> (ptrHHR), &N, const_cast<double *> (extempxTV), &N);
+		dtrsm_(left, up, transn, nonunit, &N, &P, &one, const_cast<double *> (ptrHHR), &N, const_cast<double *> (extempxTV), &N FCONE FCONE FCONE FCONE);
 
 		double sign;
 		for (integer i = 0; i < P; i++)
@@ -542,7 +542,7 @@ namespace ROPTLIB{
 			dscal_(&N, &sign, const_cast<double *> (extempxTV + i * N), &inc);
 		}
 		// YtVRinv <- yM^T * extempxTV, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transt, transn, &P, &P, &N, &one, const_cast<double *> (yM), &N, const_cast<double *> (extempxTV), &N, &zero, YtVRinv, &P);
+		dgemm_(transt, transn, &P, &P, &N, &one, const_cast<double *> (yM), &N, const_cast<double *> (extempxTV), &N, &zero, YtVRinv, &P FCONE FCONE);
 		for (integer i = 0; i < p; i++)
 		{
 			YtVRinv[i + p * i] = -YtVRinv[i + p * i];
@@ -553,7 +553,7 @@ namespace ROPTLIB{
 			}
 		}
 		// extempxTV <- extempxTV + yM * YtVRinv, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &N, &P, &P, &one, const_cast<double *> (yM), &N, YtVRinv, &P, &one, const_cast<double *> (extempxTV), &N);
+		dgemm_(transn, transn, &N, &P, &P, &one, const_cast<double *> (yM), &N, YtVRinv, &P, &one, const_cast<double *> (extempxTV), &N FCONE FCONE);
 		if (IsIntrApproach)
 		{
 			ObtainIntr(y, extempx, result);
@@ -643,14 +643,14 @@ namespace ROPTLIB{
 		double lworkopt;
 		double *tempspace = new double[n * p];
 		// compute the size of space required in the dormqr
-		dormqr_(sidel, transt, &N, &P, &P, const_cast<double *> (ptrHHR), &N, const_cast<double *> (ptrHHRTau), tempspace, &N, &lworkopt, &lwork, &info);
+		dormqr_(sidel, transt, &N, &P, &P, const_cast<double *> (ptrHHR), &N, const_cast<double *> (ptrHHRTau), tempspace, &N, &lworkopt, &lwork, &info FCONE FCONE);
 		lwork = static_cast<integer> (lworkopt);
 		double *work = new double[lwork];
 		// tempspace <- etaxTV, details: http://www.netlib.org/lapack/explore-html/da/d6c/dcopy_8f.html
 		dcopy_(&Length, const_cast<double *> (etaxTV), &inc, tempspace, &inc);
 		// tempspace <- Q^T * tempspace, where Q is the orthogonal matrix defined as the product elementary reflectors defined by ptrHHR and ptrHHRTau,
 		// details: http://www.netlib.org/lapack/explore-html/da/d82/dormqr_8f.html
-		dormqr_(sidel, transt, &N, &P, &P, const_cast<double *> (ptrHHR), &N, const_cast<double *> (ptrHHRTau), tempspace, &N, work, &lwork, &info);
+		dormqr_(sidel, transt, &N, &P, &P, const_cast<double *> (ptrHHR), &N, const_cast<double *> (ptrHHRTau), tempspace, &N, work, &lwork, &info FCONE FCONE);
 		double sign;
 		for (integer i = 0; i < p; i++)
 		{
@@ -765,13 +765,13 @@ namespace ROPTLIB{
 		integer lwork = -1;
 		double lworkopt;
 		// compute the size of space required in the dormqr
-		dormqr_(sidel, transn, &N, &P, &P, const_cast<double *> (ptrHHR), &N, const_cast<double *> (ptrHHRTau), resultTV, &N, &lworkopt, &lwork, &info);
+		dormqr_(sidel, transn, &N, &P, &P, const_cast<double *> (ptrHHR), &N, const_cast<double *> (ptrHHRTau), resultTV, &N, &lworkopt, &lwork, &info FCONE FCONE);
 		lwork = static_cast<integer> (lworkopt);
 
 		double *work = new double[lwork];
 		// resultTV <- Q * resultTV, where Q is the orthogonal matrix defined as the product elementary reflectors defined by ptrHHR and ptrHHRTau,
 		// details: http://www.netlib.org/lapack/explore-html/da/d82/dormqr_8f.html
-		dormqr_(sidel, transn, &N, &P, &P, const_cast<double *> (ptrHHR), &N, const_cast<double *> (ptrHHRTau), resultTV, &N, work, &lwork, &info);
+		dormqr_(sidel, transn, &N, &P, &P, const_cast<double *> (ptrHHR), &N, const_cast<double *> (ptrHHRTau), resultTV, &N, work, &lwork, &info FCONE FCONE);
 		delete[] work;
 	};
 
@@ -820,12 +820,12 @@ namespace ROPTLIB{
 		double lworkopt;
 
 		// compute the size of space required in the dgees
-		dgees_(jobv, sortn, nullptr, &N, M, &N, &sdim, wr, wi, Vs, &N, &lworkopt, &lwork, nullptr, &info);
+		dgees_(jobv, sortn, nullptr, &N, M, &N, &sdim, wr, wi, Vs, &N, &lworkopt, &lwork, nullptr, &info FCONE FCONE);
 		lwork = static_cast<integer> (lworkopt);
 		double *work = new double[lwork];
 		// schur factorization for M, M = Vs T Vs^T. For output, T is stored in M,
 		// details: http://www.netlib.org/lapack/explore-html/d1/d39/dgees_8f.html
-		dgees_(jobv, sortn, nullptr, &N, M, &N, &sdim, wr, wi, Vs, &N, work, &lwork, nullptr, &info);
+		dgees_(jobv, sortn, nullptr, &N, M, &N, &sdim, wr, wi, Vs, &N, work, &lwork, nullptr, &info FCONE FCONE);
 
 		char *transn = const_cast<char *> ("n"), *transt = const_cast<char *> ("t");
 		double cosv, sinv;
@@ -840,7 +840,7 @@ namespace ROPTLIB{
 				sinv = sin(M[i + (i + 1) * n]);
 				block[0] = cosv; block[1] = -sinv; block[2] = sinv; block[3] = cosv;
 				// VsT(:, i : i + 1) <- VsT(:, i : i + 1) * block, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-				dgemm_(transn, transn, &N, &two, &two, &one, Vs + i * n, &N, block, &two, &zero, VsT + i * n, &N);
+				dgemm_(transn, transn, &N, &two, &two, &one, Vs + i * n, &N, block, &two, &zero, VsT + i * n, &N FCONE FCONE);
 				i++;
 			}
 			else
@@ -850,7 +850,7 @@ namespace ROPTLIB{
 			}
 		}
 		// M <- VsT * Vs^T, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transt, &N, &N, &N, &one, VsT, &N, Vs, &N, &zero, M, &N);
+		dgemm_(transn, transt, &N, &N, &N, &one, VsT, &N, Vs, &N, &zero, M, &N FCONE FCONE);
 
 		if (!x->TempDataExist("Perp"))
 		{
@@ -866,31 +866,31 @@ namespace ROPTLIB{
 
 		// resultM(0 : p-1, 0 : p-1) <- xM(0 : p-1, 0 : p-1) * M(0 : p-1, 0 : p-1), 
 		// details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &P, &P, &P, &one, const_cast<double *> (xM), &N, M, &N, &zero, resultM, &N);
+		dgemm_(transn, transn, &P, &P, &P, &one, const_cast<double *> (xM), &N, M, &N, &zero, resultM, &N FCONE FCONE);
 		// resultM(0 : p-1, 0 : p-1) <- resultM(0 : p-1, 0 : p-1) + Perp(0 : p-1, 0:n-p-1) * M(p : N - 1, 0 : p-1), 
 		// details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &P, &P, &NmP, &one, const_cast<double *> (Perp), &N, M + p, &N, &one, resultM, &N);
+		dgemm_(transn, transn, &P, &P, &NmP, &one, const_cast<double *> (Perp), &N, M + p, &N, &one, resultM, &N FCONE FCONE);
 
 		// resultM(p : N - 1, 0 : p-1) <- xM(p : N - 1, 0:p-1) * M(0:p-1, 0:p-1), 
 		// details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &NmP, &P, &P, &one, const_cast<double *> (xM + p), &N, M, &N, &zero, resultM + p, &N);
+		dgemm_(transn, transn, &NmP, &P, &P, &one, const_cast<double *> (xM + p), &N, M, &N, &zero, resultM + p, &N FCONE FCONE);
 		// resultM(p : N - 1, 0 : p-1) = resultM(p : N - 1, 0 : p-1) + Perp(p : N-1, 0:n-p-1) * M(p : N-1, 0 : p-1), 
 		// details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &NmP, &P, &NmP, &one, const_cast<double *> (Perp + p), &N, M + p, &N, &one, resultM + p, &N);
+		dgemm_(transn, transn, &NmP, &P, &NmP, &one, const_cast<double *> (Perp + p), &N, M + p, &N, &one, resultM + p, &N FCONE FCONE);
 
 		// ResultPerp(0:p-1, 0:n-p-1) <- xM(0:p-1, 0:p-1) * M(0:p-1, p : N-1), 
 		// details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &P, &NmP, &P, &one, const_cast<double *> (xM), &N, M + n * p, &N, &zero, ResultPerp, &N);
+		dgemm_(transn, transn, &P, &NmP, &P, &one, const_cast<double *> (xM), &N, M + n * p, &N, &zero, ResultPerp, &N FCONE FCONE);
 		// ResultPerp(0:p-1, 0:n-p-1) <- Perp(0:p-1, :) * M(p : n-1, p : n-1), 
 		// details about dgemm: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &P, &NmP, &NmP, &one, const_cast<double *> (Perp), &N, M + n * p + p, &N, &one, ResultPerp, &N);
+		dgemm_(transn, transn, &P, &NmP, &NmP, &one, const_cast<double *> (Perp), &N, M + n * p + p, &N, &one, ResultPerp, &N FCONE FCONE);
 
 		// ResultPerp(p : n-1, 0:n-p-1) <- xM(p:n-1, 0:p-1) * M(0 : p-1, p : n-1), 
 		// details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &NmP, &NmP, &P, &one, const_cast<double *> (xM + p), &N, M + n * p, &N, &zero, ResultPerp + p, &N);
+		dgemm_(transn, transn, &NmP, &NmP, &P, &one, const_cast<double *> (xM + p), &N, M + n * p, &N, &zero, ResultPerp + p, &N FCONE FCONE);
 		// ResultPerp(p : n-1, 0:n-p-1) <- Perp(p:n-1, 0:n-p-1) * M(p : n-1, p : n-1), 
 		// details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &NmP, &NmP, &NmP, &one, const_cast<double *> (Perp + p), &N, M + n * p + p, &N, &one, ResultPerp + p, &N);
+		dgemm_(transn, transn, &NmP, &NmP, &NmP, &one, const_cast<double *> (Perp + p), &N, M + n * p + p, &N, &one, ResultPerp + p, &N FCONE FCONE);
 
 		result->AddToTempData("Perp", ResultSharedPerp);
 
@@ -949,9 +949,9 @@ namespace ROPTLIB{
 		double one = 1, zero = 0, neg_one = -1;
 		integer P = p, N = n, NmP = n - p;
 		// temp <- xM^T * Perp, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transt, transn, &P, &NmP, &N, &one, const_cast<double *> (xM), &N, Perp, &N, &zero, temp, &P);
+		dgemm_(transt, transn, &P, &NmP, &N, &one, const_cast<double *> (xM), &N, Perp, &N, &zero, temp, &P FCONE FCONE);
 		// Perp <- Perp - xM * temp, details about dgemm: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &N, &NmP, &P, &neg_one, const_cast<double *> (xM), &N, temp, &P, &one, Perp, &N);
+		dgemm_(transn, transn, &N, &NmP, &P, &neg_one, const_cast<double *> (xM), &N, temp, &P, &one, Perp, &N FCONE FCONE);
 		delete[] temp;
 
 		integer *jpvt = new integer[NmP];
@@ -992,9 +992,9 @@ namespace ROPTLIB{
 		double one = 1, zero = 0;
 		double *tempspace = new double[n * p];
 		// tempspace <- xM^T * etaxTV, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transt, transn, &P, &P, &N, &one, const_cast<double *> (xM), &N, const_cast<double *> (etaxTV), &N, &zero, tempspace, &N);
+		dgemm_(transt, transn, &P, &P, &N, &one, const_cast<double *> (xM), &N, const_cast<double *> (etaxTV), &N, &zero, tempspace, &N FCONE FCONE);
 		// tempspace(p : n-1, :) <- Perp^T * etaxTV, details about dgemm: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transt, transn, &NmP, &P, &N, &one, const_cast<double *> (Perp), &N, const_cast<double *> (etaxTV), &N, &zero, tempspace + p, &N);
+		dgemm_(transt, transn, &NmP, &P, &N, &one, const_cast<double *> (Perp), &N, const_cast<double *> (etaxTV), &N, &zero, tempspace + p, &N FCONE FCONE);
 
 		double *resultTV = result->ObtainWriteEntireData();
 		double r2 = sqrt(2.0);
@@ -1059,9 +1059,9 @@ namespace ROPTLIB{
 		double one = 1, zero = 0;
 
 		// resultTV <- xM * tempspace, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &N, &P, &P, &one, const_cast<double *> (xM), &N, tempspace, &N, &zero, resultTV, &N);
+		dgemm_(transn, transn, &N, &P, &P, &one, const_cast<double *> (xM), &N, tempspace, &N, &zero, resultTV, &N FCONE FCONE);
 		// resultTV <- Perp * tempspace(p : n-1, :) + resultTV, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &N, &P, &NmP, &one, const_cast<double *> (Perp), &N, tempspace + p, &N, &one, resultTV, &N);
+		dgemm_(transn, transn, &N, &P, &NmP, &one, const_cast<double *> (Perp), &N, tempspace + p, &N, &one, resultTV, &N FCONE FCONE);
 
 		delete[] tempspace;
 	};

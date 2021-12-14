@@ -26,7 +26,7 @@ namespace ROPTLIB{
 		for (integer i = 0; i < N; i++)
 		{
 			// CY(0:n-1, 0:p-1, i) <- Cs(0:n-1, 0:n-1, i) * xxM, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-			dgemm_(transn, transn, &n, &p, &n, &one, Cs + n * n * i, &n, const_cast<double *> (xxM), &n, &zero, CY + n * p * i, &n);
+			dgemm_(transn, transn, &n, &p, &n, &one, Cs + n * n * i, &n, const_cast<double *> (xxM), &n, &zero, CY + n * p * i, &n FCONE FCONE);
 		}
 
 		for (integer i = 0; i < N; i++)
@@ -116,7 +116,7 @@ namespace ROPTLIB{
 			}
 
 			// exixTV <- exixTV + Cs(:, :, i) * temp, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-			dgemm_(transn, transn, &n, &p, &n, &one, Cs + i * n * n, &n, temp, &n, &one, exixTV, &n);
+			dgemm_(transn, transn, &n, &p, &n, &one, Cs + i * n * n, &n, temp, &n, &one, exixTV, &n FCONE FCONE);
 		}
 
 		delete[] temp;

@@ -32,11 +32,11 @@ namespace ROPTLIB{
 
 		double *UDptr = new double[MR];
 		// UDptr <- Uptr * Dptr, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &M, &R, &R, &one, const_cast<double *> (Uptr), &M, const_cast<double *> (Dptr), &R, &zero, UDptr, &M);
+		dgemm_(transn, transn, &M, &R, &R, &one, const_cast<double *> (Uptr), &M, const_cast<double *> (Dptr), &R, &zero, UDptr, &M FCONE FCONE);
 		SharedSpace *Temp1 = new SharedSpace(2, m, n);
 		double *Xptr = Temp1->ObtainWriteEntireData();
 		// Xptr <- UDptr * Vptr^T, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transt, &M, &N, &R, &one, UDptr, &M, const_cast<double *> (Vptr), &N, &zero, Xptr, &M);
+		dgemm_(transn, transt, &M, &N, &R, &one, UDptr, &M, const_cast<double *> (Vptr), &N, &zero, Xptr, &M FCONE FCONE);
 		delete[] UDptr;
 
 		SharedSpace *Temp2 = new SharedSpace(2, m, n);
@@ -49,7 +49,7 @@ namespace ROPTLIB{
 		SharedSpace *Temp3 = new SharedSpace(2, m, n);
 		double *QXptr = Temp3->ObtainWriteEntireData();
 		// QXptr = W * Errptr, details: http://www.netlib.org/lapack/explore-html/d8/dbe/dsymv_8f.html
-		dsymv_(uplo, &MN, &one, W, &MN, Errptr, &inc, &zero, QXptr, &inc);
+		dsymv_(uplo, &MN, &one, W, &MN, Errptr, &inc, &zero, QXptr, &inc FCONE);
 
 		double result = 0;
 		// compute Errptr(:)^T QXptr(:), details: http://www.netlib.org/lapack/explore-html/d5/df6/ddot_8f.html
@@ -127,11 +127,11 @@ namespace ROPTLIB{
 		dscal_(&MN, &neg_two, fullgrad, &inc);
 		double *XiVptr = new double[MR];
 		// XiVptr <- fullgrad * Vptr, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &M, &R, &N, &one, fullgrad, &M, const_cast<double *> (Vptr), &N, &zero, XiVptr, &M);
+		dgemm_(transn, transn, &M, &R, &N, &one, fullgrad, &M, const_cast<double *> (Vptr), &N, &zero, XiVptr, &M FCONE FCONE);
 
 		double *XiUptr = new double[NR];
 		// XiUptr <- fullgrad^T * Uptr, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transt, transn, &N, &R, &M, &one, fullgrad, &M, const_cast<double *> (Uptr), &M, &zero, XiUptr, &N);
+		dgemm_(transt, transn, &N, &R, &M, &one, fullgrad, &M, const_cast<double *> (Uptr), &M, &zero, XiUptr, &N FCONE FCONE);
 		delete[] fullgrad;
 
 		// compute inverse of D
@@ -155,15 +155,15 @@ namespace ROPTLIB{
 		double *Ddotptr = gfTV + m * r;
 		double *Vdotptr = Ddotptr + r * r;
 		// Ddotptr <- Uptr^T * XiVptr, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transt, transn, &R, &R, &M, &one, const_cast<double *> (Uptr), &M, XiVptr, &M, &zero, Ddotptr, &R);
+		dgemm_(transt, transn, &R, &R, &M, &one, const_cast<double *> (Uptr), &M, XiVptr, &M, &zero, Ddotptr, &R FCONE FCONE);
 		// Udotptr <- Uptr * Ddotptr, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &M, &R, &R, &one, const_cast<double *> (Uptr), &M, Ddotptr, &R, &zero, Udotptr, &M);
+		dgemm_(transn, transn, &M, &R, &R, &one, const_cast<double *> (Uptr), &M, Ddotptr, &R, &zero, Udotptr, &M FCONE FCONE);
 		// Udotptr <- -1 * Udotptr, details: http://www.netlib.org/lapack/explore-html/d4/dd0/dscal_8f.html
 		dscal_(&MR, &neg_one, Udotptr, &inc);
 		// Udotptr <- XiVptr + Udotptr, details: http://www.netlib.org/lapack/explore-html/d9/dcd/daxpy_8f.html
 		daxpy_(&MR, &one, XiVptr, &inc, Udotptr, &inc);
 		// Vdotptr <- Vptr * Ddotptr^T, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transt, &N, &R, &R, &one, const_cast<double *> (Vptr), &N, Ddotptr, &R, &zero, Vdotptr, &N);
+		dgemm_(transn, transt, &N, &R, &R, &one, const_cast<double *> (Vptr), &N, Ddotptr, &R, &zero, Vdotptr, &N FCONE FCONE);
 		// Vdotptr <- -1 * Vdotptr, details: http://www.netlib.org/lapack/explore-html/d4/dd0/dscal_8f.html
 		dscal_(&NR, &neg_one, Vdotptr, &inc);
 		// Vdotptr <- XiUptr + Vdotptr, details: http://www.netlib.org/lapack/explore-html/d9/dcd/daxpy_8f.html
@@ -172,9 +172,9 @@ namespace ROPTLIB{
 		double *Udottemp = new double[MR];
 		double *Vdottemp = new double[NR];
 		// Udottemp <- Udotptr * Dinv, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &M, &R, &R, &one, Udotptr, &M, Dinv, &R, &zero, Udottemp, &M);
+		dgemm_(transn, transn, &M, &R, &R, &one, Udotptr, &M, Dinv, &R, &zero, Udottemp, &M FCONE FCONE);
 		// Vdottemp <- Vdotptr * Dinv^T, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transt, &N, &R, &R, &one, Vdotptr, &N, Dinv, &R, &zero, Vdottemp, &N);
+		dgemm_(transn, transt, &N, &R, &R, &one, Vdotptr, &N, Dinv, &R, &zero, Vdottemp, &N FCONE FCONE);
 		// Udotptr <- Udottemp, details: http://www.netlib.org/lapack/explore-html/da/d6c/dcopy_8f.html
 		dcopy_(&MR, Udottemp, &inc, Udotptr, &inc);
 		// Vdotptr <- Vdottemp, details: http://www.netlib.org/lapack/explore-html/da/d6c/dcopy_8f.html

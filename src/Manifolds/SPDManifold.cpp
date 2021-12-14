@@ -39,9 +39,9 @@ namespace ROPTLIB{
 		integer dim = n;
 		double *tmp = new double[dim * dim];
 		dgemm_(GLOBAL::T, GLOBAL::N, &dim, &dim, &dim, &GLOBAL::DONE, const_cast<double *> (xptr), &dim, const_cast<double *> (egfptr), &dim,
-			&GLOBAL::DZERO, tmp, &dim);
+			&GLOBAL::DZERO, tmp, &dim FCONE FCONE);
 		dgemm_(GLOBAL::N, GLOBAL::N, &dim, &dim, &dim, &GLOBAL::DONE, const_cast<double *> (tmp), &dim, const_cast<double *> (xptr), &dim,
-			&GLOBAL::DZERO, gfptr, &dim);
+			&GLOBAL::DZERO, gfptr, &dim FCONE FCONE);
 		delete[] tmp;
 	};
 
@@ -67,7 +67,7 @@ namespace ROPTLIB{
 		}
 
 		integer info, N = n;
-		dpotrf_(GLOBAL::L, &N, LM, &N, &info);
+		dpotrf_(GLOBAL::L, &N, LM, &N, &info FCONE);
 		x->AddToTempData("L", SharedL);
 		if (info != 0)
 		{
@@ -104,7 +104,7 @@ namespace ROPTLIB{
 		dcopy_(&length, const_cast<double *> (etax->ObtainReadData()), &GLOBAL::IONE, E, &GLOBAL::IONE);
 		/*Solve the linear system L X = E, i.e., X = L^{-1} E. The solution X is stored in E
 		Details: http://www.netlib.org/lapack/explore-html/d6/d6f/dtrtrs_8f.html*/
-		dtrtrs_(GLOBAL::L, GLOBAL::N, GLOBAL::N, &N, &N, const_cast<double *> (L), &N, E, &N, &info);
+		dtrtrs_(GLOBAL::L, GLOBAL::N, GLOBAL::N, &N, &N, const_cast<double *> (L), &N, E, &N, &info FCONE FCONE FCONE);
 		if (info != 0)
 		{
 			OUTSTREAM << "warning: SPDManifold::ObtainIntr fails with info:" << info << "!" << std::endl;
@@ -123,7 +123,7 @@ namespace ROPTLIB{
 		}
 		/*Solve the linear system L X = E, i.e., X = L^{-1} E. The solution X is stored in E
 		Details: http://www.netlib.org/lapack/explore-html/d6/d6f/dtrtrs_8f.html */
-		dtrtrs_(GLOBAL::L, GLOBAL::N, GLOBAL::N, &N, &N, const_cast<double *> (L), &N, E, &N, &info);
+		dtrtrs_(GLOBAL::L, GLOBAL::N, GLOBAL::N, &N, &N, const_cast<double *> (L), &N, E, &N, &info FCONE FCONE FCONE);
 		if (info != 0)
 		{
 			OUTSTREAM << "warning: SPDManifold::ObtainIntr fails with info:" << info << "!" << std::endl;
@@ -185,10 +185,10 @@ namespace ROPTLIB{
 
 		/*E <-- L resultTV */
 		dgemm_(GLOBAL::N, GLOBAL::N, &N, &N, &N, &GLOBAL::DONE, const_cast<double *> (L), &N, resultTV, &N,
-			&GLOBAL::DZERO, E, &N);
+			&GLOBAL::DZERO, E, &N FCONE FCONE);
 		/*resultTV <-- E L^T */
 		dgemm_(GLOBAL::N, GLOBAL::T, &N, &N, &N, &GLOBAL::DONE, E, &N, const_cast<double *> (L), &N,
-			&GLOBAL::DZERO, resultTV, &N);
+			&GLOBAL::DZERO, resultTV, &N FCONE FCONE);
 
 		delete[] E;
 	};
@@ -214,14 +214,14 @@ namespace ROPTLIB{
 		dcopy_(&length, const_cast<double *> (etaxTV), &GLOBAL::IONE, LiE, &GLOBAL::IONE);
 		/*Solve the linear system L X = E, i.e., X = L^{-1} E. The solution X is stored in LiE
 		Details: http://www.netlib.org/lapack/explore-html/d6/d6f/dtrtrs_8f.html */
-		dtrtrs_(GLOBAL::L, GLOBAL::N, GLOBAL::N, &N, &N, const_cast<double *> (L), &N, LiE, &N, &info);
+		dtrtrs_(GLOBAL::L, GLOBAL::N, GLOBAL::N, &N, &N, const_cast<double *> (L), &N, LiE, &N, &info FCONE FCONE FCONE);
 		if (info != 0)
 		{
 			OUTSTREAM << "warning: SPDManifold::Retraction fails with info:" << info << "!" << std::endl;
 		}
 		double *resultTV = result->ObtainWriteEntireData();
 		/*Compute result = LiE^T LiE = E L^{-T} L^{-1} E*/
-		dgemm_(GLOBAL::T, GLOBAL::N, &N, &N, &N, &GLOBAL::DONE, LiE, &N, LiE, &N, &GLOBAL::DZERO, resultTV, &N);
+		dgemm_(GLOBAL::T, GLOBAL::N, &N, &N, &N, &GLOBAL::DONE, LiE, &N, LiE, &N, &GLOBAL::DZERO, resultTV, &N FCONE FCONE);
 		delete[] LiE;
 		double scalar = 0.5;
 		/*result <-- 0.5 * result*/
@@ -267,16 +267,16 @@ namespace ROPTLIB{
 
 		/*Solve the linear system L X = Eta, i.e., X = L^{-1} Eta. The solution X is stored in LiE
 		Details: http://www.netlib.org/lapack/explore-html/d6/d6f/dtrtrs_8f.html */
-		dtrtrs_(GLOBAL::L, GLOBAL::N, GLOBAL::N, &N, &N, const_cast<double *> (L), &N, LiE, &N, &info);
+		dtrtrs_(GLOBAL::L, GLOBAL::N, GLOBAL::N, &N, &N, const_cast<double *> (L), &N, LiE, &N, &info FCONE FCONE FCONE);
 
 		/*Solve the linear system L X = Xix, i.e., X = L^{-1} Xix. The solution X is stored in LiX
 		Details: http://www.netlib.org/lapack/explore-html/d6/d6f/dtrtrs_8f.html */
-		dtrtrs_(GLOBAL::L, GLOBAL::N, GLOBAL::N, &N, &N, const_cast<double *> (L), &N, LiX, &N, &info);
+		dtrtrs_(GLOBAL::L, GLOBAL::N, GLOBAL::N, &N, &N, const_cast<double *> (L), &N, LiX, &N, &info FCONE FCONE FCONE);
 
 		Vector *exresult = EMPTYEXTR->ConstructEmpty();
 		double *resultTV = exresult->ObtainWriteEntireData();
 		/*resultTV <-- etax L^{-T} L^{-1} xix*/
-		dgemm_(GLOBAL::T, GLOBAL::N, &N, &N, &N, &GLOBAL::DONE, LiE, &N, LiX, &N, &GLOBAL::DZERO, resultTV, &N);
+		dgemm_(GLOBAL::T, GLOBAL::N, &N, &N, &N, &GLOBAL::DONE, LiE, &N, LiX, &N, &GLOBAL::DZERO, resultTV, &N FCONE FCONE);
 		for (integer i = 0; i < n; i++)
 		{
 			for (integer j = i + 1; j < n; j++)

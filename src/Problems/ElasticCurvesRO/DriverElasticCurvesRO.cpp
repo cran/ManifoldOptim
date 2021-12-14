@@ -204,9 +204,9 @@ namespace ROPTLIB{
 			{ // if rotation is considered, rotate C2.
 				FindBestRotation(q1, q2shift, d, n, O);
 				// Rotq2shift <- q2shift * O^T, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-				dgemm_(transn, transt, &n, &d, &d, &one, q2shift, &n, O, &d, &zero, Rotq2shift, &n);
+				dgemm_(transn, transt, &n, &d, &d, &one, q2shift, &n, O, &d, &zero, Rotq2shift, &n FCONE FCONE);
 				// RotC2shift <- C2shift * O^T, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-				dgemm_(transn, transt, &n, &d, &d, &one, C2shift, &n, O, &d, &zero, RotC2shift, &n);
+				dgemm_(transn, transt, &n, &d, &d, &one, C2shift, &n, O, &d, &zero, RotC2shift, &n FCONE FCONE);
 			}
 			else
 			{ // Otherwise, keep C2.
@@ -269,7 +269,7 @@ namespace ROPTLIB{
 					CurveToQ(RotC2shift, d, n, q2, isclosed);
 					FindBestRotation(q1, q2, d, n, O2);
 					// O3 = O * O2, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-					dgemm_(transn, transn, &d, &d, &d, &one, O, &d, O2, &d, &zero, O3, &d);
+					dgemm_(transn, transn, &d, &d, &d, &one, O, &d, O2, &d, &zero, O3, &d FCONE FCONE);
 					// O <- O3, details: http://www.netlib.org/lapack/explore-html/da/d6c/dcopy_8f.html
 					dcopy_(&dd, O3, &inc, O, &inc);
 					// Xptr(n : n + d * d - 1) <- reshape(O2, d * d, 1), 
@@ -405,7 +405,7 @@ namespace ROPTLIB{
 					}
 					// O2 = O * reshape(Xoptptr(n : n + d * d - 1), d, d)^T, 
 					// details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-					dgemm_(transn, transt, &d, &d, &d, &one, O, &d, Xoptptr + n, &d, &zero, O2, &d);
+					dgemm_(transn, transt, &d, &d, &d, &one, O, &d, Xoptptr + n, &d, &zero, O2, &d FCONE FCONE);
 					// Xoptptr(n:n + d * d - 1) <- reshape(O2, d * d, 1) 
 					// details: http://www.netlib.org/lapack/explore-html/da/d6c/dcopy_8f.html
 					dcopy_(&dd, O2, &inc, Xoptptr + n, &inc);
@@ -926,11 +926,11 @@ namespace ROPTLIB{
 		integer lwork = -1, info;
 		double workoptsize;
 		// compute the space required in the SVD computation.
-		dgesvd_(joba, joba, &d, &d, M, &d, S, U, &d, Vt, &d, &workoptsize, &lwork, &info);
+		dgesvd_(joba, joba, &d, &d, M, &d, S, U, &d, Vt, &d, &workoptsize, &lwork, &info FCONE FCONE);
 		lwork = static_cast<integer> (workoptsize);
 		double *work = new double[lwork];
 		// SVD: U * S * Vt = M, details: http://www.netlib.org/lapack/explore-html/d8/d2d/dgesvd_8f.html
-		dgesvd_(joba, joba, &d, &d, M, &d, S, U, &d, Vt, &d, work, &lwork, &info);
+		dgesvd_(joba, joba, &d, &d, M, &d, S, U, &d, Vt, &d, work, &lwork, &info FCONE FCONE);
 		if (info != 0)
 		{
 			OUTSTREAM << "Error:singular value decomposition failed!" << std::endl;
@@ -940,7 +940,7 @@ namespace ROPTLIB{
 		char *transn = const_cast<char *> ("n");
 		double one = 1, zero = 0;
 		// O = U * Vt, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &d, &d, &d, &one, U, &d, Vt, &d, &zero, O, &d);
+		dgemm_(transn, transn, &d, &d, &d, &one, U, &d, Vt, &d, &zero, O, &d FCONE FCONE);
 
 		// obtain the determinant of O
 		double *O2 = new double[d * d];
@@ -986,7 +986,7 @@ namespace ROPTLIB{
 		}
 
 		// O = U * Vt, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &d, &d, &d, &one, U, &d, Vt, &d, &zero, O, &d);
+		dgemm_(transn, transn, &d, &d, &d, &one, U, &d, Vt, &d, &zero, O, &d FCONE FCONE);
 
 		delete[] U;
 	};

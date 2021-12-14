@@ -167,7 +167,7 @@ namespace ROPTLIB{
 			integer info, one = 1, CurLen = Currentlength;
 			// solve linear system: PMGQ * X = v using the LU decomposition results from dgetrf, then solution is stored in v.
 			// details: http://www.netlib.org/lapack/explore-html/d6/d49/dgetrs_8f.html
-			dgetrs_(trans, &CurLen, &one, PMGQ, &CurLen, P, v, &CurLen, &info);
+			dgetrs_(trans, &CurLen, &one, PMGQ, &CurLen, P, v, &CurLen, &info FCONE);
 		}
 
 		Mani->ScaleTimesVector(x1, gamma, Eta, result);

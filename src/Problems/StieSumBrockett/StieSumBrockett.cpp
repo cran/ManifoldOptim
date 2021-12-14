@@ -39,7 +39,7 @@ namespace ROPTLIB{
 		double one = 1, zero = 0;
 		integer inc = 1, N = n, P = p;
 		// temp1 <- B1 * xX1, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &N, &P, &N, &one, B1, &N, const_cast<double *> (xX1), &N, &zero, temp1, &N);
+		dgemm_(transn, transn, &N, &P, &N, &one, B1, &N, const_cast<double *> (xX1), &N, &zero, temp1, &N FCONE FCONE);
 		for (integer i = 0; i < p; i++)
 		{
 			// temp(:, i) <- D1[i] * temp(:, i), details: http://www.netlib.org/lapack/explore-html/d4/dd0/dscal_8f.html
@@ -62,7 +62,7 @@ namespace ROPTLIB{
 		double *temp2 = BxD2->ObtainWriteEntireData();
 
 		// temp2 <- B2 * xX2, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &N, &P, &N, &one, B2, &N, const_cast<double *> (xX2), &N, &zero, temp2, &N);
+		dgemm_(transn, transn, &N, &P, &N, &one, B2, &N, const_cast<double *> (xX2), &N, &zero, temp2, &N FCONE FCONE);
 		for (integer i = 0; i < p; i++)
 		{
 			// temp2(:, i) <- D2[i] * temp2(:, i), details: http://www.netlib.org/lapack/explore-html/d4/dd0/dscal_8f.html
@@ -85,7 +85,7 @@ namespace ROPTLIB{
 		integer M = m, Q = q;
 		length = M * Q;
 		// temp2 <- B2 * xX2, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &M, &Q, &M, &one, B3, &M, const_cast<double *> (xX3), &M, &zero, temp3, &M);
+		dgemm_(transn, transn, &M, &Q, &M, &one, B3, &M, const_cast<double *> (xX3), &M, &zero, temp3, &M FCONE FCONE);
 		for (integer i = 0; i < q; i++)
 		{
 			// temp3(:, i) <- D3[i] * temp3(:, i), details: http://www.netlib.org/lapack/explore-html/d4/dd0/dscal_8f.html
@@ -139,7 +139,7 @@ namespace ROPTLIB{
 		integer N = n, P = p, inc = 1, Length = N * P;
 		double one = 1, zero = 0, negone = -1, two = 2;
 		// exix1TV <- B1 * etax1TV, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &N, &P, &N, &one, B1, &N, const_cast<double *> (etax1TV), &N, &zero, exix1TV, &N);
+		dgemm_(transn, transn, &N, &P, &N, &one, B1, &N, const_cast<double *> (etax1TV), &N, &zero, exix1TV, &N FCONE FCONE);
 		for (integer i = 0; i < p; i++)
 		{
 			// exix1TV(:, i) <- D1[i] * exix1TV(:, i), details: http://www.netlib.org/lapack/explore-html/d4/dd0/dscal_8f.html
@@ -150,7 +150,7 @@ namespace ROPTLIB{
 		const double *etax2TV = prodetax->GetElement(1)->ObtainReadData();
 		double *exix2TV = prodexix->GetElement(1)->ObtainWriteEntireData();
 		// exix2TV <- B2 * etax2TV, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &N, &P, &N, &one, B2, &N, const_cast<double *> (etax2TV), &N, &zero, exix2TV, &N);
+		dgemm_(transn, transn, &N, &P, &N, &one, B2, &N, const_cast<double *> (etax2TV), &N, &zero, exix2TV, &N FCONE FCONE);
 		for (integer i = 0; i < p; i++)
 		{
 			// exix2TV(:, i) <- D2[i] * exix2TV(:, i), details: http://www.netlib.org/lapack/explore-html/d4/dd0/dscal_8f.html
@@ -163,7 +163,7 @@ namespace ROPTLIB{
 		integer M = m, Q = q;
 		Length = N * P;
 		// exix3TV <- B3 * etax3TV, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &M, &Q, &M, &one, B3, &M, const_cast<double *> (etax3TV), &M, &zero, exix3TV, &M);
+		dgemm_(transn, transn, &M, &Q, &M, &one, B3, &M, const_cast<double *> (etax3TV), &M, &zero, exix3TV, &M FCONE FCONE);
 		for (integer i = 0; i < q; i++)
 		{
 			// exix3TV(:, i) <- D3[i] * exix3TV(:, i), details: http://www.netlib.org/lapack/explore-html/d4/dd0/dscal_8f.html

@@ -8,11 +8,11 @@ namespace ROPTLIB{
 		integer IZERO = 0, IONE = 1, ITWO = 2;
 		double DZERO = 0, DONE = 1, DTWO = 2, DNONE = -1;
 		doublecomplex ZZERO = { 0, 0 }, ZONE = { 1, 0 }, ZTWO = { 2, 0 }, ZNONE = { -1, 0 };
-		char *N = const_cast<char *> ("n"), *T = const_cast<char *> ("t");
-		char *L = const_cast<char *> ("l"), *R = const_cast<char *> ("r");
-		char *V = const_cast<char *> ("v"), *C = const_cast<char *> ("c");
-		char *U = const_cast<char *> ("u"), *A = const_cast<char *> ("a");
-		char *S = const_cast<char *> ("s");
+		char *N = const_cast<char *> ("N"), *T = const_cast<char *> ("T");
+		char *L = const_cast<char *> ("L"), *R = const_cast<char *> ("R");
+		char *V = const_cast<char *> ("V"), *C = const_cast<char *> ("C");
+		char *U = const_cast<char *> ("U"), *A = const_cast<char *> ("A");
+		char *S = const_cast<char *> ("S");
 	};
 
 	void Matrix::DGEMM(double alpha, Matrix &M1, bool trans1, Matrix &M2, bool trans2, double beta, Matrix &result)
@@ -21,25 +21,25 @@ namespace ROPTLIB{
 		{
 			if (M1.row != M2.col)
 				OUTSTREAM << "GEMM: the sizes of two matrices do not match!" << std::endl;
-			dgemm_(GLOBAL::T, GLOBAL::T, &M1.col, &M2.row, &M1.row, &alpha, M1.matrix, &M1.inc, M2.matrix, &M2.inc, &beta, result.matrix, &result.inc);
+			dgemm_(GLOBAL::T, GLOBAL::T, &M1.col, &M2.row, &M1.row, &alpha, M1.matrix, &M1.inc, M2.matrix, &M2.inc, &beta, result.matrix, &result.inc FCONE FCONE);
 		}
 		else if (!trans1 && trans2)
 		{
 			if (M1.col != M2.col)
 				OUTSTREAM << "GEMM: the sizes of two matrices do not match!" << std::endl;
-			dgemm_(GLOBAL::N, GLOBAL::T, &M1.row, &M2.row, &M1.col, &alpha, M1.matrix, &M1.inc, M2.matrix, &M2.inc, &beta, result.matrix, &result.inc);
+			dgemm_(GLOBAL::N, GLOBAL::T, &M1.row, &M2.row, &M1.col, &alpha, M1.matrix, &M1.inc, M2.matrix, &M2.inc, &beta, result.matrix, &result.inc FCONE FCONE);
 		}
 		else if (trans1 && !trans2)
 		{
 			if (M1.row != M2.row)
 				OUTSTREAM << "GEMM: the sizes of two matrices do not match!" << std::endl;
-			dgemm_(GLOBAL::T, GLOBAL::N, &M1.col, &M2.col, &M1.row, &alpha, M1.matrix, &M1.inc, M2.matrix, &M2.inc, &beta, result.matrix, &result.inc);
+			dgemm_(GLOBAL::T, GLOBAL::N, &M1.col, &M2.col, &M1.row, &alpha, M1.matrix, &M1.inc, M2.matrix, &M2.inc, &beta, result.matrix, &result.inc FCONE FCONE);
 		}
 		else if (!trans1 && !trans2)
 		{
 			if (M1.col != M2.row)
 				OUTSTREAM << "GEMM: the sizes of two matrices do not match!" << std::endl;
-			dgemm_(GLOBAL::N, GLOBAL::N, &M1.row, &M2.col, &M1.col, &alpha, M1.matrix, &M1.inc, M2.matrix, &M2.inc, &beta, result.matrix, &result.inc);
+			dgemm_(GLOBAL::N, GLOBAL::N, &M1.row, &M2.col, &M1.col, &alpha, M1.matrix, &M1.inc, M2.matrix, &M2.inc, &beta, result.matrix, &result.inc FCONE FCONE);
 		}
 		else
 		{
@@ -288,11 +288,11 @@ namespace ROPTLIB{
 			dcopy_(&N, S.matrix + i * inc, &GLOBAL::IONE, eigenvectors.matrix + i * eigenvectors.inc, &GLOBAL::IONE);
 		integer lwork = -1, info;
 		double lworkopt;
-		dsyev_(GLOBAL::V, UorL, &N, eigenvectors.matrix, &eigenvectors.inc, eigenvalues.matrix, &lworkopt, &lwork, &info);
+		dsyev_(GLOBAL::V, UorL, &N, eigenvectors.matrix, &eigenvectors.inc, eigenvalues.matrix, &lworkopt, &lwork, &info FCONE FCONE);
 		/*allocate the desired memory*/
 		lwork = static_cast<integer> (lworkopt);
 		double *work = new double[lwork];
-		dsyev_(GLOBAL::V, UorL, &N, eigenvectors.matrix, &eigenvectors.inc, eigenvalues.matrix, work, &lwork, &info);
+		dsyev_(GLOBAL::V, UorL, &N, eigenvectors.matrix, &eigenvectors.inc, eigenvalues.matrix, work, &lwork, &info FCONE FCONE);
 		delete[] work;
 
 		/////* eigenvalue decomposition: dsyevr approach, not numerically stable. */

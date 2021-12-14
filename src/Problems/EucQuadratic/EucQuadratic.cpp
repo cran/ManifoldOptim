@@ -24,7 +24,7 @@ namespace ROPTLIB{
 		double one = 1, zero = 0;
 		integer inc = 1, N = Dim;
 		// temp <- A * v, details: http://www.netlib.org/lapack/explore-html/dc/da8/dgemv_8f.html
-		dgemv_(transn, &N, &N, &one, A, &N, const_cast<double *> (v), &inc, &zero, temp, &inc);
+		dgemv_(transn, &N, &N, &one, A, &N, const_cast<double *> (v), &inc, &zero, temp, &inc FCONE);
 
 		x->AddToTempData("Ax", Temp);
 
@@ -55,6 +55,6 @@ namespace ROPTLIB{
 		integer N = Dim, inc = 1;
 		double two = 2, zero = 0;
 		// xixTV <- 2 * A * v, details: http://www.netlib.org/lapack/explore-html/dc/da8/dgemv_8f.html
-		dgemv_(transn, &N, &N, &two, A, &N, const_cast<double *> (v), &inc, &zero, xixTV, &inc);
+		dgemv_(transn, &N, &N, &two, A, &N, const_cast<double *> (v), &inc, &zero, xixTV, &inc FCONE);
 	};
 } /*end of ROPTLIB namespace*/

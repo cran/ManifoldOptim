@@ -31,7 +31,7 @@ namespace ROPTLIB{
 		NewMemoryOnWrite();
 		/*Space <-- temp * temp^T. Thus, Space points to a symmetric positive definite matrix. Therefore,
 		this SPDVariable is a SPD matrix.*/
-		dgemm_(GLOBAL::N, GLOBAL::T, &n, &n, &n, &GLOBAL::DONE, temp, &n, temp, &n, &GLOBAL::DZERO, Space, &n);
+		dgemm_(GLOBAL::N, GLOBAL::T, &n, &n, &n, &GLOBAL::DONE, temp, &n, temp, &n, &GLOBAL::DZERO, Space, &n FCONE FCONE);
 		delete[] temp;
 	};
 } /*end of ROPTLIB namespace*/

@@ -51,14 +51,14 @@ namespace ROPTLIB{
 
 		char *transn = const_cast<char *> ("n"), *transt = const_cast<char *> ("t");
 		// UtV = U^T * V, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transt, transn, &P, &P, &N, &GLOBAL::DONE, const_cast<double *> (U), &N, const_cast<double *> (V), &N, &GLOBAL::DZERO, UtV, &P);
+		dgemm_(transt, transn, &P, &P, &N, &GLOBAL::DONE, const_cast<double *> (U), &N, const_cast<double *> (V), &N, &GLOBAL::DZERO, UtV, &P FCONE FCONE);
 
 		// resultTV <- V, details: http://www.netlib.org/lapack/explore-html/da/d6c/dcopy_8f.html
 		if (V != resultTV)
 			dcopy_(&Length, const_cast<double *> (V), &inc, resultTV, &GLOBAL::IONE);
 		double negone = -1;
 		// resultTV = resultTV - U * UtV, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &N, &P, &P, &GLOBAL::DNONE, const_cast<double *> (U), &N, UtV, &P, &GLOBAL::DONE, resultTV, &N);
+		dgemm_(transn, transn, &N, &P, &P, &GLOBAL::DNONE, const_cast<double *> (U), &N, UtV, &P, &GLOBAL::DONE, resultTV, &N FCONE FCONE);
 		delete[] UtV;
 	};
 
@@ -157,7 +157,7 @@ namespace ROPTLIB{
 		double one = 1, zero = 0;
 		// solving linear system X ptrHHR = extempxTV for X, X is stored in extempxTV,
 		// details: http://www.netlib.org/lapack/explore-html/de/da7/dtrsm_8f.html
-		dtrsm_(left, up, transn, nonunit, &N, &P, &one, const_cast<double *> (ptrHHR), &N, const_cast<double *> (extempxTV), &N);
+		dtrsm_(left, up, transn, nonunit, &N, &P, &one, const_cast<double *> (ptrHHR), &N, const_cast<double *> (extempxTV), &N FCONE FCONE FCONE FCONE);
 
 		double sign;
 		for (integer i = 0; i < P; i++)
@@ -167,7 +167,7 @@ namespace ROPTLIB{
 			dscal_(&N, &sign, const_cast<double *> (extempxTV + i * N), &inc);
 		}
 		// YtVRinv <- yM^T * extempxTV, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transt, transn, &P, &P, &N, &one, const_cast<double *> (yM), &N, const_cast<double *> (extempxTV), &N, &zero, YtVRinv, &P);
+		dgemm_(transt, transn, &P, &P, &N, &one, const_cast<double *> (yM), &N, const_cast<double *> (extempxTV), &N, &zero, YtVRinv, &P FCONE FCONE);
 		for (integer i = 0; i < p; i++)
 		{
 			YtVRinv[i + p * i] = -YtVRinv[i + p * i];
@@ -178,7 +178,7 @@ namespace ROPTLIB{
 			}
 		}
 		// extempxTV <- extempxTV + yM * YtVRinv, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &N, &P, &P, &one, const_cast<double *> (yM), &N, YtVRinv, &P, &one, const_cast<double *> (extempxTV), &N);
+		dgemm_(transn, transn, &N, &P, &P, &one, const_cast<double *> (yM), &N, YtVRinv, &P, &one, const_cast<double *> (extempxTV), &N FCONE FCONE);
 		if (IsIntrApproach)
 		{
 			ObtainIntr(y, extempx, result);
@@ -237,10 +237,10 @@ namespace ROPTLIB{
 		integer N = n, P = p, inc = 1;
 		double one = 1, zero = 0;
 		// ytxiy = yM^T * extempyTV, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transt, transn, &P, &P, &N, &one, const_cast<double *> (yM), &N, const_cast<double *> (extempyTV), &N, &zero, ytxiy, &P);
+		dgemm_(transt, transn, &P, &P, &N, &one, const_cast<double *> (yM), &N, const_cast<double *> (extempyTV), &N, &zero, ytxiy, &P FCONE FCONE);
 
 		// exresultTV = yM * ytxiy, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &N, &P, &P, &one, const_cast<double *> (yM), &N, ytxiy, &P, &zero, exresultTV, &N);
+		dgemm_(transn, transn, &N, &P, &P, &one, const_cast<double *> (yM), &N, ytxiy, &P, &zero, exresultTV, &N FCONE FCONE);
 		integer Length = N * P;
 		// exresultTV <- extempyTV + exresultTV, details: http://www.netlib.org/lapack/explore-html/d9/dcd/daxpy_8f.html
 		daxpy_(&Length, &one, const_cast<double *> (extempyTV), &inc, exresultTV, &inc);
@@ -258,7 +258,7 @@ namespace ROPTLIB{
 		char *left = const_cast<char *> ("r"), *up = const_cast<char *> ("u"), *nonunit = const_cast<char *> ("n");
 		// solving linear system X ptrHHR^T = exresultTV for X, X is stored in exresultTV,
 		// details: http://www.netlib.org/lapack/explore-html/de/da7/dtrsm_8f.html
-		dtrsm_(left, up, transt, nonunit, &N, &P, &one, const_cast<double *> (ptrHHR), &N, exresultTV, &N);
+		dtrsm_(left, up, transt, nonunit, &N, &P, &one, const_cast<double *> (ptrHHR), &N, exresultTV, &N FCONE FCONE FCONE FCONE);
 
 		ExtrProjection(x, exresult, exresult);
 		if (IsIntrApproach)
@@ -332,7 +332,7 @@ namespace ROPTLIB{
 			xtegf = new SharedSpace(2, p, p);
 			xtegfptr = xtegf->ObtainWriteEntireData();
 			// xtegfptr <- xxM^T * egf, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-			dgemm_(transt, transn, &P, &P, &N, &one, const_cast<double *> (xxM), &N, const_cast<double *> (egf), &N, &zero, xtegfptr, &P);
+			dgemm_(transt, transn, &P, &P, &N, &one, const_cast<double *> (xxM), &N, const_cast<double *> (egf), &N, &zero, xtegfptr, &P FCONE FCONE);
 		}
 
 		exix->CopyTo(xix);
@@ -341,7 +341,7 @@ namespace ROPTLIB{
 
 		double negone = -1;
 		// resultTV <- resultTV - etaxTV * xtegfptr, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &N, &P, &P, &negone, const_cast<double *> (etaxTV), &N, xtegfptr, &P, &one, resultTV, &N);
+		dgemm_(transn, transn, &N, &P, &P, &negone, const_cast<double *> (etaxTV), &N, xtegfptr, &P, &one, resultTV, &N FCONE FCONE);
 		ExtrProjection(x, xix, xix);
 		if (!x->TempDataExist("xtegf"))
 		{
@@ -404,14 +404,14 @@ namespace ROPTLIB{
 		double lworkopt;
 		double *tempspace = new double[n * p];
 		// compute the size of space required in the dormqr
-		dormqr_(sidel, transt, &N, &P, &P, const_cast<double *> (ptrHHR), &N, const_cast<double *> (ptrHHRTau), tempspace, &N, &lworkopt, &lwork, &info);
+		dormqr_(sidel, transt, &N, &P, &P, const_cast<double *> (ptrHHR), &N, const_cast<double *> (ptrHHRTau), tempspace, &N, &lworkopt, &lwork, &info FCONE FCONE);
 		lwork = static_cast<integer> (lworkopt);
 		double *work = new double[lwork];
 		// tempspace <- etaxTV, details: http://www.netlib.org/lapack/explore-html/da/d6c/dcopy_8f.html
 		dcopy_(&Length, const_cast<double *> (etaxTV), &inc, tempspace, &inc);
 		// tempspace <- Q^T * tempspace, where Q is the orthogonal matrix defined as the product elementary reflectors defined by ptrHHR and ptrHHRTau,
 		// details: http://www.netlib.org/lapack/explore-html/da/d82/dormqr_8f.html
-		dormqr_(sidel, transt, &N, &P, &P, const_cast<double *> (ptrHHR), &N, const_cast<double *> (ptrHHRTau), tempspace, &N, work, &lwork, &info);
+		dormqr_(sidel, transt, &N, &P, &P, const_cast<double *> (ptrHHR), &N, const_cast<double *> (ptrHHRTau), tempspace, &N, work, &lwork, &info FCONE FCONE);
 
 		for (integer i = 0; i < p; i++)
 		{
@@ -496,13 +496,13 @@ namespace ROPTLIB{
 		integer lwork = -1;
 		double lworkopt;
 		// compute the size of space required in the dormqr
-		dormqr_(sidel, transn, &N, &P, &P, const_cast<double *> (ptrHHR), &N, const_cast<double *> (ptrHHRTau), resultTV, &N, &lworkopt, &lwork, &info);
+		dormqr_(sidel, transn, &N, &P, &P, const_cast<double *> (ptrHHR), &N, const_cast<double *> (ptrHHRTau), resultTV, &N, &lworkopt, &lwork, &info FCONE FCONE);
 		lwork = static_cast<integer> (lworkopt);
 
 		double *work = new double[lwork];
 		// resultTV <- Q * resultTV, where Q is the orthogonal matrix defined as the product elementary reflectors defined by ptrHHR and ptrHHRTau,
 		// details: http://www.netlib.org/lapack/explore-html/da/d82/dormqr_8f.html
-		dormqr_(sidel, transn, &N, &P, &P, const_cast<double *> (ptrHHR), &N, const_cast<double *> (ptrHHRTau), resultTV, &N, work, &lwork, &info);
+		dormqr_(sidel, transn, &N, &P, &P, const_cast<double *> (ptrHHR), &N, const_cast<double *> (ptrHHRTau), resultTV, &N, work, &lwork, &info FCONE FCONE);
 		delete[] work;
 	};
 } /*end of ROPTLIB namespace*/

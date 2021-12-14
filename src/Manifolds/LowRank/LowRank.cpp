@@ -50,9 +50,9 @@ namespace ROPTLIB{
 		integer MmR = m - r, NmR = n - r, R = r, RR = r * r, inc = 1, MmRR = (m - r) * r, NmRR = (n - r) * r;
 		double one = 1, zero = 0;
 		// UKD <- UK * D, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &MmR, &R, &R, &one, UK, &MmR, const_cast<double *> (D), &R, &zero, UKD, &MmR);
+		dgemm_(transn, transn, &MmR, &R, &R, &one, UK, &MmR, const_cast<double *> (D), &R, &zero, UKD, &MmR FCONE FCONE);
 		// VKD <- VK * D^T, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transt, &NmR, &R, &R, &one, VK, &NmR, const_cast<double *> (D), &R, &zero, VKD, &NmR);
+		dgemm_(transn, transt, &NmR, &R, &R, &one, VK, &NmR, const_cast<double *> (D), &R, &zero, VKD, &NmR FCONE FCONE);
 		// UK <- UKD, details: http://www.netlib.org/lapack/explore-html/da/d6c/dcopy_8f.html
 		dcopy_(&MmRR, UKD, &inc, UK, &inc);
 		// VK <- VKD, details: http://www.netlib.org/lapack/explore-html/da/d6c/dcopy_8f.html
@@ -88,9 +88,9 @@ namespace ROPTLIB{
 		}
 		double *dD = LRresult->GetElement(1)->ObtainWritePartialData();
 		// dD <- dD + UOmega * D, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &R, &R, &R, &one, UOmega, &R, const_cast<double *> (D), &R, &one, dD, &R);
+		dgemm_(transn, transn, &R, &R, &R, &one, UOmega, &R, const_cast<double *> (D), &R, &one, dD, &R FCONE FCONE);
 		// dD <- dD + D * VOmega^T, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transt, &R, &R, &R, &one, const_cast<double *> (D), &R, VOmega, &R, &one, dD, &R);
+		dgemm_(transn, transt, &R, &R, &R, &one, const_cast<double *> (D), &R, VOmega, &R, &one, dD, &R FCONE FCONE);
 
 		delete[] UKD;
 	};
@@ -132,9 +132,9 @@ namespace ROPTLIB{
 		char *transn = const_cast<char *> ("n"), *transt = const_cast<char *> ("t");
 		double one = 1, zero = 0;
 		// UK = UKD * Dinv, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &MmR, &R, &R, &one, UKD, &MmR, Dinv, &R, &zero, UK, &MmR);
+		dgemm_(transn, transn, &MmR, &R, &R, &one, UKD, &MmR, Dinv, &R, &zero, UK, &MmR FCONE FCONE);
 		// VK = VKD * Dinv^T, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transt, &NmR, &R, &R, &one, VKD, &NmR, Dinv, &R, &zero, VK, &NmR);
+		dgemm_(transn, transt, &NmR, &R, &R, &one, VKD, &NmR, Dinv, &R, &zero, VK, &NmR FCONE FCONE);
 		// UKD <- UK, details: http://www.netlib.org/lapack/explore-html/da/d6c/dcopy_8f.html
 		dcopy_(&MmRR, UK, &inc, UKD, &inc);
 		// VKD <- VK, details: http://www.netlib.org/lapack/explore-html/da/d6c/dcopy_8f.html
@@ -194,13 +194,13 @@ namespace ROPTLIB{
 		integer M = m, R = r, N = n, MR = M * R, NR = N * R, inc = 1;
 		double one = 1, zero = 0, negone = -1;
 		// Utemp <- exxiyU * Dy, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &M, &R, &R, &one, exxiyU, &M, const_cast<double *> (Dy), &R, &zero, Utemp, &M);
+		dgemm_(transn, transn, &M, &R, &R, &one, exxiyU, &M, const_cast<double *> (Dy), &R, &zero, Utemp, &M FCONE FCONE);
 		// exxiyU <- Utemp * Dy^T, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transt, &M, &R, &R, &one, Utemp, &M, const_cast<double *> (Dy), &R, &zero, exxiyU, &M);
+		dgemm_(transn, transt, &M, &R, &R, &one, Utemp, &M, const_cast<double *> (Dy), &R, &zero, exxiyU, &M FCONE FCONE);
 		// Utemp <- Uy * exxiyD, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &M, &R, &R, &one, const_cast<double *> (Uy), &M, exxiyD, &R, &zero, Utemp, &M);
+		dgemm_(transn, transn, &M, &R, &R, &one, const_cast<double *> (Uy), &M, exxiyD, &R, &zero, Utemp, &M FCONE FCONE);
 		// UxiDDyt <- Utemp * Dy^T, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transt, &M, &R, &R, &one, Utemp, &M, const_cast<double *> (Dy), &R, &zero, UxiDDyt, &M);
+		dgemm_(transn, transt, &M, &R, &R, &one, Utemp, &M, const_cast<double *> (Dy), &R, &zero, UxiDDyt, &M FCONE FCONE);
 		// exxiyU <- UxiDDyt + exxiyU, details: http://www.netlib.org/lapack/explore-html/d9/dcd/daxpy_8f.html
 		daxpy_(&MR, &one, UxiDDyt, &inc, exxiyU, &inc);
 
@@ -209,13 +209,13 @@ namespace ROPTLIB{
 		double *VxiDtDy = new double[2 * n * r];
 		double *Vtemp = VxiDtDy + n * r;
 		// Compute Vtemp <- exxiyV * Dy^T, details about dgemm: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transt, &N, &R, &R, &one, exxiyV, &N, const_cast<double *> (Dy), &R, &zero, Vtemp, &N);
+		dgemm_(transn, transt, &N, &R, &R, &one, exxiyV, &N, const_cast<double *> (Dy), &R, &zero, Vtemp, &N FCONE FCONE);
 		// Compute exxiyV <- Vtemp * Dy, details about dgemm: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &N, &R, &R, &one, Vtemp, &N, const_cast<double *> (Dy), &R, &zero, exxiyV, &N);
+		dgemm_(transn, transn, &N, &R, &R, &one, Vtemp, &N, const_cast<double *> (Dy), &R, &zero, exxiyV, &N FCONE FCONE);
 		// Compute Vtemp <- Vy * exxiyD^T, details about dgemm: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transt, &N, &R, &R, &one, const_cast<double *> (Vy), &N, exxiyD, &R, &zero, Vtemp, &N);
+		dgemm_(transn, transt, &N, &R, &R, &one, const_cast<double *> (Vy), &N, exxiyD, &R, &zero, Vtemp, &N FCONE FCONE);
 		// Compute VxiDtDy <- Vtemp * Dy, details about dgemm: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &N, &R, &R, &one, Vtemp, &N, const_cast<double *> (Dy), &R, &zero, VxiDtDy, &N);
+		dgemm_(transn, transn, &N, &R, &R, &one, Vtemp, &N, const_cast<double *> (Dy), &R, &zero, VxiDtDy, &N FCONE FCONE);
 		// exxiyV <- VxiDtDy + exxiyV, details: http://www.netlib.org/lapack/explore-html/d9/dcd/daxpy_8f.html
 		daxpy_(&NR, &one, VxiDtDy, &inc, exxiyV, &inc);
 
@@ -264,14 +264,14 @@ namespace ROPTLIB{
 		delete[] IPIV;
 
 		// Utemp <- dU * Dinv^T, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transt, &M, &R, &R, &one, dU, &M, Dinv, &R, &zero, Utemp, &M);
+		dgemm_(transn, transt, &M, &R, &R, &one, dU, &M, Dinv, &R, &zero, Utemp, &M FCONE FCONE);
 		// dU <- Utemp * Dinv, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &M, &R, &R, &one, Utemp, &M, Dinv, &R, &zero, dU, &M);
+		dgemm_(transn, transn, &M, &R, &R, &one, Utemp, &M, Dinv, &R, &zero, dU, &M FCONE FCONE);
 
 		// Vtemp <- dV * Dinv, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &N, &R, &R, &one, dV, &N, Dinv, &R, &zero, Vtemp, &N);
+		dgemm_(transn, transn, &N, &R, &R, &one, dV, &N, Dinv, &R, &zero, Vtemp, &N FCONE FCONE);
 		// dV <- Vtemp * Dinv^T, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transt, &N, &R, &R, &one, Vtemp, &N, Dinv, &R, &zero, dV, &N);
+		dgemm_(transn, transt, &N, &R, &R, &one, Vtemp, &N, Dinv, &R, &zero, dV, &N FCONE FCONE);
 
 		delete[] Dinv;
 		ObtainIntr(x, exresult, result);
@@ -356,14 +356,14 @@ namespace ROPTLIB{
 		char *transn = const_cast<char *> ("n"), *transt = const_cast<char *> ("t");
 		double one = 1, zero = 0;
 		// UtV <- U^T * V, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transt, transn, &P, &P, &N, &one, const_cast<double *> (U), &N, const_cast<double *> (V), &N, &zero, UtV, &P);
+		dgemm_(transt, transn, &P, &P, &N, &one, const_cast<double *> (U), &N, const_cast<double *> (V), &N, &zero, UtV, &P FCONE FCONE);
 
 		// resultTV <- V, details: http://www.netlib.org/lapack/explore-html/da/d6c/dcopy_8f.html
 		if (V != resultTV)
 			dcopy_(&Length, const_cast<double *> (V), &inc, resultTV, &inc);
 		double negone = -1;
 		// resultTV = resultTV - U * UtV, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &N, &P, &P, &negone, const_cast<double *> (U), &N, UtV, &P, &one, resultTV, &N);
+		dgemm_(transn, transn, &N, &P, &P, &negone, const_cast<double *> (U), &N, UtV, &P, &one, resultTV, &N FCONE FCONE);
 		delete[] UtV;
 	};
 } /*end of ROPTLIB namespace*/

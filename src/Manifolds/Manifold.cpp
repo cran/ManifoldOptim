@@ -33,7 +33,7 @@ namespace ROPTLIB{
 		double one = 1, zero = 0;
 		integer inc = 1, N = ell;
 		// resultTV <- M * v; details: http://www.netlib.org/lapack/explore-html/dc/da8/dgemv_8f.html
-		dgemv_(transn, &N, &N, &one, const_cast<double *> (M), &N, const_cast<double *> (v), &inc, &zero, resultTV, &inc);
+		dgemv_(transn, &N, &N, &one, const_cast<double *> (M), &N, const_cast<double *> (v), &inc, &zero, resultTV, &inc FCONE);
 	};
 
 	void Manifold::ScaleTimesVector(Variable *x, double scalar, Vector *etax, Vector *result) const
@@ -301,10 +301,10 @@ namespace ROPTLIB{
 
 		// resultTV(:, start : start + length - 1) <- resultTV(:, start : start + length - 1) * (I - tau1tau2(0) * nu1TV * nu1TV^T),
 		// details: http://www.netlib.org/lapack/explore-html/db/d10/dlarfx_8f.html
-		dlarfx_(sider, &ell, &length, const_cast<double *> (nu1TV), const_cast<double *> (tau1tau2), resultTV + start * ell, &ell, work);
+		dlarfx_(sider, &ell, &length, const_cast<double *> (nu1TV), const_cast<double *> (tau1tau2), resultTV + start * ell, &ell, work FCONE);
 		// resultTV(:, start : start + length - 1) <- resultTV(:, start : start + length - 1) * (I - tau1tau2(1) * nu2TV * nu2TV^T),
 		// details: http://www.netlib.org/lapack/explore-html/db/d10/dlarfx_8f.html
-		dlarfx_(sider, &ell, &length, const_cast<double *> (nu2TV), const_cast<double *> (tau1tau2 + 1), resultTV + start * ell, &ell, work);
+		dlarfx_(sider, &ell, &length, const_cast<double *> (nu2TV), const_cast<double *> (tau1tau2 + 1), resultTV + start * ell, &ell, work FCONE);
 		delete[] work;
 		//delete[] nu1TV;
 	};
@@ -336,10 +336,10 @@ namespace ROPTLIB{
 		double *work = new double[ell];
 		// resultTV(start : start + length - 1, :) <- (I - tau1tau2(0) * nu1TV * nu1TV^T) * resultTV(start : start + length - 1, :),
 		// details: http://www.netlib.org/lapack/explore-html/db/d10/dlarfx_8f.html
-		dlarfx_(sidel, &length, &ell, const_cast<double *> (nu1TV), const_cast<double *> (tau1tau2), resultTV + start, &ell, work);
+		dlarfx_(sidel, &length, &ell, const_cast<double *> (nu1TV), const_cast<double *> (tau1tau2), resultTV + start, &ell, work FCONE);
 		// resultTV(start : start + length - 1, :) <- (I - tau1tau2(1) * nu2TV * nu2TV^T) * resultTV(start : start + length - 1, :),
 		// details: http://www.netlib.org/lapack/explore-html/db/d10/dlarfx_8f.html
-		dlarfx_(sidel, &length, &ell, const_cast<double *> (nu2TV), const_cast<double *> (tau1tau2 + 1), resultTV + start, &ell, work);
+		dlarfx_(sidel, &length, &ell, const_cast<double *> (nu2TV), const_cast<double *> (tau1tau2 + 1), resultTV + start, &ell, work FCONE);
 		delete[] work;
 		//delete[] nu1TV;
 	};
@@ -366,16 +366,16 @@ namespace ROPTLIB{
 		double *work = new double[ell];
 		// resultTV <- resultTV * (I - tau1tau2(0) * nu1TV * nu1TV^T),
 		// details: http://www.netlib.org/lapack/explore-html/db/d10/dlarfx_8f.html
-		dlarfx_(sider, &ell, &length, const_cast<double *> (nu1TV), const_cast<double *> (tau1tau2), resultTV, &ell, work);
+		dlarfx_(sider, &ell, &length, const_cast<double *> (nu1TV), const_cast<double *> (tau1tau2), resultTV, &ell, work FCONE);
 		// resultTV <- resultTV * (I - tau1tau2(1) * nu2TV * nu2TV^T),
 		// details: http://www.netlib.org/lapack/explore-html/db/d10/dlarfx_8f.html
-		dlarfx_(sider, &ell, &length, const_cast<double *> (nu2TV), const_cast<double *> (tau1tau2 + 1), resultTV, &ell, work);
+		dlarfx_(sider, &ell, &length, const_cast<double *> (nu2TV), const_cast<double *> (tau1tau2 + 1), resultTV, &ell, work FCONE);
 		// resultTV <- (I - tau1tau2(0) * nu1TV * nu1TV^T) * resultTV,
 		// details: http://www.netlib.org/lapack/explore-html/db/d10/dlarfx_8f.html
-		dlarfx_(sidel, &length, &ell, const_cast<double *> (nu1TV), const_cast<double *> (tau1tau2), resultTV, &ell, work);
+		dlarfx_(sidel, &length, &ell, const_cast<double *> (nu1TV), const_cast<double *> (tau1tau2), resultTV, &ell, work FCONE);
 		// resultTV <- (I - tau1tau2(1) * nu2TV * nu2TV^T) * resultTV,
 		// details: http://www.netlib.org/lapack/explore-html/db/d10/dlarfx_8f.html
-		dlarfx_(sidel, &length, &ell, const_cast<double *> (nu2TV), const_cast<double *> (tau1tau2 + 1), resultTV, &ell, work);
+		dlarfx_(sidel, &length, &ell, const_cast<double *> (nu2TV), const_cast<double *> (tau1tau2 + 1), resultTV, &ell, work FCONE);
 		delete[] work;
 		//delete[] nu1TV;
 	};

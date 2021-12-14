@@ -122,7 +122,7 @@ namespace ROPTLIB{
 			char *transt = const_cast<char *> ("t");
 			double one = 1, zero = 0;
 			// Oq1 = q1 * O^T, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-			dgemm_(transn, transt, &n, &d, &d, &one, q1, &n, const_cast<double *> (O), &d, &zero, Oq1, &n);
+			dgemm_(transn, transt, &n, &d, &d, &one, q1, &n, const_cast<double *> (O), &d, &zero, Oq1, &n FCONE FCONE);
 		}
 
 		// Oq1 - q2 l(t)
@@ -399,7 +399,7 @@ namespace ROPTLIB{
 		char *transn = const_cast<char *> ("n");
 		double zero = 0;
 		// Uq1 = q1 * U, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &n, &d, &d, &one, q1, &n, const_cast<double *> (U), &d, &zero, Uq1, &n);
+		dgemm_(transn, transn, &n, &d, &d, &one, q1, &n, const_cast<double *> (U), &d, &zero, Uq1, &n FCONE FCONE);
 		PointwiseInnerProd(Uq1, q2g, d, n, tmpn);
 		PointwiseInnerProd(q2g, q2g, d, n, tmpn2);
 		PointwiseProd(tmpn2, v, n, tmpn2);

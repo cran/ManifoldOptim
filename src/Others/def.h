@@ -127,17 +127,69 @@
 // quite large. The CRAN people do not seem to have a good solution for this
 // currently:
 // http://r.789695.n4.nabble.com/compile-c-code-in-an-R-package-without-g-td4725700.html
-
+#define USE_FC_LEN_T
+#include <Rconfig.h>
 #include <R_ext/BLAS.h>
 #include <R_ext/Lapack.h>
 #include <ostream>
 #include <R.h>
 #include <Rcpp/iostream/Rstreambuf.h>
 
+// Support older versions of fortran & R
+#ifndef FCONE
+# define FCONE
+#endif
+
 #define integer int
 #define doublecomplex Rcomplex
 #define OUTSTREAM Rcpp::Rcout
 //#define printf Rprintf
+
+
+
+// don't assume trailing underscores will work
+#define dgemm_ F77_CALL(dgemm)
+#define dgetrf_ F77_CALL(dgetrf)
+#define dgetrs_ F77_CALL(dgetrs)
+#define dgemv_ F77_CALL(dgemv)
+#define dcopy_ F77_CALL(dcopy)
+#define ddot_ F77_CALL(ddot)
+#define dscal_ F77_CALL(dscal)
+#define daxpy_ F77_CALL(daxpy)
+#define dger_ F77_CALL(dger)
+#define dgeqp3_ F77_CALL(dgeqp3)
+#define dorgqr_ F77_CALL(dorgqr)
+#define dormqr_ F77_CALL(dormqr)
+#define dtrsm_ F77_CALL(dtrsm)
+#define dlarfx_ F77_CALL(dlarfx)
+#define dgesdd_ F77_CALL(dgesdd)
+#define dgesvd_ F77_CALL(dgesvd)
+#define dsymv_ F77_CALL(dsymv)
+#define dgetri_ F77_CALL(dgetri)
+#define dgees_ F77_CALL(dgees)
+#define dnrm2_ F77_CALL(dnrm2)
+#define dgesv_ F77_CALL(dgesv)
+#define dsyevx_ F77_CALL(dsyevx)
+#define dlamch_ F77_CALL(dlamch)
+#define dpotrf_ F77_CALL(dpotrf)
+#define dtrtrs_ F77_CALL(dtrtrs)
+#define dsyevd_ F77_CALL(dsyevd)
+#define dsyevr_ F77_CALL(dsyevr)
+#define dsyev_ F77_CALL(dsyev)
+
+#define zdotc_ F77_CALL(zdotc)
+#define zgegs_ F77_CALL(zgegs)
+#define ztgsyl_ F77_CALL(ztgsyl)
+#define zgees_ F77_CALL(zgees)
+#define ztrtrs_ F77_CALL(ztrtrs)
+#define zgemm_ F77_CALL(zgemm)
+#define zscal_ F77_CALL(zscal)
+#define zgeqp3_ F77_CALL(zgeqp3)
+#define zunmqr_ F77_CALL(zunmqr)
+
+
+
+
 
 #endif
 

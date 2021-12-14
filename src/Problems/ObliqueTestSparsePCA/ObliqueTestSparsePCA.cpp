@@ -35,16 +35,16 @@ namespace ROPTLIB{
 		integer N = n, P = p, R = r;
 		double one = 1.0, zero = 0.0;
 		// BtX <- B^T * xptr, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transt, transn, &N, &R, &P, &one, B, &P, const_cast<double *> (xptr), &P, &zero, BtX, &N);
+		dgemm_(transt, transn, &N, &R, &P, &one, B, &P, const_cast<double *> (xptr), &P, &zero, BtX, &N FCONE FCONE);
 		SharedSpace *SharedBBtX = new SharedSpace(2, p, r);
 		double *BBtX = SharedBBtX->ObtainWriteEntireData();
 		// BBtX = B * BtX, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &P, &R, &N, &one, B, &P, BtX, &N, &zero, BBtX, &P);
+		dgemm_(transn, transn, &P, &R, &N, &one, B, &P, BtX, &N, &zero, BBtX, &P FCONE FCONE);
 
 		SharedSpace *SharedXtBBtX = new SharedSpace(2, r, r);
 		double *XtBBtX = SharedXtBBtX->ObtainWriteEntireData();
 		// XtBBtX = xptr^T * BBtX, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transt, transn, &R, &R, &P, &one, const_cast<double *> (xptr), &P, BBtX, &P, &zero, XtBBtX, &R);
+		dgemm_(transt, transn, &R, &R, &P, &one, const_cast<double *> (xptr), &P, BBtX, &P, &zero, XtBBtX, &R FCONE FCONE);
 
 		for (integer i = 0; i < r; i++)
 		{
@@ -93,7 +93,7 @@ namespace ROPTLIB{
 		char *transn = const_cast<char *> ("n");
 		double one = 1.0, fourmu = 4 * mu;
 		// egfptr = egfptr + 4 * mu * BBtX * XtBBtXmDsq, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &P, &R, &R, &fourmu, const_cast<double *> (BBtX), &P, XtBBtXmDsq, &R, &one, egfptr, &P);
+		dgemm_(transn, transn, &P, &R, &R, &fourmu, const_cast<double *> (BBtX), &P, XtBBtXmDsq, &R, &one, egfptr, &P FCONE FCONE);
 		x->AddToTempData("XtBBtXmDsq", SharedXtBBtXmDsq);
 	};
 
@@ -119,12 +119,12 @@ namespace ROPTLIB{
 		integer N = n, P = p, R = r, inc = 1;
 		double one = 1.0, zero = 0.0;
 		// etaXtBBtXmDsq = etaxTV * XtBBtXmDsq, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &P, &R, &R, &one, const_cast<double *> (etaxTV), &P, const_cast<double *> (XtBBtXmDsq), &R, &zero, etaXtBBtXmDsq, &P);
+		dgemm_(transn, transn, &P, &R, &R, &one, const_cast<double *> (etaxTV), &P, const_cast<double *> (XtBBtXmDsq), &R, &zero, etaXtBBtXmDsq, &P FCONE FCONE);
 		// BtetaXtBBtXmDsq = B^T * etaXtBBtXmDsq, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transt, transn, &N, &R, &P, &one, B, &P, etaXtBBtXmDsq, &P, &zero, BtetaXtBBtXmDsq, &N);
+		dgemm_(transt, transn, &N, &R, &P, &one, B, &P, etaXtBBtXmDsq, &P, &zero, BtetaXtBBtXmDsq, &N FCONE FCONE);
 		double fourmu = 4 * mu;
 		// exixTV = exixTV + 4 * mu * B * BtetaXtBBtXmDsq, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &P, &R, &N, &fourmu, B, &P, BtetaXtBBtXmDsq, &N, &one, exixTV, &P);
+		dgemm_(transn, transn, &P, &R, &N, &fourmu, B, &P, BtetaXtBBtXmDsq, &N, &one, exixTV, &P FCONE FCONE);
 		delete[] etaXtBBtXmDsq;
 
 		const SharedSpace *SharedBBtX = x->ObtainReadTempData("BBtX");
@@ -132,7 +132,7 @@ namespace ROPTLIB{
 		double *temp = new double[r * r];
 
 		// temp = etaxTV^T * BBtX, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transt, transn, &R, &R, &P, &one, const_cast<double *> (etaxTV), &P, const_cast<double *> (BBtX), &P, &zero, temp, &R);
+		dgemm_(transt, transn, &R, &R, &P, &one, const_cast<double *> (etaxTV), &P, const_cast<double *> (BBtX), &P, &zero, temp, &R FCONE FCONE);
 		for (integer i = 0; i < r; i++)
 		{
 			temp[i + i * r] *= 2.0;
@@ -143,7 +143,7 @@ namespace ROPTLIB{
 			}
 		}
 		// exixTV = exixTV + 4 * mu * BBtX * temp, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &P, &R, &R, &fourmu, const_cast<double *> (BBtX), &P, temp, &R, &one, exixTV, &P);
+		dgemm_(transn, transn, &P, &R, &R, &fourmu, const_cast<double *> (BBtX), &P, temp, &R, &one, exixTV, &P FCONE FCONE);
 		delete[] temp;
 	};
 } /*end of ROPTLIB namespace*/

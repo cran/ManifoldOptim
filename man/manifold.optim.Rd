@@ -197,7 +197,7 @@ Technical Report FSU16-14, Florida State University.
 
 Wen Huang, Kyle A. Gallivan, and P.A. Absil (2016b).
 Riemannian Manifold Optimization Library.
-URL \url{http://www.math.fsu.edu/~whuang2/pdf/USER_MANUAL_for_2016-04-29.pdf}
+URL \url{https://www.math.fsu.edu/~whuang2/pdf/USER_MANUAL_for_2016-04-29.pdf}
 
 Wen Huang, K.A. Gallivan, and P.A. Absil (2015). A Broyden Class of
 Quasi-Newton Methods for Riemannian Optimization. SIAM  Journal on

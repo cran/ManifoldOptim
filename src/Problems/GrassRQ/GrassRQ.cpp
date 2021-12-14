@@ -57,7 +57,7 @@ namespace ROPTLIB{
 		integer N = n, P = p, inc = 1, Length = N * P;
 		double one = 1, zero = 0, two = 2;
 		// exxiTV <- B * etaxTV, details: http://www.netlib.org/lapack/explore-html/d7/d2b/dgemm_8f.html
-		dgemm_(transn, transn, &N, &P, &N, &one, B, &N, const_cast<double *> (etaxTV), &N, &zero, exixTV, &N);
+		dgemm_(transn, transn, &N, &P, &N, &one, B, &N, const_cast<double *> (etaxTV), &N, &zero, exixTV, &N FCONE FCONE);
 		Domain->ScaleTimesVector(x, 2.0, exix, exix);
 	};
 } /*end of ROPTLIB namespace*/
